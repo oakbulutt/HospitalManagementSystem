@@ -1,22 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.hms.view.admin;
 
 import com.hms.view.Login;
-import javax.swing.JFrame;
 
-/**
- *
- * @author domin
- */
 public class HMSAdminMainView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form HMSMainView
-     */
     public HMSAdminMainView() {
         initComponents();
     }

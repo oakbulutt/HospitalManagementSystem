@@ -1,23 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hms.view.doctor;
 
-import com.hms.view.receptionist.*;
+import com.hms.model.Appointment;
+import com.hms.service.HMSService;
+import java.util.*;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author domin
- */
 public class DoctorAppointmentView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ReceptionistAppointmentView
-     */
+    DefaultTableModel model = new DefaultTableModel();
+    HMSService service = new HMSService();
+
     public DoctorAppointmentView() {
         initComponents();
+        model = (DefaultTableModel) doctorAppointmentTable.getModel();
+        showAppointment();
     }
 
     /**
@@ -32,17 +30,23 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
         doctorAppointmentViewAcceptButton = new javax.swing.JButton();
         doctorAppointmentViewDeleteButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        doctorAppointmentViewTable = new javax.swing.JTable();
+        doctorAppointmentTable = new javax.swing.JTable();
         doctorAppointmentViewPatientIdLable = new javax.swing.JLabel();
         doctorAppointmentViewPatientNameLabel = new javax.swing.JLabel();
         doctorAppointmentViewPatientSurnameLabel = new javax.swing.JLabel();
         doctorAppointmentViewPatientIdTextField = new javax.swing.JTextField();
         doctorAppointmentViewPatientNameTextField = new javax.swing.JTextField();
-        doctorAppointmentViewPatientSurnameTextLabel = new javax.swing.JTextField();
+        doctorAppointmentViewPatientSurnameTextField = new javax.swing.JTextField();
         doctorAppointmentViewAppointmentDateLabel = new javax.swing.JLabel();
-        doctorAppointmentViewAppointmentDateTextField = new javax.swing.JTextField();
+        doctorAppointmentsSearchTextField = new javax.swing.JTextField();
+        doctorAppointmentsMessageLabel = new javax.swing.JLabel();
+        doctorAppointmentViewAppointmentDateChooser = new com.toedter.calendar.JDateChooser();
 
-        setTitle("Appointment");
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setTitle("Appointments");
 
         doctorAppointmentViewAcceptButton.setText("Accept Patient");
         doctorAppointmentViewAcceptButton.addActionListener(new java.awt.event.ActionListener() {
@@ -52,20 +56,25 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
         });
 
         doctorAppointmentViewDeleteButton.setText("Delete Appointment");
+        doctorAppointmentViewDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doctorAppointmentViewDeleteButtonActionPerformed(evt);
+            }
+        });
 
-        doctorAppointmentViewTable.setModel(new javax.swing.table.DefaultTableModel(
+        doctorAppointmentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Patient ID", "Patient Name", "Patient Surname", "Doctor ID", "Doctor Name", "Doctor Surname", "Doctor Department", "Appointment Status"
+                "A. ID", "P. ID", "P. Name", "P. Surname", "D. ID", "D. Name", "D.Surname", "D. Department", "A. Date", "A. Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -76,7 +85,12 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(doctorAppointmentViewTable);
+        doctorAppointmentTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                doctorAppointmentTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(doctorAppointmentTable);
 
         doctorAppointmentViewPatientIdLable.setText("Patient ID                 :");
 
@@ -84,7 +98,19 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
 
         doctorAppointmentViewPatientSurnameLabel.setText("Patient Surname       :");
 
+        doctorAppointmentViewPatientIdTextField.setEditable(false);
+
+        doctorAppointmentViewPatientNameTextField.setEditable(false);
+
+        doctorAppointmentViewPatientSurnameTextField.setEditable(false);
+
         doctorAppointmentViewAppointmentDateLabel.setText("Appointment Date    :");
+
+        doctorAppointmentsSearchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                doctorAppointmentsSearchTextFieldKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,35 +139,42 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(doctorAppointmentViewPatientSurnameLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(doctorAppointmentViewPatientSurnameTextLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(doctorAppointmentViewPatientSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(doctorAppointmentViewAppointmentDateLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(doctorAppointmentViewAppointmentDateTextField)))))
+                                .addComponent(doctorAppointmentViewAppointmentDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(doctorAppointmentsSearchTextField)
+                    .addComponent(doctorAppointmentsMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
+                .addComponent(doctorAppointmentsSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(doctorAppointmentViewPatientIdLable)
                     .addComponent(doctorAppointmentViewPatientIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(doctorAppointmentViewPatientSurnameLabel)
-                    .addComponent(doctorAppointmentViewPatientSurnameTextLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(doctorAppointmentViewPatientNameLabel)
-                    .addComponent(doctorAppointmentViewPatientNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(doctorAppointmentViewAppointmentDateLabel)
-                    .addComponent(doctorAppointmentViewAppointmentDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(doctorAppointmentViewPatientSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(doctorAppointmentViewPatientNameLabel)
+                        .addComponent(doctorAppointmentViewPatientNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(doctorAppointmentViewAppointmentDateLabel))
+                    .addComponent(doctorAppointmentViewAppointmentDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(doctorAppointmentViewAcceptButton)
                     .addComponent(doctorAppointmentViewDeleteButton))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(9, 9, 9)
+                .addComponent(doctorAppointmentsMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
 
         pack();
@@ -151,19 +184,68 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_doctorAppointmentViewAcceptButtonActionPerformed
 
+    private void doctorAppointmentViewDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorAppointmentViewDeleteButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_doctorAppointmentViewDeleteButtonActionPerformed
+
+    private void doctorAppointmentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doctorAppointmentTableMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = doctorAppointmentTable.getSelectedRow();
+
+        doctorAppointmentViewPatientIdTextField.setText(model.getValueAt(selectedRow, 0).toString());
+        doctorAppointmentViewPatientNameTextField.setText(model.getValueAt(selectedRow, 1).toString());
+        doctorAppointmentViewPatientSurnameTextField.setText(model.getValueAt(selectedRow, 2).toString());
+        doctorAppointmentViewAppointmentDateChooser.setDate((Date) model.getValueAt(selectedRow, 7));
+    }//GEN-LAST:event_doctorAppointmentTableMouseClicked
+
+    private void doctorAppointmentsSearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_doctorAppointmentsSearchTextFieldKeyReleased
+        String search = doctorAppointmentsSearchTextField.getText();
+        dinamicSearch(search);
+    }//GEN-LAST:event_doctorAppointmentsSearchTextFieldKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable doctorAppointmentTable;
     private javax.swing.JButton doctorAppointmentViewAcceptButton;
+    private com.toedter.calendar.JDateChooser doctorAppointmentViewAppointmentDateChooser;
     private javax.swing.JLabel doctorAppointmentViewAppointmentDateLabel;
-    private javax.swing.JTextField doctorAppointmentViewAppointmentDateTextField;
     private javax.swing.JButton doctorAppointmentViewDeleteButton;
     private javax.swing.JLabel doctorAppointmentViewPatientIdLable;
     private javax.swing.JTextField doctorAppointmentViewPatientIdTextField;
     private javax.swing.JLabel doctorAppointmentViewPatientNameLabel;
     private javax.swing.JTextField doctorAppointmentViewPatientNameTextField;
     private javax.swing.JLabel doctorAppointmentViewPatientSurnameLabel;
-    private javax.swing.JTextField doctorAppointmentViewPatientSurnameTextLabel;
-    private javax.swing.JTable doctorAppointmentViewTable;
+    private javax.swing.JTextField doctorAppointmentViewPatientSurnameTextField;
+    private javax.swing.JLabel doctorAppointmentsMessageLabel;
+    private javax.swing.JTextField doctorAppointmentsSearchTextField;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    private void showAppointment() {
+        model.setRowCount(0);
+        List<Appointment> appointments = new LinkedList<>();
+
+        appointments = service.showAppointments();
+
+        if (appointments != null) {
+            for (Appointment appointment : appointments) {
+                Object[] willAdd = {
+                    appointment.getId(),
+                    appointment.getPatientsId(), //patientName, patientSurname
+                    appointment.getDoctorsId(), //doctorName, doctorSurname, department
+                    appointment.getAppointmentDate(),
+                    appointment.getAppointmentStatus()
+                };
+                model.addRow(willAdd);
+            }
+        }
+    }
+
+    private void dinamicSearch(String search) {
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
+
+        doctorAppointmentTable.setRowSorter(tableRowSorter);
+
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(search));
+    }
 }

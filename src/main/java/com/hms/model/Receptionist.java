@@ -7,13 +7,15 @@ public class Receptionist {
     private String surname;
     private String email;
     private String phone;
+    private String usersId;
 
-    public Receptionist(String id, String name, String surname, String email, String phone) {
+    public Receptionist(String id, String name, String surname, String email, String phone, String usersId) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phone = phone;
+        this.usersId = usersId;
     }
 
     public String getId() {
@@ -56,9 +58,16 @@ public class Receptionist {
         this.phone = phone;
     }
 
+    public String getUsersId() {
+        return usersId;
+    }
+
+    public void setUsersId(String usersId) {
+        this.usersId = usersId;
+    }
+
     @Override
     public String toString() {
-        return "Receptionists{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", phone=" + phone + '}';
+        return "Receptionist{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", phone=" + phone + ", usersId=" + usersId + '}';
     }
-    
 }

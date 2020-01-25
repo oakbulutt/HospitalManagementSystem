@@ -38,7 +38,7 @@ public class ReceptionistDaoImpl implements ReceptionistDao {
     }
 
     @Override
-    public List<Receptionist> allReceptionists() {
+    public List<Receptionist> receptionists() {
         List<Receptionist> receptionists = new LinkedList<>();
         try {
             statement = connection.createStatement();
@@ -50,8 +50,9 @@ public class ReceptionistDaoImpl implements ReceptionistDao {
                 String surname = resultSet.getString("surname");
                 String email = resultSet.getString("email");
                 String phone = resultSet.getString("phone");
+                String usersId = resultSet.getString("users_id");
 
-                receptionists.add(new Receptionist(id, name, surname, email, phone));
+                receptionists.add(new Receptionist(id, name, surname, email, phone, usersId));
             }
             return receptionists;
         } catch (SQLException e) {
@@ -69,6 +70,7 @@ public class ReceptionistDaoImpl implements ReceptionistDao {
             preparedStatement.setString(3, receptionist.getSurname());
             preparedStatement.setString(4, receptionist.getEmail());
             preparedStatement.setString(5, receptionist.getPhone());
+            preparedStatement.setString(6, receptionist.getUsersId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -84,7 +86,8 @@ public class ReceptionistDaoImpl implements ReceptionistDao {
             preparedStatement.setString(2, receptionist.getSurname());
             preparedStatement.setString(3, receptionist.getEmail());
             preparedStatement.setString(4, receptionist.getPhone());
-            preparedStatement.setString(5, receptionist.getId());
+            preparedStatement.setString(5, receptionist.getUsersId());
+            preparedStatement.setString(6, receptionist.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

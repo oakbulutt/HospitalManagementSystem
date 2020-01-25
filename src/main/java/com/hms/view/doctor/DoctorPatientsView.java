@@ -1,24 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hms.view.doctor;
 
-import com.hms.view.receptionist.*;
-import com.hms.view.admin.*;
+import com.hms.model.Patient;
+import com.hms.service.HMSService;
+import java.util.*;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author domin
- */
 public class DoctorPatientsView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form AdminPatientsView
-     */
+    DefaultTableModel model = new DefaultTableModel();
+    HMSService service = new HMSService();
+
     public DoctorPatientsView() {
         initComponents();
+        model = (DefaultTableModel) doctorPatientTable.getModel();
+        showPatient();
     }
 
     /**
@@ -39,6 +36,12 @@ public class DoctorPatientsView extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Patients");
+
+        doctorPatientsSearchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                doctorPatientsSearchTextFieldKeyReleased(evt);
+            }
+        });
 
         doctorPatientTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -63,6 +66,11 @@ public class DoctorPatientsView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        doctorPatientTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                doctorPatientTableMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(doctorPatientTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -82,12 +90,23 @@ public class DoctorPatientsView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(doctorPatientsSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                .addGap(45, 45, 45))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void doctorPatientsSearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_doctorPatientsSearchTextFieldKeyReleased
+        String search = doctorPatientsSearchTextField.getText();
+        dinamicSearch(search);
+    }//GEN-LAST:event_doctorPatientsSearchTextFieldKeyReleased
+
+    private void doctorPatientTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doctorPatientTableMouseClicked
+        // TODO add your handling code here:
+//        DoctorPrescriptionView doctorPrescriptionView = new DoctorPrescriptionView();
+//        doctorDesktopPane.add(doctorPrescriptionView).setVisible(true);
+    }//GEN-LAST:event_doctorPatientTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -95,4 +114,34 @@ public class DoctorPatientsView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField doctorPatientsSearchTextField;
     private javax.swing.JScrollPane jScrollPane4;
     // End of variables declaration//GEN-END:variables
+
+    private void showPatient() {
+        model.setRowCount(0);
+        List<Patient> patients = new LinkedList<>();
+
+        patients = service.showPatients();
+
+        if (patients != null) {
+            for (Patient patient : patients) {
+                Object[] willAdd = {
+                    patient.getId(), patient.getName(),
+                    patient.getSurname(), patient.getGender(),
+                    patient.getBirthdate(), patient.getEmail(),
+                    patient.getPhone(), patient.getAnamnesis(),
+                    patient.getPrescriptionId()
+                };
+                if (false) {
+                    model.addRow(willAdd);
+                }
+            }
+        }
+    }
+
+    private void dinamicSearch(String search) {
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
+
+        doctorPatientTable.setRowSorter(tableRowSorter);
+
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(search));
+    }
 }

@@ -1,21 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hms.view.admin;
 
-/**
- *
- * @author domin
- */
+import com.hms.model.User;
+import com.hms.service.HMSService;
+import java.util.*;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 public class AdminUsersView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form adminUsersView
-     */
+    DefaultTableModel model = new DefaultTableModel();
+    HMSService service = new HMSService();
+
     public AdminUsersView() {
         initComponents();
+        model = (DefaultTableModel) adminUsersTable.getModel();
+        showUsers();
+
     }
 
     /**
@@ -28,7 +29,7 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane7 = new javax.swing.JScrollPane();
-        adminDepartmentsTable = new javax.swing.JTable();
+        adminUsersTable = new javax.swing.JTable();
         adminUsersPasswordLabel = new javax.swing.JLabel();
         adminUserstIdLabel = new javax.swing.JLabel();
         adminUsersIdTextField = new javax.swing.JTextField();
@@ -37,6 +38,7 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
         adminUsersAddButton = new javax.swing.JButton();
         adminUsersDeleteButton = new javax.swing.JButton();
         adminUsersUpdateButton = new javax.swing.JButton();
+        adminUsersMessageLabel = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -44,7 +46,7 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Users");
 
-        adminDepartmentsTable.setModel(new javax.swing.table.DefaultTableModel(
+        adminUsersTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -60,7 +62,12 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane7.setViewportView(adminDepartmentsTable);
+        adminUsersTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adminUsersTableMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(adminUsersTable);
 
         adminUsersPasswordLabel.setText("User Password       :");
 
@@ -78,11 +85,32 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
             }
         });
 
+        adminUsersSearchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                adminUsersSearchTextFieldKeyReleased(evt);
+            }
+        });
+
         adminUsersAddButton.setText("Add");
+        adminUsersAddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminUsersAddButtonActionPerformed(evt);
+            }
+        });
 
         adminUsersDeleteButton.setText("Delete");
+        adminUsersDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminUsersDeleteButtonActionPerformed(evt);
+            }
+        });
 
         adminUsersUpdateButton.setText("Update");
+        adminUsersUpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminUsersUpdateButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,15 +119,12 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(adminUsersSearchTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(adminUsersSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 723, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 723, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(adminUsersPasswordLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(adminUsersPasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(55, 55, 55))
+                        .addComponent(adminUsersPasswordLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(adminUsersPasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(adminUserstIdLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -109,8 +134,9 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(adminUsersUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(adminUsersDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(102, 102, 102))))
+                        .addComponent(adminUsersDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(adminUsersMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,18 +144,21 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
                 .addGap(26, 26, 26)
                 .addComponent(adminUsersSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(adminUserstIdLabel)
-                    .addComponent(adminUsersIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(adminUsersAddButton)
                         .addComponent(adminUsersUpdateButton)
-                        .addComponent(adminUsersDeleteButton)))
+                        .addComponent(adminUsersDeleteButton))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(adminUserstIdLabel)
+                        .addComponent(adminUsersIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(adminUsersPasswordLabel)
                     .addComponent(adminUsersPasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(4, 4, 4)
+                .addComponent(adminUsersMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
         );
@@ -138,24 +167,113 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void adminUsersIdTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminUsersIdTextFieldActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_adminUsersIdTextFieldActionPerformed
 
     private void adminUsersPasswordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminUsersPasswordTextFieldActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_adminUsersPasswordTextFieldActionPerformed
+
+    private void adminUsersSearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adminUsersSearchTextFieldKeyReleased
+        String search = adminUsersSearchTextField.getText();
+        dinamicSearch(search);
+    }//GEN-LAST:event_adminUsersSearchTextFieldKeyReleased
+
+    private void adminUsersTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminUsersTableMouseClicked
+        int selectedRow = adminUsersTable.getSelectedRow();
+
+        adminUsersIdTextField.setText(model.getValueAt(selectedRow, 0).toString());
+        adminUsersPasswordTextField.setText(model.getValueAt(selectedRow, 1).toString());
+    }//GEN-LAST:event_adminUsersTableMouseClicked
+
+    private void adminUsersAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminUsersAddButtonActionPerformed
+        adminUsersMessageLabel.setText("");
+        String id = adminUsersIdTextField.getText();
+        String password = adminUsersPasswordTextField.getText();
+
+        User user = new User(id, password);
+        service.createUser(user);
+
+        showUsers();
+        adminUsersMessageLabel.setText("New User is Added!");
+    }//GEN-LAST:event_adminUsersAddButtonActionPerformed
+
+    private void adminUsersUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminUsersUpdateButtonActionPerformed
+        adminUsersMessageLabel.setText("");
+        String id = adminUsersIdTextField.getText();
+        String password = adminUsersPasswordTextField.getText();
+
+        int selectedRow = adminUsersTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            if (model.getRowCount() == 0) {
+                adminUsersMessageLabel.setText("Users table is empty.");
+            } else {
+                adminUsersMessageLabel.setText("Please select the user who you want to update.");
+            }
+        } else {
+            service.updateUser(new User(id, password));
+
+            showUsers();
+            adminUsersMessageLabel.setText("User is updated!");
+        }
+    }//GEN-LAST:event_adminUsersUpdateButtonActionPerformed
+
+    private void adminUsersDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminUsersDeleteButtonActionPerformed
+        adminUsersMessageLabel.setText("");
+        String id = adminUsersIdTextField.getText();
+        String password = adminUsersPasswordTextField.getText();
+
+        int selectedRow = adminUsersTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            if (model.getRowCount() == 0) {
+                adminUsersMessageLabel.setText("Users table is empty.");
+            } else {
+                adminUsersMessageLabel.setText("Please select the user who you want to delete employee data.");
+            }
+        } else {
+            service.deleteUser(id);
+
+            showUsers();
+            adminUsersMessageLabel.setText("User is deleted!");
+        }
+    }//GEN-LAST:event_adminUsersDeleteButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable adminDepartmentsTable;
     private javax.swing.JButton adminUsersAddButton;
     private javax.swing.JButton adminUsersDeleteButton;
     private javax.swing.JTextField adminUsersIdTextField;
+    private javax.swing.JLabel adminUsersMessageLabel;
     private javax.swing.JLabel adminUsersPasswordLabel;
     private javax.swing.JTextField adminUsersPasswordTextField;
     private javax.swing.JTextField adminUsersSearchTextField;
+    private javax.swing.JTable adminUsersTable;
     private javax.swing.JButton adminUsersUpdateButton;
     private javax.swing.JLabel adminUserstIdLabel;
     private javax.swing.JScrollPane jScrollPane7;
     // End of variables declaration//GEN-END:variables
+
+    private void dinamicSearch(String search) {
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
+
+        adminUsersTable.setRowSorter(tableRowSorter);
+
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(search));
+    }
+
+    private void showUsers() {
+        model.setRowCount(0);
+        List<User> users = new LinkedList<>();
+
+        users = service.showUsers();
+
+        if (users != null) {
+            for (User user : users) {
+                Object[] willAdd = {
+                    user.getId(), user.getPassword()
+                };
+                model.addRow(willAdd);
+            }
+        }
+    }
 }

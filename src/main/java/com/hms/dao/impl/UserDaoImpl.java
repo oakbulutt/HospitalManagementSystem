@@ -46,7 +46,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public List<User> allUsers() {
+    public List<User> users() {
         List<User> users = new LinkedList<>();
         try {
             statement = connection.createStatement();
@@ -70,7 +70,7 @@ public class UserDaoImpl implements UserDao{
     public void createUser(User user) {
         try {
             preparedStatement = connection.prepareStatement(UserConstants.INSERT_SQL);
-            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(1, user.getId());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -83,7 +83,7 @@ public class UserDaoImpl implements UserDao{
         try {
             preparedStatement = connection.prepareStatement(UserConstants.UPDATE_SQL);
             preparedStatement.setString(1, user.getPassword());
-            preparedStatement.setString(2, user.getUsername());
+            preparedStatement.setString(2, user.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, e);

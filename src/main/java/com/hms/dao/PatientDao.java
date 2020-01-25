@@ -7,6 +7,8 @@ public interface PatientDao {
 
     public List<Patient> allPatients();
 
+    public List<Patient> patients(String id);
+
     public void createPatient(Patient patient);
 
     public void updatePatient(Patient patient);

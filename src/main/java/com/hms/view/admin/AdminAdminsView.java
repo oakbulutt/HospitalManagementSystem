@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hms.view.admin;
 
 import com.hms.model.Admin;
@@ -13,18 +8,11 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author domin
- */
 public class AdminAdminsView extends javax.swing.JInternalFrame {
 
-    DefaultTableModel model;
+    DefaultTableModel model = new DefaultTableModel();
     HMSService service = new HMSService();
 
-    /**
-     * Creates new form AdminsView
-     */
     public AdminAdminsView() {
         initComponents();
         model = (DefaultTableModel) adminAdminsTable.getModel();
@@ -137,6 +125,11 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
         });
 
         adminAdminsDeleteButton.setText("Delete");
+        adminAdminsDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminAdminsDeleteButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,7 +185,7 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(adminAdminsSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(adminAdminsSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -226,21 +219,13 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
                 .addComponent(adminAdminsMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
+                .addGap(45, 45, 45))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void dinamicSearch(String search) {
-        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
-
-        adminAdminsTable.setRowSorter(tableRowSorter);
-
-        tableRowSorter.setRowFilter(RowFilter.regexFilter(search));
-    }
+    
     private void adminAdminsSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminAdminsSearchTextFieldActionPerformed
-        // TODO add your handling code here:
-
     }//GEN-LAST:event_adminAdminsSearchTextFieldActionPerformed
 
     private void adminAdminsSearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adminAdminsSearchTextFieldKeyReleased
@@ -249,16 +234,19 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_adminAdminsSearchTextFieldKeyReleased
 
     private void adminAdminsAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminAdminsAddButtonActionPerformed
+        adminAdminsMessageLabel.setText("");
         String id = adminAdminsIdTextField.getText();
         String name = adminAdminsNameTextField.getText();
         String surname = adminAdminsSurnameTextField.getText();
         String title = adminAdminsTitleTextField.getText();
         String email = adminAdminsEmailTextField.getText();
         String phone = adminAdminsPhoneTextField.getText();
-        String department = adminAdminsDepartmentTextField.getText();
+        String departmentsId = adminAdminsDepartmentTextField.getText();
+        String usersId = id;
 
-        Admin admin = new Admin(id, name, surname, title, email, phone, department);
-        service.createAdmin(admin);
+        service.createAdmin(new Admin(id, name, surname, title, email, phone, departmentsId, usersId));
+        showAdmin();
+        adminAdminsMessageLabel.setText("New Admin is Added!");
     }//GEN-LAST:event_adminAdminsAddButtonActionPerformed
 
     private void adminAdminsUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminAdminsUpdateButtonActionPerformed
@@ -269,19 +257,20 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
         String title = adminAdminsTitleTextField.getText();
         String email = adminAdminsEmailTextField.getText();
         String phone = adminAdminsPhoneTextField.getText();
-        String department = adminAdminsDepartmentTextField.getText();
+        String departmentsId = adminAdminsDepartmentTextField.getText();
+        String usersId = id;
 
         int selectedRow = adminAdminsTable.getSelectedRow();
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
-                adminAdminsMessageLabel.setText("Employee table is empty.");
+                adminAdminsMessageLabel.setText("Admins table is empty.");
             } else {
-                adminAdminsMessageLabel.setText("Please select the employee who you want to update employee data.");
+                adminAdminsMessageLabel.setText("Please select the admin who you want to update.");
             }
         } else {
-            service.updateAdmin(new Admin(id, name, surname, title, email, phone, department));
+            service.updateAdmin(new Admin(id, name, surname, title, email, phone, departmentsId, usersId));
             showAdmin();
-            adminAdminsMessageLabel.setText("Employee updated!");
+            adminAdminsMessageLabel.setText("Admin is updated!");
         }
     }//GEN-LAST:event_adminAdminsUpdateButtonActionPerformed
 
@@ -295,15 +284,37 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
         adminAdminsEmailTextField.setText(model.getValueAt(selectedRow, 4).toString());
         adminAdminsPhoneTextField.setText(model.getValueAt(selectedRow, 5).toString());
         adminAdminsDepartmentTextField.setText(model.getValueAt(selectedRow, 6).toString());
-
-
     }//GEN-LAST:event_adminAdminsTableMouseClicked
+
+    private void adminAdminsDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminAdminsDeleteButtonActionPerformed
+        adminAdminsMessageLabel.setText("");
+        String id = adminAdminsIdTextField.getText();
+        String name = adminAdminsNameTextField.getText();
+        String surname = adminAdminsSurnameTextField.getText();
+        String title = adminAdminsTitleTextField.getText();
+        String email = adminAdminsEmailTextField.getText();
+        String phone = adminAdminsPhoneTextField.getText();
+        String department = adminAdminsDepartmentTextField.getText();
+
+        int selectedRow = adminAdminsTable.getSelectedRow();
+        if (selectedRow == -1) {
+            if (model.getRowCount() == 0) {
+                adminAdminsMessageLabel.setText("Admins table is empty.");
+            } else {
+                adminAdminsMessageLabel.setText("Please select the admin who you want to update.");
+            }
+        } else {
+            service.deleteAdmin(id);
+            showAdmin();
+            adminAdminsMessageLabel.setText("Admin is deleted!");
+        }
+    }//GEN-LAST:event_adminAdminsDeleteButtonActionPerformed
 
     public void showAdmin() {
         model.setRowCount(0);
         List<Admin> admins = new LinkedList<>();
 
-        admins = service.showAllAdmins();
+        admins = service.showAdmins();
 
         if (admins != null) {
             for (Admin admin : admins) {
@@ -311,11 +322,18 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
                     admin.getId(), admin.getName(),
                     admin.getSurname(), admin.getTitle(),
                     admin.getEmail(), admin.getPhone(),
-                    admin.getDepartment()
+                    admin.getDepartmentsId()
                 };
                 model.addRow(willAdd);
             }
         }
+    }
+    public void dinamicSearch(String search) {
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
+
+        adminAdminsTable.setRowSorter(tableRowSorter);
+
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(search));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

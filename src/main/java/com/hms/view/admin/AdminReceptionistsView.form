@@ -28,8 +28,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="adminReceptionistsSearchTextField" alignment="1" min="-2" pref="750" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="adminReceptionistsMessageLabel" max="32767" attributes="0"/>
+                  <Component id="adminReceptionistsSearchTextField" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="adminReceptionistsIdLabel" min="-2" max="-2" attributes="0"/>
@@ -47,17 +48,11 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="adminReceptionistsTitleTextField" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                          <Component id="adminReceptionistsSurnameTextField" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                           <Component id="adminReceptionistsEmailTextField" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                              <Component id="adminReceptionistsPhoneLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="adminReceptionistsPhoneTextField" min="-2" pref="150" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               <Component id="adminReceptionistsAddButton" min="-2" pref="80" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -65,10 +60,16 @@
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                               <Component id="adminReceptionistsDeleteButton" min="-2" pref="80" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="adminReceptionistsPhoneLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="adminReceptionistsPhoneTextField" min="-2" pref="150" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane6" alignment="1" min="-2" pref="750" max="-2" attributes="0"/>
+                  <Component id="jScrollPane6" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
           </Group>
@@ -78,8 +79,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="adminReceptionistsSearchTextField" min="-2" pref="30" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="adminReceptionistsSearchTextField" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -92,14 +93,16 @@
                           <Component id="adminReceptionistsNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="adminReceptionistsPhoneLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="adminReceptionistsPhoneTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="adminReceptionistsTitleLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="adminReceptionistsTitleTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="adminReceptionistsPhoneLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="adminReceptionistsPhoneTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="adminReceptionistsTitleLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="adminReceptionistsSurnameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -111,8 +114,10 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane6" pref="471" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+              <Component id="adminReceptionistsMessageLabel" min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jScrollPane6" pref="475" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -120,6 +125,9 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="adminReceptionistsSearchTextField">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="adminReceptionistsSearchTextFieldKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="adminReceptionistsIdLabel">
       <Properties>
@@ -128,7 +136,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="adminReceptionistsIdTextField">
     </Component>
-    <Component class="javax.swing.JTextField" name="adminReceptionistsTitleTextField">
+    <Component class="javax.swing.JTextField" name="adminReceptionistsSurnameTextField">
     </Component>
     <Component class="javax.swing.JTextField" name="adminReceptionistsPhoneTextField">
     </Component>
@@ -160,16 +168,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adminReceptionistsDeleteButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="adminReceptionistsUpdateButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Update"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adminReceptionistsUpdateButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="adminReceptionistsAddButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adminReceptionistsAddButtonActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane6">
       <AuxValues>
@@ -193,8 +210,13 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="adminReceptionistsTableMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="adminReceptionistsMessageLabel">
+    </Component>
   </SubComponents>
 </Form>

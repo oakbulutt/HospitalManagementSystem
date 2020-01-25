@@ -2,20 +2,20 @@
 package com.hms.model;
 
 public class User {
-    private String username;
+    private String id;
     private String password;
 
     public User(String username, String password) {
-        this.username = username;
+        this.id = username;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -28,7 +28,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "username=" + username + '}';
+        return "User{" + "username=" + id + '}';
     }
     
     

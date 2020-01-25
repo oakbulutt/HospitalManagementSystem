@@ -1,16 +1,30 @@
 package com.hms.service;
 
-import java.util.List;
+import com.hms.constants.UserConstants;
+import java.util.*;
+
+import com.hms.dao.AdminDao;
+import com.hms.dao.AppointmentDao;
+import com.hms.dao.DepartmentDao;
+import com.hms.dao.DoctorDao;
+import com.hms.dao.PatientDao;
+import com.hms.dao.PrescriptionDao;
+import com.hms.dao.ReceptionistDao;
+import com.hms.dao.UserDao;
 import com.hms.dao.impl.AdminDaoImpl;
+import com.hms.dao.impl.AppointmentDaoImpl;
 import com.hms.dao.impl.DoctorDaoImpl;
 import com.hms.dao.impl.DepartmentDaoImpl;
 import com.hms.dao.impl.PatientDaoImpl;
+import com.hms.dao.impl.PrescriptionDaoImpl;
 import com.hms.dao.impl.ReceptionistDaoImpl;
 import com.hms.dao.impl.UserDaoImpl;
 import com.hms.model.Doctor;
 import com.hms.model.Admin;
+import com.hms.model.Appointment;
 import com.hms.model.Department;
 import com.hms.model.Patient;
+import com.hms.model.Prescription;
 import com.hms.model.Receptionist;
 import com.hms.model.User;
 import com.hms.util.Database;
@@ -24,23 +38,28 @@ import java.util.logging.Logger;
 
 public class HMSService {
 
-    AdminDaoImpl adminDao;
-    DepartmentDaoImpl departmentDao;
-    DoctorDaoImpl doctorDao;
-    PatientDaoImpl patientDao;
-    ReceptionistDaoImpl receptionistDao;
-    UserDaoImpl userDao;
+    AdminDao adminDao = new AdminDaoImpl();
+    AppointmentDao appointmentDao = new AppointmentDaoImpl();
+    DepartmentDao departmentDao = new DepartmentDaoImpl();
+    DoctorDao doctorDao = new DoctorDaoImpl();
+    PatientDao patientDao = new PatientDaoImpl();
+    PrescriptionDao prescriptionDao = new PrescriptionDaoImpl();
+    ReceptionistDao receptionistDao = new ReceptionistDaoImpl();
+    UserDao userDao = new UserDaoImpl();
 
     List<Admin> listAdmins;
+    List<Appointment> listAppointments;
     List<Department> listDepartments;
     List<Doctor> listDoctors;
+    List<String> listDoctorsId;
     List<Patient> listPatients;
+    List<Prescription> listPrescriptions;
     List<Receptionist> listReceptionists;
     List<User> listUsers;
 
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
-    
+
     public HMSService() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -56,11 +75,10 @@ public class HMSService {
             System.out.println("Connection Failed!");
         }
     }
-    public boolean login(String username, String password) {
-        String query = "SELECT * FROM users WHERE userid = ? AND password = ?";
 
+    public boolean login(String username, String password) {
         try {
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = connection.prepareStatement(UserConstants.LOGIN_SQL);
 
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
@@ -74,10 +92,10 @@ public class HMSService {
             return false;
         }
     }
-    
+
     //Admins
-    public List<Admin> showAllAdmins() {
-        listAdmins = adminDao.allAdmins();
+    public List<Admin> showAdmins() {
+        listAdmins = adminDao.admins();
         return listAdmins;
     }
 
@@ -93,9 +111,27 @@ public class HMSService {
         adminDao.deleteAdmin(id);
     }
 
+    //Appointments
+    public List<Appointment> showAppointments() {
+        listAppointments = appointmentDao.appointments();
+        return listAppointments;
+    }
+
+    public void createAppointment(Appointment appointment) {
+        appointmentDao.createAppointment(appointment);
+    }
+
+    public void updateAppointment(Appointment appointment) {
+        appointmentDao.updateAppointment(appointment);
+    }
+
+    public void deleteAppointment(String id) {
+        appointmentDao.deleteAppointment(id);
+    }
+
     //Departments
-    public List<Department> showAllDepartments() {
-        listDepartments = departmentDao.allDepartments();
+    public List<Department> showDepartments() {
+        listDepartments = departmentDao.departments();
         return listDepartments;
     }
 
@@ -112,7 +148,7 @@ public class HMSService {
     }
 
     //Doctors
-    public List<Doctor> showAllDoctors() {
+    public List<Doctor> showDoctors() {
         listDoctors = doctorDao.allDoctors();
         return listDoctors;
     }
@@ -129,9 +165,18 @@ public class HMSService {
         doctorDao.deleteDoctor(id);
     }
 
-    
+    public List<String> getDoctorsId(String departmentId) {
+        listDoctorsId = doctorDao.getDoctorsId(departmentId);
+        return listDoctorsId;
+    }
+
+    public List<Doctor> doctors(String id) {
+        listDoctors = doctorDao.doctors(id);
+        return listDoctors;
+    }
+
     //Patients
-    public List<Patient> showAllPatients() {
+    public List<Patient> showPatients() {
         listPatients = patientDao.allPatients();
         return listPatients;
     }
@@ -147,10 +192,15 @@ public class HMSService {
     public void deletePatient(String id) {
         patientDao.deletePatient(id);
     }
-    
+
+    public List<Patient> patients(String patientId) {
+        listPatients = patientDao.patients(patientId);
+        return listPatients;
+    }
+
     //Receptionists
-    public List<Receptionist> showAllReceptionist() {
-        listReceptionists = receptionistDao.allReceptionists();
+    public List<Receptionist> showReceptionist() {
+        listReceptionists = receptionistDao.receptionists();
         return listReceptionists;
     }
 
@@ -165,10 +215,10 @@ public class HMSService {
     public void deleteReceptionist(String id) {
         receptionistDao.deleteReceptionist(id);
     }
-    
+
     //Users
-    public List<User> showAllUsers() {
-        listUsers = userDao.allUsers();
+    public List<User> showUsers() {
+        listUsers = userDao.users();
         return listUsers;
     }
 
@@ -182,5 +232,27 @@ public class HMSService {
 
     public void deleteUser(String username) {
         userDao.deleteUser(username);
+    }
+
+    //Prescription
+    public List<Prescription> showPrescriptions() {
+        listPrescriptions = prescriptionDao.allPrescriptions();
+        return listPrescriptions;
+    }
+     public List<Prescription> prescription(String id) {
+        listPrescriptions = prescriptionDao.prescriptions(id);
+        return listPrescriptions;
+    }
+
+    public void createPrescription(Prescription user) {
+        prescriptionDao.createPrescription(user);
+    }
+
+    public void updatePrescription(Prescription prescription) {
+        prescriptionDao.updatePrescription(prescription);
+    }
+
+    public void deletePrescription(String id) {
+        prescriptionDao.deletePrescription(id);
     }
 }

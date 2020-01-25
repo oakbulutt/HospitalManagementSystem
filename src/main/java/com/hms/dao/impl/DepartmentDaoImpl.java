@@ -37,7 +37,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public List<Department> allDepartments() {
+    public List<Department> departments() {
         List<Department> departments = new LinkedList<>();
         try {
             statement = connection.createStatement();

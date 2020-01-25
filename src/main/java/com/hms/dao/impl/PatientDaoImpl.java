@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -53,8 +53,10 @@ public class PatientDaoImpl implements PatientDao {
                 Date birthdate = resultSet.getDate("date");
                 String email = resultSet.getString("email");
                 String phone = resultSet.getString("phone");
+                String anamnesis = resultSet.getString("anamnesis");
+                String prescriptionId = resultSet.getString("prescription_id");
 
-                patients.add(new Patient(id, name, surname, gender, birthdate, email, phone));
+                patients.add(new Patient(id, name, surname, gender, birthdate, email, phone, anamnesis, prescriptionId));
             }
             return patients;
         } catch (SQLException e) {
@@ -62,7 +64,32 @@ public class PatientDaoImpl implements PatientDao {
             return null;
         }
     }
+    public List<Patient> patients(String id) {
+        List<Patient> patients = new LinkedList<>();
+        try {
+            preparedStatement = connection.prepareStatement(PatientConstants.PATIENT_SQL);
+            preparedStatement.setString(1, id);
+            
+            ResultSet resultSet = preparedStatement.executeQuery();
 
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                String surname = resultSet.getString("surname");
+                String gender = resultSet.getString("gender");
+                Date birthdate = resultSet.getDate("date");
+                String email = resultSet.getString("email");
+                String phone = resultSet.getString("phone");
+                String anamnesis = resultSet.getString("anamnesis");
+                String prescriptionId = resultSet.getString("prescription_id");
+
+                patients.add(new Patient(id, name, surname, gender, birthdate, email, phone, anamnesis, prescriptionId));
+            }
+            return patients;
+        } catch (SQLException e) {
+            Logger.getLogger(DoctorDaoImpl.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        }
+    }
     @Override
     public void createPatient(Patient patient) {
         try {

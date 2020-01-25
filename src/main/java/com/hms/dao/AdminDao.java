@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface AdminDao {
 
-    public List<Admin> allAdmins();
+    public List<Admin> admins();
 
     public void createAdmin(Admin admin);
 

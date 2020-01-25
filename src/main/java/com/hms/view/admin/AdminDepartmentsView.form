@@ -28,27 +28,30 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="adminDepartmentSearchTextField" alignment="0" min="-2" pref="723" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" alignment="0" min="-2" pref="723" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="adminDepartmentsMessageLabel" max="32767" attributes="0"/>
+                  <Component id="adminDepartmentSearchTextField" alignment="0" pref="723" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="723" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="adminDepartmentIdLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="adminDepartmentNameLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="adminDepartmentIdLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="adminDepartmentAddButton" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="adminDepartmentIdTextField" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
-                          <Component id="adminDepartmentNameTextField" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="288" max="-2" attributes="0"/>
-                              <Component id="adminDepartmentAddButton" min="-2" pref="80" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="adminDepartmentIdTextField" min="-2" pref="170" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="adminDepartmentNameLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="adminDepartmentUpdateButton" min="-2" pref="80" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
                               <Component id="adminDepartmentDeleteButton" min="-2" pref="80" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Component id="adminDepartmentNameTextField" min="-2" pref="170" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
@@ -61,27 +64,23 @@
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Component id="adminDepartmentSearchTextField" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="adminDepartmentIdLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="adminDepartmentIdTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="adminDepartmentNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="adminDepartmentNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="adminDepartmentAddButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="adminDepartmentUpdateButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="adminDepartmentDeleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="adminDepartmentIdLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="adminDepartmentIdTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="adminDepartmentNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="adminDepartmentNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="adminDepartmentAddButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="adminDepartmentUpdateButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="adminDepartmentDeleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="499" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <Component id="adminDepartmentsMessageLabel" min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="473" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -106,6 +105,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="adminDepartmentsTableMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -120,34 +122,39 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="adminDepartmentIdTextField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adminDepartmentIdTextFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="adminDepartmentNameTextField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adminDepartmentNameTextFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="adminDepartmentSearchTextField">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adminDepartmentSearchTextFieldActionPerformed"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="adminDepartmentSearchTextFieldKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="adminDepartmentAddButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adminDepartmentAddButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="adminDepartmentDeleteButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adminDepartmentDeleteButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="adminDepartmentUpdateButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Update"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adminDepartmentUpdateButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="adminDepartmentsMessageLabel">
     </Component>
   </SubComponents>
 </Form>

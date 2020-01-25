@@ -5,7 +5,7 @@ import com.hms.model.Department;
 
 public interface DepartmentDao {
 
-    public List<Department> allDepartments();
+    public List<Department> departments();
 
     public void createDepartment(Department department);
 

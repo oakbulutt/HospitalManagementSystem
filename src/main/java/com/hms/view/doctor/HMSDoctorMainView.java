@@ -1,21 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.hms.view.doctor;
 
-import com.hms.view.receptionist.*;
+import com.hms.view.Login;
 
-/**
- *
- * @author domin
- */
 public class HMSDoctorMainView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form HMSReceptionistMainView
-     */
     public HMSDoctorMainView() {
         initComponents();
     }
@@ -29,6 +18,7 @@ public class HMSDoctorMainView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        doctorDesktopPane = new javax.swing.JDesktopPane();
         doctorMenuBar = new javax.swing.JMenuBar();
         doctorFileMenu = new javax.swing.JMenu();
         doctorFileMenuItemLogOut = new javax.swing.JMenuItem();
@@ -40,12 +30,38 @@ public class HMSDoctorMainView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        javax.swing.GroupLayout doctorDesktopPaneLayout = new javax.swing.GroupLayout(doctorDesktopPane);
+        doctorDesktopPane.setLayout(doctorDesktopPaneLayout);
+        doctorDesktopPaneLayout.setHorizontalGroup(
+            doctorDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1280, Short.MAX_VALUE)
+        );
+        doctorDesktopPaneLayout.setVerticalGroup(
+            doctorDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 699, Short.MAX_VALUE)
+        );
+
         doctorFileMenu.setText("File");
+        doctorFileMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doctorFileMenuActionPerformed(evt);
+            }
+        });
 
         doctorFileMenuItemLogOut.setText("Log Out");
+        doctorFileMenuItemLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doctorFileMenuItemLogOutActionPerformed(evt);
+            }
+        });
         doctorFileMenu.add(doctorFileMenuItemLogOut);
 
         doctorFileMenuItemExit.setText("Exit");
+        doctorFileMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doctorFileMenuItemExitActionPerformed(evt);
+            }
+        });
         doctorFileMenu.add(doctorFileMenuItemExit);
 
         doctorMenuBar.add(doctorFileMenu);
@@ -53,12 +69,27 @@ public class HMSDoctorMainView extends javax.swing.JFrame {
         doctorOperationsMenu.setText("Operations");
 
         doctorOperationsMenuItemAppointments.setText("Appointments");
+        doctorOperationsMenuItemAppointments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doctorOperationsMenuItemAppointmentsActionPerformed(evt);
+            }
+        });
         doctorOperationsMenu.add(doctorOperationsMenuItemAppointments);
 
         doctorOperationsMenuItemDoctors.setText("Doctors");
+        doctorOperationsMenuItemDoctors.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doctorOperationsMenuItemDoctorsActionPerformed(evt);
+            }
+        });
         doctorOperationsMenu.add(doctorOperationsMenuItemDoctors);
 
         doctorOperationsMenuItemPatients.setText("Patients");
+        doctorOperationsMenuItemPatients.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doctorOperationsMenuItemPatientsActionPerformed(evt);
+            }
+        });
         doctorOperationsMenu.add(doctorOperationsMenuItemPatients);
 
         doctorMenuBar.add(doctorOperationsMenu);
@@ -69,15 +100,44 @@ public class HMSDoctorMainView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1280, Short.MAX_VALUE)
+            .addComponent(doctorDesktopPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 698, Short.MAX_VALUE)
+            .addComponent(doctorDesktopPane)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void doctorFileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorFileMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_doctorFileMenuActionPerformed
+
+    private void doctorFileMenuItemLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorFileMenuItemLogOutActionPerformed
+        Login login = new Login();
+        setVisible(false);
+        login.setVisible(true);
+    }//GEN-LAST:event_doctorFileMenuItemLogOutActionPerformed
+
+    private void doctorFileMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorFileMenuItemExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_doctorFileMenuItemExitActionPerformed
+
+    private void doctorOperationsMenuItemAppointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorOperationsMenuItemAppointmentsActionPerformed
+        DoctorAppointmentView doctorAppointmentView = new DoctorAppointmentView();
+        doctorDesktopPane.add(doctorAppointmentView).setVisible(true);
+    }//GEN-LAST:event_doctorOperationsMenuItemAppointmentsActionPerformed
+
+    private void doctorOperationsMenuItemDoctorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorOperationsMenuItemDoctorsActionPerformed
+        DoctorDoctorsView doctorDoctorsView = new DoctorDoctorsView();
+        doctorDesktopPane.add(doctorDoctorsView).setVisible(true);
+    }//GEN-LAST:event_doctorOperationsMenuItemDoctorsActionPerformed
+
+    private void doctorOperationsMenuItemPatientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorOperationsMenuItemPatientsActionPerformed
+        DoctorPatientsView doctorPatientsView = new DoctorPatientsView();
+        doctorDesktopPane.add(doctorPatientsView).setVisible(true);
+    }//GEN-LAST:event_doctorOperationsMenuItemPatientsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,6 +176,7 @@ public class HMSDoctorMainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane doctorDesktopPane;
     private javax.swing.JMenu doctorFileMenu;
     private javax.swing.JMenuItem doctorFileMenuItemExit;
     private javax.swing.JMenuItem doctorFileMenuItemLogOut;

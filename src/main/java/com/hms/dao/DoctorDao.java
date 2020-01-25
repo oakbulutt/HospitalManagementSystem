@@ -1,4 +1,3 @@
-
 package com.hms.dao;
 
 import com.hms.model.Doctor;
@@ -7,6 +6,10 @@ import java.util.List;
 public interface DoctorDao {
 
     public List<Doctor> allDoctors();
+    
+    public List<Doctor> doctors(String id);
+
+    public List<String> getDoctorsId(String departmentId);
 
     public void createDoctor(Doctor doctor);
 

@@ -1,24 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.hms.view.doctor;
 
-import com.hms.view.receptionist.*;
-import com.hms.view.admin.*;
+import com.hms.model.Doctor;
+import com.hms.service.HMSService;
+import java.util.LinkedList;
+import java.util.List;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author domin
- */
 public class DoctorDoctorsView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form AdminDoctorsView
-     */
+    DefaultTableModel model = new DefaultTableModel();
+    HMSService service = new HMSService();
+
     public DoctorDoctorsView() {
         initComponents();
+        model = (DefaultTableModel) doctorDoctorsTable.getModel();
+        showDoctor();
     }
 
     /**
@@ -39,6 +38,12 @@ public class DoctorDoctorsView extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Doctors");
+
+        doctorDoctorsSearchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                doctorDoctorsSearchTextFieldKeyReleased(evt);
+            }
+        });
 
         doctorDoctorsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,12 +87,17 @@ public class DoctorDoctorsView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(doctorDoctorsSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                .addGap(45, 45, 45))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void doctorDoctorsSearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_doctorDoctorsSearchTextFieldKeyReleased
+        String search = doctorDoctorsSearchTextField.getText();
+        dinamicSearch(search);
+    }//GEN-LAST:event_doctorDoctorsSearchTextFieldKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -95,4 +105,31 @@ public class DoctorDoctorsView extends javax.swing.JInternalFrame {
     private javax.swing.JTable doctorDoctorsTable;
     private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
+
+    private void dinamicSearch(String search) {
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
+
+        doctorDoctorsTable.setRowSorter(tableRowSorter);
+
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(search));
+    }
+
+    private void showDoctor() {
+        model.setRowCount(0);
+        List<Doctor> doctors = new LinkedList<>();
+
+        doctors = service.showDoctors();
+
+        if (doctors != null) {
+            for (Doctor doctor : doctors) {
+                Object[] willAdd = {
+                    doctor.getId(), doctor.getName(),
+                    doctor.getSurname(), doctor.getTitle(),
+                    doctor.getEmail(), doctor.getPhone(),
+                    doctor.getDepartmentsId()
+                };
+                model.addRow(willAdd);
+            }
+        }
+    }
 }

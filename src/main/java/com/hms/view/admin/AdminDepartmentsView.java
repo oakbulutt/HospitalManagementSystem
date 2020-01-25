@@ -1,21 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.hms.view.admin;
 
-/**
- *
- * @author domin
- */
+import com.hms.model.Department;
+import com.hms.service.HMSService;
+import java.util.*;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
+
 public class AdminDepartmentsView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form AdminDepartmentsView
-     */
+    DefaultTableModel model = new DefaultTableModel();
+    HMSService service = new HMSService();
+
     public AdminDepartmentsView() {
         initComponents();
+        model = (DefaultTableModel) adminDepartmentsTable.getModel();
+        showDepartments();
     }
 
     /**
@@ -37,6 +39,7 @@ public class AdminDepartmentsView extends javax.swing.JInternalFrame {
         adminDepartmentAddButton = new javax.swing.JButton();
         adminDepartmentDeleteButton = new javax.swing.JButton();
         adminDepartmentUpdateButton = new javax.swing.JButton();
+        adminDepartmentsMessageLabel = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -60,35 +63,43 @@ public class AdminDepartmentsView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        adminDepartmentsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adminDepartmentsTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(adminDepartmentsTable);
 
         adminDepartmentNameLabel.setText("Department Name  :");
 
         adminDepartmentIdLabel.setText("Department ID       :");
 
-        adminDepartmentIdTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminDepartmentIdTextFieldActionPerformed(evt);
-            }
-        });
-
-        adminDepartmentNameTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminDepartmentNameTextFieldActionPerformed(evt);
-            }
-        });
-
-        adminDepartmentSearchTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminDepartmentSearchTextFieldActionPerformed(evt);
+        adminDepartmentSearchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                adminDepartmentSearchTextFieldKeyReleased(evt);
             }
         });
 
         adminDepartmentAddButton.setText("Add");
+        adminDepartmentAddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminDepartmentAddButtonActionPerformed(evt);
+            }
+        });
 
         adminDepartmentDeleteButton.setText("Delete");
+        adminDepartmentDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminDepartmentDeleteButtonActionPerformed(evt);
+            }
+        });
 
         adminDepartmentUpdateButton.setText("Update");
+        adminDepartmentUpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminDepartmentUpdateButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,24 +107,26 @@ public class AdminDepartmentsView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(adminDepartmentSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 723, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 723, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(adminDepartmentsMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(adminDepartmentSearchTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(adminDepartmentIdLabel)
-                            .addComponent(adminDepartmentNameLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(adminDepartmentIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(adminDepartmentNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(adminDepartmentAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(288, 288, 288)
-                                .addComponent(adminDepartmentAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(adminDepartmentIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
+                                .addComponent(adminDepartmentNameLabel))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(adminDepartmentUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(adminDepartmentDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(82, 82, 82)
+                                .addComponent(adminDepartmentDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(adminDepartmentNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
@@ -122,38 +135,90 @@ public class AdminDepartmentsView extends javax.swing.JInternalFrame {
                 .addGap(26, 26, 26)
                 .addComponent(adminDepartmentSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(adminDepartmentIdLabel)
-                            .addComponent(adminDepartmentIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(adminDepartmentNameLabel)
-                            .addComponent(adminDepartmentNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(adminDepartmentAddButton)
-                        .addComponent(adminDepartmentUpdateButton)
-                        .addComponent(adminDepartmentDeleteButton)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(adminDepartmentIdLabel)
+                    .addComponent(adminDepartmentIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(adminDepartmentNameLabel)
+                    .addComponent(adminDepartmentNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(adminDepartmentAddButton)
+                    .addComponent(adminDepartmentUpdateButton)
+                    .addComponent(adminDepartmentDeleteButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addComponent(adminDepartmentsMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void adminDepartmentIdTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDepartmentIdTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_adminDepartmentIdTextFieldActionPerformed
+    private void adminDepartmentSearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adminDepartmentSearchTextFieldKeyReleased
+        String search = adminDepartmentSearchTextField.getText();
+        dinamicSearch(search);
+    }//GEN-LAST:event_adminDepartmentSearchTextFieldKeyReleased
 
-    private void adminDepartmentNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDepartmentNameTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_adminDepartmentNameTextFieldActionPerformed
+    private void adminDepartmentsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminDepartmentsTableMouseClicked
+        int selectedRow = adminDepartmentsTable.getSelectedRow();
 
-    private void adminDepartmentSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDepartmentSearchTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_adminDepartmentSearchTextFieldActionPerformed
+        adminDepartmentIdTextField.setText(model.getValueAt(selectedRow, 0).toString());
+        adminDepartmentNameTextField.setText(model.getValueAt(selectedRow, 1).toString());
+    }//GEN-LAST:event_adminDepartmentsTableMouseClicked
+
+    private void adminDepartmentAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDepartmentAddButtonActionPerformed
+        adminDepartmentsMessageLabel.setText("");
+        String id = adminDepartmentIdTextField.getText();
+        String name = adminDepartmentNameTextField.getText();
+
+        Department department = new Department(id, name);
+        service.createDepartment(department);
+
+        showDepartments();
+        adminDepartmentsMessageLabel.setText("New Department Added!");
+    }//GEN-LAST:event_adminDepartmentAddButtonActionPerformed
+
+    private void adminDepartmentUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDepartmentUpdateButtonActionPerformed
+        adminDepartmentsMessageLabel.setText("");
+        String id = adminDepartmentIdTextField.getText();
+        String name = adminDepartmentNameTextField.getText();
+
+        int selectedRow = adminDepartmentsTable.getSelectedRow();
+        if (selectedRow == -1) {
+            if (model.getRowCount() == 0) {
+                adminDepartmentsMessageLabel.setText("Departments table is empty.");
+            } else {
+                adminDepartmentsMessageLabel.setText("Please select the department which you want to update.");
+            }
+        } else {
+            service.updateDepartment(new Department(id, name));
+            showDepartments();
+            adminDepartmentsMessageLabel.setText("Department updated!");
+        }
+
+    }//GEN-LAST:event_adminDepartmentUpdateButtonActionPerformed
+
+    private void adminDepartmentDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDepartmentDeleteButtonActionPerformed
+        adminDepartmentsMessageLabel.setText("");
+        String id = adminDepartmentIdTextField.getText();
+        String name = adminDepartmentNameTextField.getText();
+
+        int selectedRow = adminDepartmentsTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            if (model.getRowCount() == 0) {
+                adminDepartmentsMessageLabel.setText("Departments table is empty.");
+            } else {
+                adminDepartmentsMessageLabel.setText("Please select the department which you want to delete.");
+            }
+        } else {
+            service.deleteDepartment(id);
+
+            showDepartments();
+            adminDepartmentsMessageLabel.setText("Department is deleted!");
+        }
+    }//GEN-LAST:event_adminDepartmentDeleteButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -165,7 +230,32 @@ public class AdminDepartmentsView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField adminDepartmentNameTextField;
     private javax.swing.JTextField adminDepartmentSearchTextField;
     private javax.swing.JButton adminDepartmentUpdateButton;
+    private javax.swing.JLabel adminDepartmentsMessageLabel;
     private javax.swing.JTable adminDepartmentsTable;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    private void showDepartments() {
+        model.setRowCount(0);
+        List<Department> departments = new LinkedList<>();
+
+        departments = service.showDepartments();
+
+        if (departments != null) {
+            for (Department department : departments) {
+                Object[] willAdd = {
+                    department.getId(), department.getName()
+                };
+                model.addRow(willAdd);
+            }
+        }
+    }
+
+    private void dinamicSearch(String search) {
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
+
+        adminDepartmentsTable.setRowSorter(tableRowSorter);
+
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(search));
+    }
 }

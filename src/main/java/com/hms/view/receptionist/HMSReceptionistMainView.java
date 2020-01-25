@@ -1,19 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hms.view.receptionist;
 
-/**
- *
- * @author domin
- */
+import com.hms.view.Login;
+
 public class HMSReceptionistMainView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form HMSReceptionistMainView
-     */
     public HMSReceptionistMainView() {
         initComponents();
     }
@@ -27,6 +17,7 @@ public class HMSReceptionistMainView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        receptionistsDesktopPane = new javax.swing.JDesktopPane();
         receptionistsMenuBar = new javax.swing.JMenuBar();
         receptionistFileMenu = new javax.swing.JMenu();
         receptionistFileMenuItemLogOut = new javax.swing.JMenuItem();
@@ -38,12 +29,33 @@ public class HMSReceptionistMainView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        javax.swing.GroupLayout receptionistsDesktopPaneLayout = new javax.swing.GroupLayout(receptionistsDesktopPane);
+        receptionistsDesktopPane.setLayout(receptionistsDesktopPaneLayout);
+        receptionistsDesktopPaneLayout.setHorizontalGroup(
+            receptionistsDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1280, Short.MAX_VALUE)
+        );
+        receptionistsDesktopPaneLayout.setVerticalGroup(
+            receptionistsDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 698, Short.MAX_VALUE)
+        );
+
         receptionistFileMenu.setText("File");
 
         receptionistFileMenuItemLogOut.setText("Log Out");
+        receptionistFileMenuItemLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                receptionistFileMenuItemLogOutActionPerformed(evt);
+            }
+        });
         receptionistFileMenu.add(receptionistFileMenuItemLogOut);
 
         receptionistFileMenuItemExit.setText("Exit");
+        receptionistFileMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                receptionistFileMenuItemExitActionPerformed(evt);
+            }
+        });
         receptionistFileMenu.add(receptionistFileMenuItemExit);
 
         receptionistsMenuBar.add(receptionistFileMenu);
@@ -51,12 +63,27 @@ public class HMSReceptionistMainView extends javax.swing.JFrame {
         receptionistOperationsMenu.setText("Operations");
 
         receptionistOperationsMenuItemAppointments.setText("Appointments");
+        receptionistOperationsMenuItemAppointments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                receptionistOperationsMenuItemAppointmentsActionPerformed(evt);
+            }
+        });
         receptionistOperationsMenu.add(receptionistOperationsMenuItemAppointments);
 
         receptionistOperationsMenuItemDoctors.setText("Doctors");
+        receptionistOperationsMenuItemDoctors.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                receptionistOperationsMenuItemDoctorsActionPerformed(evt);
+            }
+        });
         receptionistOperationsMenu.add(receptionistOperationsMenuItemDoctors);
 
         receptionistOperationsMenuItemPatients.setText("Patients");
+        receptionistOperationsMenuItemPatients.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                receptionistOperationsMenuItemPatientsActionPerformed(evt);
+            }
+        });
         receptionistOperationsMenu.add(receptionistOperationsMenuItemPatients);
 
         receptionistsMenuBar.add(receptionistOperationsMenu);
@@ -67,15 +94,41 @@ public class HMSReceptionistMainView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1280, Short.MAX_VALUE)
+            .addComponent(receptionistsDesktopPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 698, Short.MAX_VALUE)
+            .addComponent(receptionistsDesktopPane)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void receptionistOperationsMenuItemAppointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistOperationsMenuItemAppointmentsActionPerformed
+        // TODO add your handling code here:
+         ReceptionistAppointmentView receptionistAppointmentsView = new ReceptionistAppointmentView();
+        receptionistsDesktopPane.add(receptionistAppointmentsView).setVisible(true);
+    }//GEN-LAST:event_receptionistOperationsMenuItemAppointmentsActionPerformed
+
+    private void receptionistOperationsMenuItemDoctorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistOperationsMenuItemDoctorsActionPerformed
+        ReceptionistDoctorsView receptionistDoctorsView = new ReceptionistDoctorsView();
+        receptionistsDesktopPane.add(receptionistDoctorsView).setVisible(true);
+    }//GEN-LAST:event_receptionistOperationsMenuItemDoctorsActionPerformed
+
+    private void receptionistOperationsMenuItemPatientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistOperationsMenuItemPatientsActionPerformed
+        ReceptionistPatientsView receptionistPatientsView = new ReceptionistPatientsView();
+        receptionistsDesktopPane.add(receptionistPatientsView).setVisible(true);
+    }//GEN-LAST:event_receptionistOperationsMenuItemPatientsActionPerformed
+
+    private void receptionistFileMenuItemLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistFileMenuItemLogOutActionPerformed
+        Login login = new Login();
+        setVisible(false);
+        login.setVisible(true);
+    }//GEN-LAST:event_receptionistFileMenuItemLogOutActionPerformed
+
+    private void receptionistFileMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistFileMenuItemExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_receptionistFileMenuItemExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,6 +173,7 @@ public class HMSReceptionistMainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem receptionistOperationsMenuItemAppointments;
     private javax.swing.JMenuItem receptionistOperationsMenuItemDoctors;
     private javax.swing.JMenuItem receptionistOperationsMenuItemPatients;
+    private javax.swing.JDesktopPane receptionistsDesktopPane;
     private javax.swing.JMenuBar receptionistsMenuBar;
     // End of variables declaration//GEN-END:variables
 }

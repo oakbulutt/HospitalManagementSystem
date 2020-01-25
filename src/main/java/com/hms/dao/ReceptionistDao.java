@@ -5,7 +5,7 @@ import com.hms.model.Receptionist;
 
 public interface ReceptionistDao {
 
-    public List<Receptionist> allReceptionists();
+    public List<Receptionist> receptionists();
 
     public void createReceptionist(Receptionist receptionist);
 

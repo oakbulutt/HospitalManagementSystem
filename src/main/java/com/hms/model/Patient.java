@@ -1,7 +1,7 @@
 
 package com.hms.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Patient {
     private String id;
@@ -11,16 +11,31 @@ public class Patient {
     private Date birthdate;
     private String email;
     private String phone;
+    private String anamnesis;
+    private String prescriptionId;
+
+    public Patient(String id, String name, String surname, String gender, Date birthdate, String email, String phone, String anamnesis, String prescriptionId) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.email = email;
+        this.phone = phone;
+        this.anamnesis = anamnesis;
+        this.prescriptionId = prescriptionId;
+    }
 
     public Patient(String id, String name, String surname, String gender, Date birthdate, String email, String phone) {
         this.id = id;
         this.name = name;
         this.surname = surname;
+        this.gender = gender;
         this.birthdate = birthdate;
         this.email = email;
         this.phone = phone;
     }
-    
+
     public String getId() {
         return id;
     }
@@ -77,9 +92,26 @@ public class Patient {
         this.phone = phone;
     }
 
+    public String getAnamnesis() {
+        return anamnesis;
+    }
+
+    public void setAnamnesis(String anamnesis) {
+        this.anamnesis = anamnesis;
+    }
+
+    public String getPrescriptionId() {
+        return prescriptionId;
+    }
+
+    public void setPrescriptionId(String prescriptionId) {
+        this.prescriptionId = prescriptionId;
+    }
+
     @Override
     public String toString() {
-        return "Patients{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", gender=" + gender + ", birthdate=" + birthdate + ", email=" + email + ", phone=" + phone + '}';
+        return "Patient{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", gender=" + gender + ", birthdate=" + birthdate + ", email=" + email + ", phone=" + phone + ", anamnesis=" + anamnesis + ", prescriptionId=" + prescriptionId + '}';
     }
+
     
 }

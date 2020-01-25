@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.hms.view;
 
 import com.hms.service.HMSService;
@@ -10,17 +6,10 @@ import com.hms.view.admin.HMSAdminMainView;
 import com.hms.view.doctor.HMSDoctorMainView;
 import com.hms.view.receptionist.HMSReceptionistMainView;
 
-/**
- *
- * @author domin
- */
 public class Login extends javax.swing.JFrame {
 
     HMSService service = new HMSService();
-
-    /**
-     * Creates new form Login
-     */
+   
     public Login() {
         initComponents();
     }
@@ -134,11 +123,11 @@ public class Login extends javax.swing.JFrame {
 
     private void loginLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginLoginButtonActionPerformed
         loginMessageLabel.setText("");
-        String username = loginUsernameTextField.getText();
+        String userId = loginUsernameTextField.getText();
         String password = new String(loginPasswordField.getPassword());
-        char usernameFirstLetter = username.charAt(0);
+        char usernameFirstLetter = userId.charAt(0);
 
-        boolean loggedIn = service.login(username, password);
+        boolean loggedIn = service.login(userId, password);
         if (loggedIn && usernameFirstLetter == 'A') {
             HMSAdminMainView adminMainScreen = new HMSAdminMainView();
             setVisible(false);

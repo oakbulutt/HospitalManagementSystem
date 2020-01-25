@@ -28,60 +28,49 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="doctorPrescriptionViewPrescriptionSearchTextField" alignment="0" max="32767" attributes="0"/>
-                          <Component id="doctorPrescriptionViewAnamnesisTextField" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="doctorPrescriptionViewSaveButton" pref="85" max="32767" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="doctorPrescriptionViewUpdateButton" min="-2" pref="89" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="doctorPrescriptionViewClearButton" min="-2" pref="89" max="-2" attributes="0"/>
-                          </Group>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="doctorPrescriptionViewPrescriptionSearchTextField" alignment="0" pref="287" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="doctorPrescriptionViewPatientsSurnameLabel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="doctorPrescriptionViewPatientsNameLabel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="doctorPrescriptionViewPatientIdLabel" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="doctorPrescriptionViewPrescriptionButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Component id="doctorPrescriptionViewPrintButton" min="-2" pref="89" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="doctorPrescriptionViewPatientsSurnameLabel" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="doctorPrescriptionViewPatientsNameLabel" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="doctorPrescriptionViewPatientIdLabel" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="doctorPrescriptionViewPatientsSurnameTextField" max="32767" attributes="0"/>
-                                      <Component id="doctorPrescriptionViewPatientsNameTextField" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="doctorPrescriptionViewPatientsIdTextField" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="doctorPrescriptionViewPatientsBirthdateLabel" alignment="0" pref="97" max="32767" attributes="0"/>
-                                      <Component id="doctorPrescriptionViewPatientsGenderLabel" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="doctorPrescriptionViewAnamnesisLabel" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="doctorPrescriptionViewPatientsBirthdateTextField" max="32767" attributes="0"/>
-                                      <Component id="doctorPrescriptionViewPatientsGenderComboBox" pref="186" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <Component id="doctorPrescriptionViewPrescriptionSearchLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="doctorPrescriptionViewPatientsSurnameTextField" max="32767" attributes="0"/>
+                          <Component id="doctorPrescriptionViewPatientsNameTextField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="doctorPrescriptionViewPatientsIdTextField" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="doctorPrescriptionViewPatientsBirthdateLabel" alignment="0" pref="97" max="32767" attributes="0"/>
+                          <Component id="doctorPrescriptionViewPatientsGenderLabel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="doctorPrescriptionViewAnamnesisLabel" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="doctorPrescriptionViewPatientsGenderComboBox" pref="186" max="32767" attributes="0"/>
+                          <Component id="doctorPrescriptionViewPatientsBirthdateDateChooser" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="doctorPrescriptionViewPrescriptionSearchLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="doctorPrescriptionViewAnamnesisTextField" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="doctorPrescriptionViewSaveButton" alignment="0" max="32767" attributes="0"/>
+                          <Component id="doctorPrescriptionViewPrescriptionButton" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="doctorPrescriptionViewPrintButton" min="-2" pref="89" max="-2" attributes="0"/>
+                          <Component id="doctorPrescriptionViewUpdateButton" min="-2" pref="89" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="doctorPrescriptionViewMessageLabel" max="32767" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -144,7 +133,10 @@
                           <Component id="doctorPrescriptionViewPrescriptionIdTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Component id="doctorPrescriptionViewExplanationLabel" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="doctorPrescriptionViewExplanationLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="doctorPrescriptionViewMessageLabel" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -161,10 +153,10 @@
                           <Component id="doctorPrescriptionViewPatientsSurnameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="doctorPrescriptionViewPatientsSurnameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="doctorPrescriptionViewPatientsBirthdateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="doctorPrescriptionViewPatientsBirthdateTextField" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="doctorPrescriptionViewPatientsBirthdateLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="doctorPrescriptionViewPatientsBirthdateDateChooser" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -174,23 +166,25 @@
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="doctorPrescriptionViewAnamnesisLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="doctorPrescriptionViewExplanationTextField" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="doctorPrescriptionViewExplanationTextField" pref="25" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                      <Component id="doctorPrescriptionViewAnamnesisLabel" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="doctorPrescriptionViewAnamnesisTextField" min="-2" pref="218" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="doctorPrescriptionViewAnamnesisTextField" min="-2" pref="248" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="doctorPrescriptionViewPrescriptionSearchLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="doctorPrescriptionViewPrescriptionSearchTextField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="doctorPrescriptionViewSaveButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="doctorPrescriptionViewUpdateButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="doctorPrescriptionViewClearButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="doctorPrescriptionViewSaveButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -200,7 +194,7 @@
                   </Group>
                   <Component id="doctorPrescriptionViewPrescriptionPane" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -240,6 +234,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="doctorPrescriptionViewPatientsIdTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="doctorPrescriptionViewPatientsNameLabel">
       <Properties>
@@ -247,8 +244,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="doctorPrescriptionViewPatientsNameTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="doctorPrescriptionViewPatientsSurnameTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="doctorPrescriptionViewPatientsSurnameLabel">
       <Properties>
@@ -278,11 +281,6 @@
         <Property name="text" type="java.lang.String" value="Birthdate                :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="doctorPrescriptionViewPatientsBirthdateTextField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="doctorPrescriptionViewPatientsBirthdateTextFieldActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="doctorPrescriptionViewExplanationLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Explanation            :"/>
@@ -302,30 +300,38 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="324" max="32767" attributes="0"/>
+              <Component id="doctorPrescriptionViewPrescriptionTextField" alignment="0" pref="324" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="419" max="32767" attributes="0"/>
+              <Component id="doctorPrescriptionViewPrescriptionTextField" alignment="0" pref="382" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JTextField" name="doctorPrescriptionViewPrescriptionTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+      </SubComponents>
     </Container>
     <Component class="javax.swing.JButton" name="doctorPrescriptionViewSaveButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Save"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="doctorPrescriptionViewSaveButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="doctorPrescriptionViewPrintButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Print"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="doctorPrescriptionViewClearButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Clear"/>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="doctorPrescriptionViewPrintButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="doctorPrescriptionViewAnamnesisLabel">
       <Properties>
@@ -338,6 +344,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Prescription"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="doctorPrescriptionViewPrescriptionButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="doctorPrescriptionViewUpdateButton">
       <Properties>
@@ -353,9 +362,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="doctorPrescriptionViewPrescriptionIdTextField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="doctorPrescriptionViewPrescriptionIdTextFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="doctorPrescriptionViewPrescriptionSearchTextField">
       <Events>
@@ -366,6 +372,13 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Search Previous Prescription By Prescription ID:"/>
       </Properties>
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="doctorPrescriptionViewPatientsBirthdateDateChooser">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="yyyy MM dd"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="doctorPrescriptionViewMessageLabel">
     </Component>
   </SubComponents>
 </Form>

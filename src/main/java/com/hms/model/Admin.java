@@ -7,16 +7,18 @@ public class Admin {
     private String title;
     private String email;
     private String phone;
-    private String department;
+    private String departmentsId;
+    private String usersId;
 
-    public Admin(String id, String name, String surname, String title, String email, String phone, String department) {
+    public Admin(String id, String name, String surname, String title, String email, String phone, String departmentsId, String usersId) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.title = title;
         this.email = email;
         this.phone = phone;
-        this.department = department;
+        this.departmentsId = departmentsId;
+        this.usersId = usersId;
     }
 
     public String getId() {
@@ -68,16 +70,24 @@ public class Admin {
         this.phone = phone;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getDepartmentsId() {
+        return departmentsId;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setDepartmentsId(String departmentsId) {
+        this.departmentsId = departmentsId;
+    }
+
+    public String getUsersId() {
+        return usersId;
+    }
+
+    public void setUsersId(String usersId) {
+        this.usersId = usersId;
     }
 
     @Override
     public String toString() {
-        return "Admins{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", title=" + title + ", email=" + email + ", phone=" + phone + ", department=" + department + '}';
+        return "Admin{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", title=" + title + ", email=" + email + ", phone=" + phone + ", departmentsId=" + departmentsId + ", usersId=" + usersId + '}';
     }
 }
