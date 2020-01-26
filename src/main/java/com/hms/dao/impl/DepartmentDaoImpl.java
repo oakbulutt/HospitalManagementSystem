@@ -54,7 +54,24 @@ public class DepartmentDaoImpl implements DepartmentDao {
             Logger.getLogger(DepartmentDaoImpl.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
+    }
 
+    public List<String> departmentsId() {
+        List<String> departmentsId = new LinkedList<>();
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(DepartmentConstants.FETCH_SQL);
+
+            while (resultSet.next()) {
+                String id = resultSet.getString("id");
+
+                departmentsId.add(id);
+            }
+            return departmentsId;
+        } catch (SQLException e) {
+            Logger.getLogger(DepartmentDaoImpl.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        }
     }
 
     @Override

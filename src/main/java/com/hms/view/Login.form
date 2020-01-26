@@ -82,9 +82,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="loginPasswordField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-      </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="loginPasswordFieldMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginPasswordFieldActionPerformed"/>

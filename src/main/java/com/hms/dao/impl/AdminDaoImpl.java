@@ -92,8 +92,7 @@ public class AdminDaoImpl implements AdminDao {
             preparedStatement.setString(4, admin.getEmail());
             preparedStatement.setString(5, admin.getPhone());
             preparedStatement.setString(6, admin.getDepartmentsId());
-            preparedStatement.setString(7, admin.getUsersId());
-            preparedStatement.setString(8, admin.getId());
+            preparedStatement.setString(7, admin.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

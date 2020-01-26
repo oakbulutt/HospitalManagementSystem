@@ -86,8 +86,7 @@ public class ReceptionistDaoImpl implements ReceptionistDao {
             preparedStatement.setString(2, receptionist.getSurname());
             preparedStatement.setString(3, receptionist.getEmail());
             preparedStatement.setString(4, receptionist.getPhone());
-            preparedStatement.setString(5, receptionist.getUsersId());
-            preparedStatement.setString(6, receptionist.getId());
+            preparedStatement.setString(5, receptionist.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

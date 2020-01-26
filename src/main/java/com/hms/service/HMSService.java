@@ -50,9 +50,12 @@ public class HMSService {
     List<Admin> listAdmins;
     List<Appointment> listAppointments;
     List<Department> listDepartments;
+    List<String> listDepartmentsId;
     List<Doctor> listDoctors;
+    List<String> listStringDoctors;
     List<String> listDoctorsId;
     List<Patient> listPatients;
+    List<String> listStringPatients;
     List<Prescription> listPrescriptions;
     List<Receptionist> listReceptionists;
     List<User> listUsers;
@@ -134,7 +137,10 @@ public class HMSService {
         listDepartments = departmentDao.departments();
         return listDepartments;
     }
-
+    public List<String> departmentsId(){
+        listDepartmentsId = departmentDao.departmentsId();
+        return listDepartmentsId;
+    }
     public void createDepartment(Department department) {
         departmentDao.createDepartment(department);
     }
@@ -170,9 +176,9 @@ public class HMSService {
         return listDoctorsId;
     }
 
-    public List<Doctor> doctors(String id) {
-        listDoctors = doctorDao.doctors(id);
-        return listDoctors;
+    public List<String> doctors(String id) {
+        listStringDoctors = doctorDao.doctors(id);
+        return listStringDoctors;
     }
 
     //Patients
@@ -193,9 +199,9 @@ public class HMSService {
         patientDao.deletePatient(id);
     }
 
-    public List<Patient> patients(String patientId) {
-        listPatients = patientDao.patients(patientId);
-        return listPatients;
+    public List<String> patients(String patientId) {
+        listStringPatients = patientDao.patients(patientId);
+        return listStringPatients;
     }
 
     //Receptionists

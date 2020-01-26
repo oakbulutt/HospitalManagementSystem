@@ -26,6 +26,17 @@ public class Patient {
         this.prescriptionId = prescriptionId;
     }
 
+    public Patient(String id, String name, String surname, String gender, Date birthdate, String email, String phone, String anamnesis) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.email = email;
+        this.phone = phone;
+        this.anamnesis = anamnesis;
+    }
+    
     public Patient(String id, String name, String surname, String gender, Date birthdate, String email, String phone) {
         this.id = id;
         this.name = name;
@@ -34,6 +45,14 @@ public class Patient {
         this.birthdate = birthdate;
         this.email = email;
         this.phone = phone;
+    }
+
+    public String getPrescriptionId() {
+        return prescriptionId;
+    }
+
+    public void setPrescriptionId(String prescriptionId) {
+        this.prescriptionId = prescriptionId;
     }
 
     public String getId() {
@@ -100,17 +119,10 @@ public class Patient {
         this.anamnesis = anamnesis;
     }
 
-    public String getPrescriptionId() {
-        return prescriptionId;
-    }
-
-    public void setPrescriptionId(String prescriptionId) {
-        this.prescriptionId = prescriptionId;
-    }
 
     @Override
     public String toString() {
-        return "Patient{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", gender=" + gender + ", birthdate=" + birthdate + ", email=" + email + ", phone=" + phone + ", anamnesis=" + anamnesis + ", prescriptionId=" + prescriptionId + '}';
+        return "Patient{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", gender=" + gender + ", birthdate=" + birthdate + ", email=" + email + ", phone=" + phone + ", anamnesis=" + anamnesis + '}';
     }
 
     

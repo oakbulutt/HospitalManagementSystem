@@ -50,7 +50,7 @@ public class PatientDaoImpl implements PatientDao {
                 String name = resultSet.getString("name");
                 String surname = resultSet.getString("surname");
                 String gender = resultSet.getString("gender");
-                Date birthdate = resultSet.getDate("date");
+                Date birthdate = resultSet.getDate("birthdate");
                 String email = resultSet.getString("email");
                 String phone = resultSet.getString("phone");
                 String anamnesis = resultSet.getString("anamnesis");
@@ -64,8 +64,9 @@ public class PatientDaoImpl implements PatientDao {
             return null;
         }
     }
-    public List<Patient> patients(String id) {
-        List<Patient> patients = new LinkedList<>();
+    @Override
+    public List<String> patients(String id) {
+        List<String> patients = new LinkedList<>();
         try {
             preparedStatement = connection.prepareStatement(PatientConstants.PATIENT_SQL);
             preparedStatement.setString(1, id);
@@ -75,14 +76,8 @@ public class PatientDaoImpl implements PatientDao {
             while (resultSet.next()) {
                 String name = resultSet.getString("name");
                 String surname = resultSet.getString("surname");
-                String gender = resultSet.getString("gender");
-                Date birthdate = resultSet.getDate("date");
-                String email = resultSet.getString("email");
-                String phone = resultSet.getString("phone");
-                String anamnesis = resultSet.getString("anamnesis");
-                String prescriptionId = resultSet.getString("prescription_id");
-
-                patients.add(new Patient(id, name, surname, gender, birthdate, email, phone, anamnesis, prescriptionId));
+                patients.add(name);
+                patients.add(surname);
             }
             return patients;
         } catch (SQLException e) {
@@ -92,15 +87,18 @@ public class PatientDaoImpl implements PatientDao {
     }
     @Override
     public void createPatient(Patient patient) {
+        
+        
         try {
             preparedStatement = connection.prepareStatement(PatientConstants.INSERT_SQL);
             preparedStatement.setString(1, patient.getId());
             preparedStatement.setString(2, patient.getName());
             preparedStatement.setString(3, patient.getSurname());
             preparedStatement.setString(4, patient.getGender());
-            preparedStatement.setDate(5, (java.sql.Date) patient.getBirthdate());
+            preparedStatement.setDate(5, patient.getBirthdate());
             preparedStatement.setString(6, patient.getEmail());
             preparedStatement.setString(7, patient.getPhone());
+            preparedStatement.setString(8, patient.getAnamnesis());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -111,14 +109,15 @@ public class PatientDaoImpl implements PatientDao {
     @Override
     public void updatePatient(Patient patient) {
         try {
-            preparedStatement = connection.prepareStatement(PatientConstants.INSERT_SQL);
+            preparedStatement = connection.prepareStatement(PatientConstants.UPDATE_SQL);
             preparedStatement.setString(1, patient.getName());
             preparedStatement.setString(2, patient.getSurname());
             preparedStatement.setString(3, patient.getGender());
-            preparedStatement.setDate(4, (java.sql.Date) patient.getBirthdate());
+            preparedStatement.setDate(4, patient.getBirthdate());
             preparedStatement.setString(5, patient.getEmail());
             preparedStatement.setString(6, patient.getPhone());
-            preparedStatement.setString(7, patient.getId());
+            preparedStatement.setString(7, patient.getAnamnesis());
+            preparedStatement.setString(8, patient.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

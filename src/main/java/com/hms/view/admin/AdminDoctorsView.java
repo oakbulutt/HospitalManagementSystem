@@ -1,4 +1,3 @@
-
 package com.hms.view.admin;
 
 import com.hms.model.Doctor;
@@ -17,6 +16,7 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
         initComponents();
         model = (DefaultTableModel) adminDoctorsTable.getModel();
         showDoctor();
+        fillDepartmentComboBox();
     }
 
     /**
@@ -33,7 +33,6 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
         adminDoctorsIdTextField = new javax.swing.JTextField();
         adminDoctorsTitleTextField = new javax.swing.JTextField();
         adminDoctorsPhoneTextField = new javax.swing.JTextField();
-        adminDoctorsDepartmentTextField = new javax.swing.JTextField();
         adminDoctorsEmailTextField = new javax.swing.JTextField();
         adminDoctorsSurnameTextField = new javax.swing.JTextField();
         adminDoctorsNameTextField = new javax.swing.JTextField();
@@ -49,6 +48,7 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         adminDoctorsTable = new javax.swing.JTable();
         adminDoctorsMessageLabel = new javax.swing.JLabel();
+        adminDoctorsDepartmentComboBox = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -127,6 +127,8 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
         });
         jScrollPane3.setViewportView(adminDoctorsTable);
 
+        adminDoctorsDepartmentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Department" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,7 +159,7 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
                                     .addComponent(adminDoctorsTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(adminDoctorsEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(adminDoctorsPhoneLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -165,7 +167,7 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(adminDoctorsDepartmentLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(adminDoctorsDepartmentTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(adminDoctorsDepartmentComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(adminDoctorsAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -204,7 +206,7 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(adminDoctorsDepartmentLabel)
-                                    .addComponent(adminDoctorsDepartmentTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(adminDoctorsDepartmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(adminDoctorsTitleLabel)
@@ -221,7 +223,7 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(adminDoctorsMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
                 .addGap(40, 40, 40))
         );
 
@@ -242,7 +244,7 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
         adminDoctorsTitleTextField.setText(model.getValueAt(selectedRow, 3).toString());
         adminDoctorsEmailTextField.setText(model.getValueAt(selectedRow, 4).toString());
         adminDoctorsPhoneTextField.setText(model.getValueAt(selectedRow, 5).toString());
-        adminDoctorsDepartmentTextField.setText(model.getValueAt(selectedRow, 6).toString());
+        adminDoctorsDepartmentComboBox.setSelectedItem(model.getValueAt(selectedRow, 6).toString());
     }//GEN-LAST:event_adminDoctorsTableMouseClicked
 
     private void adminDoctorsAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDoctorsAddButtonActionPerformed
@@ -253,12 +255,12 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
         String title = adminDoctorsTitleTextField.getText();
         String email = adminDoctorsEmailTextField.getText();
         String phone = adminDoctorsPhoneTextField.getText();
-        String departmentsId = adminDoctorsDepartmentTextField.getText();
+        String departmentsId = adminDoctorsDepartmentComboBox.getSelectedItem().toString();
         String usersId = id;
 
         Doctor doctor = new Doctor(id, name, surname, title, email, phone, departmentsId, usersId);
         service.createDoctor(doctor);
-        
+
         showDoctor();
         adminDoctorsMessageLabel.setText("New Doctor is Added!");
     }//GEN-LAST:event_adminDoctorsAddButtonActionPerformed
@@ -271,12 +273,12 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
         String title = adminDoctorsTitleTextField.getText();
         String email = adminDoctorsEmailTextField.getText();
         String phone = adminDoctorsPhoneTextField.getText();
-        String departmentsId = adminDoctorsDepartmentTextField.getText();
+        String departmentsId = adminDoctorsDepartmentComboBox.getSelectedItem().toString();
         String usersId = id;
 
         Doctor doctor = new Doctor(id, name, surname, title, email, phone, departmentsId, usersId);
         service.updateDoctor(doctor);
-        
+
         showDoctor();
         adminDoctorsMessageLabel.setText("New Doctor is updated!");
     }//GEN-LAST:event_adminDoctorsUpdateButtonActionPerformed
@@ -289,7 +291,7 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
         String title = adminDoctorsTitleTextField.getText();
         String email = adminDoctorsEmailTextField.getText();
         String phone = adminDoctorsPhoneTextField.getText();
-        String departmentId = adminDoctorsDepartmentTextField.getText();
+        String departmentId = adminDoctorsDepartmentComboBox.getSelectedItem().toString();
 
         int selectedRow = adminDoctorsTable.getSelectedRow();
         if (selectedRow == -1) {
@@ -309,8 +311,8 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adminDoctorsAddButton;
     private javax.swing.JButton adminDoctorsDeleteButton;
+    private javax.swing.JComboBox<String> adminDoctorsDepartmentComboBox;
     private javax.swing.JLabel adminDoctorsDepartmentLabel;
-    private javax.swing.JTextField adminDoctorsDepartmentTextField;
     private javax.swing.JLabel adminDoctorsEmailLabel;
     private javax.swing.JTextField adminDoctorsEmailTextField;
     private javax.swing.JLabel adminDoctorsIdLabel;
@@ -355,5 +357,15 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
         adminDoctorsTable.setRowSorter(tableRowSorter);
 
         tableRowSorter.setRowFilter(RowFilter.regexFilter(search));
+    }
+
+    public void fillDepartmentComboBox() {
+        List<String> departmentsId = new LinkedList<>();
+        departmentsId = service.departmentsId();
+
+        for (String departmentId : departmentsId) {
+            adminDoctorsDepartmentComboBox.addItem(departmentId);
+
+        }
     }
 }

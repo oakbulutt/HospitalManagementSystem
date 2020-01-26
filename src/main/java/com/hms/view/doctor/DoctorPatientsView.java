@@ -105,6 +105,9 @@ public class DoctorPatientsView extends javax.swing.JInternalFrame {
     private void doctorPatientTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doctorPatientTableMouseClicked
         // TODO add your handling code here:
 //        DoctorPrescriptionView doctorPrescriptionView = new DoctorPrescriptionView();
+        
+        DoctorsPrescriptionView doctorsPrescriptionView = new DoctorsPrescriptionView();
+        doctorsPrescriptionView.setVisible(true);
 //        doctorDesktopPane.add(doctorPrescriptionView).setVisible(true);
     }//GEN-LAST:event_doctorPatientTableMouseClicked
 
@@ -130,9 +133,8 @@ public class DoctorPatientsView extends javax.swing.JInternalFrame {
                     patient.getPhone(), patient.getAnamnesis(),
                     patient.getPrescriptionId()
                 };
-                if (false) {
                     model.addRow(willAdd);
-                }
+                
             }
         }
     }

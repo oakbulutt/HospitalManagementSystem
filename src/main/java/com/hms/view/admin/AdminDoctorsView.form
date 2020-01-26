@@ -56,7 +56,7 @@
                                   <Component id="adminDoctorsEmailTextField" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="adminDoctorsPhoneLabel" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -65,7 +65,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="adminDoctorsDepartmentLabel" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="adminDoctorsDepartmentTextField" min="-2" pref="150" max="-2" attributes="0"/>
+                                      <Component id="adminDoctorsDepartmentComboBox" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -118,7 +118,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="adminDoctorsDepartmentLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="adminDoctorsDepartmentTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="adminDoctorsDepartmentComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -144,7 +144,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="adminDoctorsMessageLabel" min="-2" pref="20" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-              <Component id="jScrollPane3" pref="459" max="32767" attributes="0"/>
+              <Component id="jScrollPane3" pref="463" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -166,8 +166,6 @@
     <Component class="javax.swing.JTextField" name="adminDoctorsTitleTextField">
     </Component>
     <Component class="javax.swing.JTextField" name="adminDoctorsPhoneTextField">
-    </Component>
-    <Component class="javax.swing.JTextField" name="adminDoctorsDepartmentTextField">
     </Component>
     <Component class="javax.swing.JTextField" name="adminDoctorsEmailTextField">
     </Component>
@@ -260,6 +258,18 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="adminDoctorsMessageLabel">
+    </Component>
+    <Component class="javax.swing.JComboBox" name="adminDoctorsDepartmentComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="1">
+            <StringItem index="0" value="Choose Department"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

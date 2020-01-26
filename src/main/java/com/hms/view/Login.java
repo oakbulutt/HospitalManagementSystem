@@ -38,7 +38,6 @@ public class Login extends javax.swing.JFrame {
 
         loginPasswordLabel.setText("Password:");
 
-        loginPasswordField.setText("jPasswordField1");
         loginPasswordField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 loginPasswordFieldMouseClicked(evt);

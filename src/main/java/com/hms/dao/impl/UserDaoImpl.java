@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.hms.dao.impl;
 
 import com.hms.constants.UserConstants;
@@ -20,10 +16,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author domin
- */
 public class UserDaoImpl implements UserDao{
     private Connection connection = null;
     private Statement statement = null;
@@ -53,7 +45,7 @@ public class UserDaoImpl implements UserDao{
             ResultSet resultSet = statement.executeQuery(UserConstants.FETCH_SQL);
 
             while (resultSet.next()) {
-                String username = resultSet.getString("username");
+                String username = resultSet.getString("id");
                 String password = resultSet.getString("password");
 
                 users.add(new User(username, password));

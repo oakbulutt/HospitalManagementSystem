@@ -3,7 +3,8 @@ package com.hms.view.receptionist;
 import com.hms.model.Patient;
 import com.hms.service.HMSService;
 import java.sql.Date;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -135,7 +136,7 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
         });
         jScrollPane4.setViewportView(receptionistPatientTable);
 
-        receptionistPatientsDateChooser.setDateFormatString("yyyy MM dd");
+        receptionistPatientsDateChooser.setDateFormatString("yyyy-MM-dd");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -251,11 +252,12 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
         String name = receptionistPatientsNameTextField.getText();
         String surname = receptionistPatientsSurnameTextField.getText();
         String gender = receptionistPatientsGenderComboBox.getSelectedItem().toString();
-        Date birthdate = (Date) receptionistPatientsDateChooser.getDate();
+        Date birthdate = new java.sql.Date(receptionistPatientsDateChooser.getDate().getTime());
         String email = receptionistPatientsEmailTextField.getText();
         String phone = receptionistPatientsPhoneTextField.getText();
-
-        service.updatePatient(new Patient(id, name, surname, gender, birthdate, email, phone));
+        String anamnesis = "";
+        
+        service.createPatient(new Patient(id, name, surname, gender, birthdate, email, phone));
         showPatients();
         receptionistsPatientsMessageLabel.setText("New Patient is added!");
     }//GEN-LAST:event_receptionistPatientsAddButtonActionPerformed
@@ -266,10 +268,10 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
         String name = receptionistPatientsNameTextField.getText();
         String surname = receptionistPatientsSurnameTextField.getText();
         String gender = receptionistPatientsGenderComboBox.getSelectedItem().toString();
-        Date birthdate = (Date) receptionistPatientsDateChooser.getDate();
+        Date birthdate = new java.sql.Date(receptionistPatientsDateChooser.getDate().getTime());
         String email = receptionistPatientsEmailTextField.getText();
         String phone = receptionistPatientsPhoneTextField.getText();
-
+        String anamnesis = "";
         int selectedRow = receptionistPatientTable.getSelectedRow();
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
@@ -278,7 +280,7 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
                 receptionistsPatientsMessageLabel.setText("Please select the patient who you want to update.");
             }
         } else {
-            service.updatePatient(new Patient(id, name, surname, gender, birthdate, email, phone));
+            service.updatePatient(new Patient(id, name, surname, gender, birthdate, email, phone, anamnesis));
             showPatients();
             receptionistsPatientsMessageLabel.setText("Patient is updated!");
         }
@@ -290,7 +292,7 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
         String name = receptionistPatientsNameTextField.getText();
         String surname = receptionistPatientsSurnameTextField.getText();
         String gender = receptionistPatientsGenderComboBox.getSelectedItem().toString();
-        Date birthdate = (Date) receptionistPatientsDateChooser.getDate();
+        Date birthdate = new java.sql.Date(receptionistPatientsDateChooser.getDate().getTime());
         String email = receptionistPatientsEmailTextField.getText();
         String phone = receptionistPatientsPhoneTextField.getText();
 
@@ -345,7 +347,7 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
                     patient.getId(), patient.getName(),
                     patient.getSurname(), patient.getGender(),
                     patient.getBirthdate(), patient.getEmail(),
-                    patient.getPhone(), patient.getAnamnesis()
+                    patient.getPhone()
                 };
                 model.addRow(willAdd);
             }

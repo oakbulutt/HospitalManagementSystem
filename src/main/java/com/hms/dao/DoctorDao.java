@@ -7,7 +7,7 @@ public interface DoctorDao {
 
     public List<Doctor> allDoctors();
     
-    public List<Doctor> doctors(String id);
+    public List<String> doctors(String id);
 
     public List<String> getDoctorsId(String departmentId);
 

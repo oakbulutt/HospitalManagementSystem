@@ -51,11 +51,16 @@ public class AppointmentDaoImpl implements AppointmentDao {
             while (resultSet.next()) {
                 String id = resultSet.getString("id");
                 String patientsId = resultSet.getString("patients_id");
+                String patientsName = resultSet.getString("patient_name");
+                String patientsSurname = resultSet.getString("patient_surname");
                 String doctorsId = resultSet.getString("doctors_id");
+                String doctorsName = resultSet.getString("doctor_name");
+                String doctorsSurname = resultSet.getString("doctor_surname");
+                String doctorsDepartment = resultSet.getString("doctor_department");
                 Date appointmentDate = resultSet.getDate("appointment_date");
                 String appointmentStatus = resultSet.getString("appointment_status");
 
-                appointments.add(new Appointment(id, patientsId, doctorsId, appointmentDate, appointmentStatus));
+                appointments.add(new Appointment(id, patientsId, patientsName, patientsSurname, doctorsId, doctorsName, doctorsSurname, doctorsDepartment, appointmentDate, appointmentStatus));
             }
             return appointments;
         } catch (SQLException e) {

@@ -7,6 +7,8 @@ public interface DepartmentDao {
 
     public List<Department> departments();
 
+    public List<String> departmentsId();
+
     public void createDepartment(Department department);
 
     public void updateDepartment(Department department);

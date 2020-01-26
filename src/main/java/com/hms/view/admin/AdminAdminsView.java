@@ -17,6 +17,7 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
         initComponents();
         model = (DefaultTableModel) adminAdminsTable.getModel();
         showAdmin();
+        fillDepartmentComboBox();
     }
 
     /**
@@ -42,13 +43,13 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
         adminAdminsEmailLabel = new javax.swing.JLabel();
         adminAdminsPhoneLabel = new javax.swing.JLabel();
         adminAdminsDepartmentLabel = new javax.swing.JLabel();
-        adminAdminsDepartmentTextField = new javax.swing.JTextField();
         adminAdminsPhoneTextField = new javax.swing.JTextField();
         adminAdminsEmailTextField = new javax.swing.JTextField();
         adminAdminsAddButton = new javax.swing.JButton();
         adminAdminsUpdateButton = new javax.swing.JButton();
         adminAdminsDeleteButton = new javax.swing.JButton();
         adminAdminsMessageLabel = new javax.swing.JLabel();
+        adminAdminsDepartmentComboBox = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -131,6 +132,8 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
             }
         });
 
+        adminAdminsDepartmentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Department" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -168,9 +171,9 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
                                     .addComponent(adminAdminsDepartmentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(adminAdminsPhoneLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(adminAdminsDepartmentTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(adminAdminsPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(adminAdminsPhoneTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                    .addComponent(adminAdminsDepartmentComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(adminAdminsUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(83, 83, 83)
@@ -209,7 +212,7 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
                             .addComponent(adminAdminsNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(adminAdminsNameLabel)
                             .addComponent(adminAdminsDepartmentLabel)
-                            .addComponent(adminAdminsDepartmentTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(adminAdminsDepartmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(adminAdminsAddButton)
@@ -224,7 +227,7 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void adminAdminsSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminAdminsSearchTextFieldActionPerformed
     }//GEN-LAST:event_adminAdminsSearchTextFieldActionPerformed
 
@@ -241,7 +244,7 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
         String title = adminAdminsTitleTextField.getText();
         String email = adminAdminsEmailTextField.getText();
         String phone = adminAdminsPhoneTextField.getText();
-        String departmentsId = adminAdminsDepartmentTextField.getText();
+        String departmentsId = adminAdminsDepartmentComboBox.getSelectedItem().toString();
         String usersId = id;
 
         service.createAdmin(new Admin(id, name, surname, title, email, phone, departmentsId, usersId));
@@ -257,7 +260,7 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
         String title = adminAdminsTitleTextField.getText();
         String email = adminAdminsEmailTextField.getText();
         String phone = adminAdminsPhoneTextField.getText();
-        String departmentsId = adminAdminsDepartmentTextField.getText();
+        String departmentsId = adminAdminsDepartmentComboBox.getSelectedItem().toString();
         String usersId = id;
 
         int selectedRow = adminAdminsTable.getSelectedRow();
@@ -283,7 +286,7 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
         adminAdminsTitleTextField.setText(model.getValueAt(selectedRow, 3).toString());
         adminAdminsEmailTextField.setText(model.getValueAt(selectedRow, 4).toString());
         adminAdminsPhoneTextField.setText(model.getValueAt(selectedRow, 5).toString());
-        adminAdminsDepartmentTextField.setText(model.getValueAt(selectedRow, 6).toString());
+        adminAdminsDepartmentComboBox.setSelectedItem(model.getValueAt(selectedRow, 6).toString());
     }//GEN-LAST:event_adminAdminsTableMouseClicked
 
     private void adminAdminsDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminAdminsDeleteButtonActionPerformed
@@ -294,7 +297,7 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
         String title = adminAdminsTitleTextField.getText();
         String email = adminAdminsEmailTextField.getText();
         String phone = adminAdminsPhoneTextField.getText();
-        String department = adminAdminsDepartmentTextField.getText();
+        String department = adminAdminsDepartmentComboBox.getSelectedItem().toString();
 
         int selectedRow = adminAdminsTable.getSelectedRow();
         if (selectedRow == -1) {
@@ -328,6 +331,7 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
             }
         }
     }
+
     public void dinamicSearch(String search) {
         TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
 
@@ -336,11 +340,21 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
         tableRowSorter.setRowFilter(RowFilter.regexFilter(search));
     }
 
+    public void fillDepartmentComboBox() {
+        List<String> departmentsId = new LinkedList<>();
+        departmentsId = service.departmentsId();
+
+        for (String departmentId : departmentsId) {
+            adminAdminsDepartmentComboBox.addItem(departmentId);
+            
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adminAdminsAddButton;
     private javax.swing.JButton adminAdminsDeleteButton;
+    private javax.swing.JComboBox<String> adminAdminsDepartmentComboBox;
     private javax.swing.JLabel adminAdminsDepartmentLabel;
-    private javax.swing.JTextField adminAdminsDepartmentTextField;
     private javax.swing.JLabel adminAdminsEmailLabel;
     private javax.swing.JTextField adminAdminsEmailTextField;
     private javax.swing.JLabel adminAdminsIdLabel;

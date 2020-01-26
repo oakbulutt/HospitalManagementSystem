@@ -217,7 +217,6 @@ public class AdminReceptionistsView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_adminReceptionistsTableMouseClicked
 
     private void adminReceptionistsAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminReceptionistsAddButtonActionPerformed
-        // TODO add your handling code here:
         adminReceptionistsMessageLabel.setText("");
         String id = adminReceptionistsIdTextField.getText();
         String name = adminReceptionistsNameTextField.getText();
@@ -225,7 +224,7 @@ public class AdminReceptionistsView extends javax.swing.JInternalFrame {
         String email = adminReceptionistsEmailTextField.getText();
         String phone = adminReceptionistsPhoneTextField.getText();
         String usersId = id;
-        service.updateReceptionist(new Receptionist(id, name, surname, email, phone, usersId));
+        service.createReceptionist(new Receptionist(id, name, surname, email, phone, usersId));
         showReceptionist();
         adminReceptionistsMessageLabel.setText("Receptionists is added!");
     }//GEN-LAST:event_adminReceptionistsAddButtonActionPerformed

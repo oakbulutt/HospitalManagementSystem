@@ -28,20 +28,6 @@ public class ReceptionistDoctorsView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         receptionistDoctorsSearchTextField = new javax.swing.JTextField();
-        receptionistDoctorsIdLabel = new javax.swing.JLabel();
-        receptionistDoctorsIdTextField = new javax.swing.JTextField();
-        receptionistDoctorsTitleTextField = new javax.swing.JTextField();
-        receptionistDoctorsPhoneTextField = new javax.swing.JTextField();
-        receptionistDoctorsDepartmentTextField = new javax.swing.JTextField();
-        receptionistDoctorsEmailTextField = new javax.swing.JTextField();
-        receptionistDoctorsSurnameTextField = new javax.swing.JTextField();
-        receptionistDoctorsNameTextField = new javax.swing.JTextField();
-        receptionistDoctorsNameLabel = new javax.swing.JLabel();
-        receptionistDoctorsSurnameLabel = new javax.swing.JLabel();
-        receptionistDoctorsEmailLabel = new javax.swing.JLabel();
-        receptionistDoctorsTitleLabel = new javax.swing.JLabel();
-        receptionistDoctorsPhoneLabel = new javax.swing.JLabel();
-        receptionistDoctorsDepartmentLabel = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         receptionistDoctorsTable = new javax.swing.JTable();
 
@@ -56,20 +42,6 @@ public class ReceptionistDoctorsView extends javax.swing.JInternalFrame {
                 receptionistDoctorsSearchTextFieldKeyReleased(evt);
             }
         });
-
-        receptionistDoctorsIdLabel.setText("ID                   :");
-
-        receptionistDoctorsNameLabel.setText("Name              :");
-
-        receptionistDoctorsSurnameLabel.setText("Surname         :");
-
-        receptionistDoctorsEmailLabel.setText("E-Mail              :");
-
-        receptionistDoctorsTitleLabel.setText("Title                :");
-
-        receptionistDoctorsPhoneLabel.setText("Phone            :");
-
-        receptionistDoctorsDepartmentLabel.setText("Department   :");
 
         receptionistDoctorsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -100,79 +72,20 @@ public class ReceptionistDoctorsView extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(receptionistDoctorsSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(receptionistDoctorsSurnameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(receptionistDoctorsNameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(receptionistDoctorsIdLabel, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(receptionistDoctorsIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(receptionistDoctorsNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(receptionistDoctorsSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(receptionistDoctorsEmailLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(receptionistDoctorsTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(receptionistDoctorsTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(receptionistDoctorsEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(receptionistDoctorsPhoneLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(receptionistDoctorsPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(receptionistDoctorsDepartmentLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(receptionistDoctorsDepartmentTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(30, 30, 30))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(receptionistDoctorsSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(receptionistDoctorsSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(receptionistDoctorsIdLabel)
-                            .addComponent(receptionistDoctorsIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(receptionistDoctorsNameLabel)
-                            .addComponent(receptionistDoctorsNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(receptionistDoctorsSurnameLabel)
-                            .addComponent(receptionistDoctorsSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(receptionistDoctorsPhoneLabel)
-                            .addComponent(receptionistDoctorsPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(receptionistDoctorsDepartmentLabel)
-                            .addComponent(receptionistDoctorsDepartmentTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(receptionistDoctorsTitleLabel)
-                            .addComponent(receptionistDoctorsTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(receptionistDoctorsEmailLabel)
-                            .addComponent(receptionistDoctorsEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
+                .addComponent(receptionistDoctorsSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
                 .addGap(45, 45, 45))
         );
 
@@ -187,22 +100,8 @@ public class ReceptionistDoctorsView extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel receptionistDoctorsDepartmentLabel;
-    private javax.swing.JTextField receptionistDoctorsDepartmentTextField;
-    private javax.swing.JLabel receptionistDoctorsEmailLabel;
-    private javax.swing.JTextField receptionistDoctorsEmailTextField;
-    private javax.swing.JLabel receptionistDoctorsIdLabel;
-    private javax.swing.JTextField receptionistDoctorsIdTextField;
-    private javax.swing.JLabel receptionistDoctorsNameLabel;
-    private javax.swing.JTextField receptionistDoctorsNameTextField;
-    private javax.swing.JLabel receptionistDoctorsPhoneLabel;
-    private javax.swing.JTextField receptionistDoctorsPhoneTextField;
     private javax.swing.JTextField receptionistDoctorsSearchTextField;
-    private javax.swing.JLabel receptionistDoctorsSurnameLabel;
-    private javax.swing.JTextField receptionistDoctorsSurnameTextField;
     private javax.swing.JTable receptionistDoctorsTable;
-    private javax.swing.JLabel receptionistDoctorsTitleLabel;
-    private javax.swing.JTextField receptionistDoctorsTitleTextField;
     // End of variables declaration//GEN-END:variables
 
     private void dinamicSearch(String search) {

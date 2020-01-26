@@ -65,8 +65,8 @@ public class DoctorDaoImpl implements DoctorDao {
         }
     }
 
-    public List<Doctor> doctors(String id) {
-        List<Doctor> doctors = new LinkedList<>();
+    public List<String> doctors(String id) {
+        List<String> doctors = new LinkedList<>();
         try {
             preparedStatement = connection.prepareStatement(DoctorConstants.DOCTOR_SQL);
             preparedStatement.setString(1, id);
@@ -81,8 +81,13 @@ public class DoctorDaoImpl implements DoctorDao {
                 String phone = resultSet.getString("phone");
                 String departmentsId = resultSet.getString("departments_id");
                 String usersId = resultSet.getString("users_id");
-
-                doctors.add(new Doctor(id, name, surname, title, email, phone, departmentsId, usersId));
+                
+                doctors.add(name);
+                doctors.add(surname);
+                doctors.add(title);
+                doctors.add(email);
+                doctors.add(phone);
+                doctors.add(departmentsId);
             }
             return doctors;
         } catch (SQLException e) {
@@ -112,6 +117,7 @@ public class DoctorDaoImpl implements DoctorDao {
 
     @Override
     public void updateDoctor(Doctor doctor) {
+        String userId = doctor.getId();
         try {
             preparedStatement = connection.prepareStatement(DoctorConstants.UPDATE_SQL);
             preparedStatement.setString(1, doctor.getName());
@@ -120,8 +126,7 @@ public class DoctorDaoImpl implements DoctorDao {
             preparedStatement.setString(4, doctor.getEmail());
             preparedStatement.setString(5, doctor.getPhone());
             preparedStatement.setString(6, doctor.getDepartmentsId());
-            preparedStatement.setString(7, doctor.getUsersId());
-            preparedStatement.setString(8, doctor.getId());
+            preparedStatement.setString(7, doctor.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -145,8 +150,10 @@ public class DoctorDaoImpl implements DoctorDao {
     public List<String> getDoctorsId(String departmentId) {
         List<String> ids = new LinkedList();
         try {
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(DoctorConstants.DOCTOR_ID_SQL);
+            preparedStatement = connection.prepareStatement(DoctorConstants.DOCTOR_ID_SQL);
+            preparedStatement.setString(1, departmentId);
+            
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 String id = resultSet.getString("id");
                 ids.add(id);

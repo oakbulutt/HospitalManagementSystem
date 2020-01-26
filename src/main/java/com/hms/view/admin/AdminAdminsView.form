@@ -66,9 +66,9 @@
                                   <Component id="adminAdminsPhoneLabel" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="adminAdminsDepartmentTextField" min="-2" pref="150" max="-2" attributes="0"/>
-                                  <Component id="adminAdminsPhoneTextField" min="-2" pref="150" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="adminAdminsPhoneTextField" pref="150" max="32767" attributes="0"/>
+                                  <Component id="adminAdminsDepartmentComboBox" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -119,7 +119,7 @@
                           <Component id="adminAdminsNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="adminAdminsNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="adminAdminsDepartmentLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="adminAdminsDepartmentTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="adminAdminsDepartmentComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -257,8 +257,6 @@
         <Property name="text" type="java.lang.String" value="Department    :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="adminAdminsDepartmentTextField">
-    </Component>
     <Component class="javax.swing.JTextField" name="adminAdminsPhoneTextField">
     </Component>
     <Component class="javax.swing.JTextField" name="adminAdminsEmailTextField">
@@ -288,6 +286,18 @@
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="adminAdminsMessageLabel">
+    </Component>
+    <Component class="javax.swing.JComboBox" name="adminAdminsDepartmentComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="1">
+            <StringItem index="0" value="Choose Department"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

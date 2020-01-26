@@ -42,11 +42,6 @@ public class HMSDoctorMainView extends javax.swing.JFrame {
         );
 
         doctorFileMenu.setText("File");
-        doctorFileMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                doctorFileMenuActionPerformed(evt);
-            }
-        });
 
         doctorFileMenuItemLogOut.setText("Log Out");
         doctorFileMenuItemLogOut.addActionListener(new java.awt.event.ActionListener() {
@@ -109,10 +104,6 @@ public class HMSDoctorMainView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void doctorFileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorFileMenuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_doctorFileMenuActionPerformed
 
     private void doctorFileMenuItemLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorFileMenuItemLogOutActionPerformed
         Login login = new Login();
