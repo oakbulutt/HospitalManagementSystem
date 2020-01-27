@@ -2,6 +2,7 @@ package com.hms.view.doctor;
 
 import com.hms.model.Appointment;
 import com.hms.service.HMSService;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -11,6 +12,7 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
 
     DefaultTableModel model = new DefaultTableModel();
     HMSService service = new HMSService();
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public DoctorAppointmentView() {
         initComponents();
@@ -112,6 +114,8 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
             }
         });
 
+        doctorAppointmentViewAppointmentDateChooser.setDateFormatString("yyyy-MM-dd");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,21 +185,56 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void doctorAppointmentViewAcceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorAppointmentViewAcceptButtonActionPerformed
-        // TODO add your handling code here:
+        doctorAppointmentsMessageLabel.setText("");
+        int selectedRow = doctorAppointmentTable.getSelectedRow();
+
+        String id = model.getValueAt(selectedRow, 0).toString();
+        String patientId = doctorAppointmentViewPatientIdTextField.getText();
+        java.sql.Date appointmentDate = new java.sql.Date(doctorAppointmentViewAppointmentDateChooser.getDate().getTime());
+        String doctorId = model.getValueAt(selectedRow, 4).toString();
+       
+        String appointmentStatus = "Accepted";
+
+        if (selectedRow == -1) {
+            if (model.getRowCount() == 0) {
+                doctorAppointmentsMessageLabel.setText("Appointment table is empty.");
+            } else {
+                doctorAppointmentsMessageLabel.setText("Please select the appointment which you want to accept.");
+            }
+        } else {
+            service.updateAppointment(new Appointment(id, patientId, doctorId, appointmentDate, appointmentStatus));
+            showAppointment();
+            doctorAppointmentsMessageLabel.setText("Appointment is accepted!");
+        }
     }//GEN-LAST:event_doctorAppointmentViewAcceptButtonActionPerformed
 
     private void doctorAppointmentViewDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorAppointmentViewDeleteButtonActionPerformed
-        // TODO add your handling code here:
+        doctorAppointmentsMessageLabel.setText("");
+        int selectedRow = doctorAppointmentTable.getSelectedRow();
+
+        String id = model.getValueAt(selectedRow, 0).toString();
+        
+        if (selectedRow == -1) {
+            if (model.getRowCount() == 0) {
+                doctorAppointmentsMessageLabel.setText("Appointment table is empty.");
+            } else {
+                doctorAppointmentsMessageLabel.setText("Please select the appointment which you want to delete.");
+            }
+        } else {
+            service.deleteAppointment(id);
+            showAppointment();
+            doctorAppointmentsMessageLabel.setText("Appointment is accepted!");
+        }
     }//GEN-LAST:event_doctorAppointmentViewDeleteButtonActionPerformed
 
     private void doctorAppointmentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doctorAppointmentTableMouseClicked
-        // TODO add your handling code here:
         int selectedRow = doctorAppointmentTable.getSelectedRow();
 
-        doctorAppointmentViewPatientIdTextField.setText(model.getValueAt(selectedRow, 0).toString());
-        doctorAppointmentViewPatientNameTextField.setText(model.getValueAt(selectedRow, 1).toString());
-        doctorAppointmentViewPatientSurnameTextField.setText(model.getValueAt(selectedRow, 2).toString());
-        doctorAppointmentViewAppointmentDateChooser.setDate((Date) model.getValueAt(selectedRow, 7));
+        doctorAppointmentViewPatientIdTextField.setText(model.getValueAt(selectedRow, 1).toString());
+        doctorAppointmentViewPatientNameTextField.setText(model.getValueAt(selectedRow, 2).toString());
+        doctorAppointmentViewPatientSurnameTextField.setText(model.getValueAt(selectedRow, 3).toString());
+        doctorAppointmentViewAppointmentDateChooser.setDate((Date) (model.getValueAt(selectedRow, 8)));
+
     }//GEN-LAST:event_doctorAppointmentTableMouseClicked
 
     private void doctorAppointmentsSearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_doctorAppointmentsSearchTextFieldKeyReleased
@@ -230,11 +269,11 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
         if (appointments != null) {
             for (Appointment appointment : appointments) {
                 Object[] willAdd = {
-                    appointment.getId(),
-                    appointment.getPatientsId(), //patientName, patientSurname
-                    appointment.getDoctorsId(), //doctorName, doctorSurname, department
-                    appointment.getAppointmentDate(),
-                    appointment.getAppointmentStatus()
+                    appointment.getId(), appointment.getPatientsId(),
+                    appointment.getPatientsName(), appointment.getPatientsSurname(),
+                    appointment.getDoctorsId(), appointment.getDoctorsName(),
+                    appointment.getDoctorsSurname(), appointment.getDoctorsDepartment(),
+                    appointment.getAppointmentDate(), appointment.getAppointmentStatus()
                 };
                 model.addRow(willAdd);
             }

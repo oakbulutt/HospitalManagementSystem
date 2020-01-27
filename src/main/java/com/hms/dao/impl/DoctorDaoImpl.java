@@ -17,8 +17,6 @@ import com.hms.dao.DoctorDao;
 
 public class DoctorDaoImpl implements DoctorDao {
 
-    
-
     private Connection connection = null;
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;

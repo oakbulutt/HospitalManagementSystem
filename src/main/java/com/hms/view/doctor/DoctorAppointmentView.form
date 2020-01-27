@@ -252,6 +252,9 @@
     <Component class="javax.swing.JLabel" name="doctorAppointmentsMessageLabel">
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="doctorAppointmentViewAppointmentDateChooser">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

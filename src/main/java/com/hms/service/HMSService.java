@@ -57,6 +57,7 @@ public class HMSService {
     List<Patient> listPatients;
     List<String> listStringPatients;
     List<Prescription> listPrescriptions;
+    List<String> listPrescription;
     List<Receptionist> listReceptionists;
     List<User> listUsers;
 
@@ -241,17 +242,14 @@ public class HMSService {
     }
 
     //Prescription
-    public List<Prescription> showPrescriptions() {
-        listPrescriptions = prescriptionDao.allPrescriptions();
-        return listPrescriptions;
-    }
-     public List<Prescription> prescription(String id) {
-        listPrescriptions = prescriptionDao.prescriptions(id);
-        return listPrescriptions;
+   
+     public List<String> prescription(String id) {
+        listPrescription = prescriptionDao.prescription(id);
+        return listPrescription;
     }
 
-    public void createPrescription(Prescription user) {
-        prescriptionDao.createPrescription(user);
+    public void createPrescription(Prescription prescription) {
+        prescriptionDao.createPrescription(prescription);
     }
 
     public void updatePrescription(Prescription prescription) {
@@ -260,5 +258,9 @@ public class HMSService {
 
     public void deletePrescription(String id) {
         prescriptionDao.deletePrescription(id);
+    }
+    
+    public String lastPrescriptionId(){
+        return prescriptionDao.lastId();
     }
 }

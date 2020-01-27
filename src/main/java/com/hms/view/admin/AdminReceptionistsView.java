@@ -201,7 +201,6 @@ public class AdminReceptionistsView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void adminReceptionistsSearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adminReceptionistsSearchTextFieldKeyReleased
-        // TODO add your handling code here:
         String search = adminReceptionistsSearchTextField.getText();
         dinamicSearch(search);
     }//GEN-LAST:event_adminReceptionistsSearchTextFieldKeyReleased

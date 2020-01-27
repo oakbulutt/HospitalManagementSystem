@@ -56,6 +56,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
         }
     }
 
+    @Override
     public List<String> departmentsId() {
         List<String> departmentsId = new LinkedList<>();
         try {

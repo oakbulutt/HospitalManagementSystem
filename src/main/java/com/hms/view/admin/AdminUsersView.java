@@ -73,18 +73,6 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
 
         adminUserstIdLabel.setText("User ID                   :");
 
-        adminUsersIdTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminUsersIdTextFieldActionPerformed(evt);
-            }
-        });
-
-        adminUsersPasswordTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminUsersPasswordTextFieldActionPerformed(evt);
-            }
-        });
-
         adminUsersSearchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 adminUsersSearchTextFieldKeyReleased(evt);
@@ -165,12 +153,6 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void adminUsersIdTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminUsersIdTextFieldActionPerformed
-    }//GEN-LAST:event_adminUsersIdTextFieldActionPerformed
-
-    private void adminUsersPasswordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminUsersPasswordTextFieldActionPerformed
-    }//GEN-LAST:event_adminUsersPasswordTextFieldActionPerformed
 
     private void adminUsersSearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adminUsersSearchTextFieldKeyReleased
         String search = adminUsersSearchTextField.getText();

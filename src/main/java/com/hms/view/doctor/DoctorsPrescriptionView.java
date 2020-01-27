@@ -4,6 +4,8 @@ import com.hms.model.Prescription;
 import com.hms.service.HMSService;
 import java.awt.print.PrinterException;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,15 +15,48 @@ import javax.swing.DefaultComboBoxModel;
 public class DoctorsPrescriptionView extends javax.swing.JDialog {
 
     DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    List<String> patientInfo = new LinkedList();
+    List<String> prescription = new LinkedList();
     HMSService service = new HMSService();
 
     public DoctorsPrescriptionView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();
     }
 
     DoctorsPrescriptionView() {
         initComponents();
+
+    }
+
+    DoctorsPrescriptionView(List<String> patientInfo) {
+        initComponents();
+        this.patientInfo = patientInfo;
+        doctorPrescriptionViewPatientsIdTextField.setText(patientInfo.get(0));
+        doctorPrescriptionViewPatientsNameTextField.setText(patientInfo.get(1));
+        doctorPrescriptionViewPatientsSurnameTextField.setText(patientInfo.get(2));
+        doctorPrescriptionViewPatientsGenderComboBox.setSelectedItem(patientInfo.get(3));
+        try {
+            doctorPrescriptionViewPatientsBirthdateDateChooser.setDate(simpleDateFormat.parse(patientInfo.get(4)));
+        } catch (ParseException ex) {
+            Logger.getLogger(DoctorsPrescriptionView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        doctorPrescriptionViewAnamnesisTextField.setText(patientInfo.get(7));
+
+        if (patientInfo.get(8) != "No prescription") {
+            prescription = service.prescription(patientInfo.get(8));
+            
+            doctorPrescriptionViewPrescriptionIdTextField.setText(patientInfo.get(8));
+            doctorPrescriptionViewMedicineNameTextField.setText(prescription.get(2));
+            doctorPrescriptionViewDoseTextField.setText(prescription.get(3));
+            doctorPrescriptionViewNumberOfTabletsTextField.setText(prescription.get(4));
+            doctorPrescriptionViewDailyDoseTextField.setText(prescription.get(5));
+            doctorPrescriptionViewExplanationTextField.setText(prescription.get(6));
+
+        } else {
+            doctorPrescriptionViewPrescriptionIdTextField.setText(lastId());
+
+        }
 
     }
 
@@ -51,10 +86,8 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
         doctorPrescriptionViewExplanationLabel = new javax.swing.JLabel();
         doctorPrescriptionViewPrescriptionIdLabel = new javax.swing.JLabel();
         doctorPrescriptionViewPatientsNameLabel = new javax.swing.JLabel();
-        doctorPrescriptionViewPrescriptionSearchTextField = new javax.swing.JTextField();
         doctorPrescriptionViewPatientsGenderComboBox = new javax.swing.JComboBox<>();
         doctorPrescriptionViewNumberOfTabletsLabel = new javax.swing.JLabel();
-        doctorPrescriptionViewPrescriptionSearchLabel = new javax.swing.JLabel();
         doctorPrescriptionViewExplanationTextField = new javax.swing.JTextField();
         doctorPrescriptionViewMessageLabel = new javax.swing.JLabel();
         doctorPrescriptionViewPatientsSurnameLabel = new javax.swing.JLabel();
@@ -66,7 +99,10 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
         doctorPrescriptionViewDoseLabel = new javax.swing.JLabel();
         doctorPrescriptionViewPrintButton = new javax.swing.JButton();
         doctorPrescriptionViewPrescriptionPane = new javax.swing.JPanel();
-        doctorPrescriptionViewPrescriptionTextField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        doctorsPrescriptionViewPrescriptionTextArea = new javax.swing.JTextArea();
+        doctorPrescriptionViewDoctorIdLabel = new javax.swing.JLabel();
+        doctorPrescriptionViewDoctorIdTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Prescription");
@@ -78,6 +114,8 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
                 doctorPrescriptionViewSaveButtonActionPerformed(evt);
             }
         });
+
+        doctorPrescriptionViewAnamnesisTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         doctorPrescriptionViewPatientIdLabel.setText("Patient ID               :");
 
@@ -111,17 +149,9 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
 
         doctorPrescriptionViewPatientsNameLabel.setText("Name                      :");
 
-        doctorPrescriptionViewPrescriptionSearchTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                doctorPrescriptionViewPrescriptionSearchTextFieldActionPerformed(evt);
-            }
-        });
-
         doctorPrescriptionViewPatientsGenderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
 
         doctorPrescriptionViewNumberOfTabletsLabel.setText("Number of Tablets :");
-
-        doctorPrescriptionViewPrescriptionSearchLabel.setText("Search Previous Prescription By Prescription ID:");
 
         doctorPrescriptionViewPatientsSurnameLabel.setText("Surname                 :");
 
@@ -144,18 +174,22 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
 
         doctorPrescriptionViewPrescriptionPane.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        doctorPrescriptionViewPrescriptionTextField.setEditable(false);
+        doctorsPrescriptionViewPrescriptionTextArea.setColumns(20);
+        doctorsPrescriptionViewPrescriptionTextArea.setRows(5);
+        jScrollPane1.setViewportView(doctorsPrescriptionViewPrescriptionTextArea);
 
         javax.swing.GroupLayout doctorPrescriptionViewPrescriptionPaneLayout = new javax.swing.GroupLayout(doctorPrescriptionViewPrescriptionPane);
         doctorPrescriptionViewPrescriptionPane.setLayout(doctorPrescriptionViewPrescriptionPaneLayout);
         doctorPrescriptionViewPrescriptionPaneLayout.setHorizontalGroup(
             doctorPrescriptionViewPrescriptionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(doctorPrescriptionViewPrescriptionTextField)
+            .addComponent(jScrollPane1)
         );
         doctorPrescriptionViewPrescriptionPaneLayout.setVerticalGroup(
             doctorPrescriptionViewPrescriptionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(doctorPrescriptionViewPrescriptionTextField)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
         );
+
+        doctorPrescriptionViewDoctorIdLabel.setText("Doctor ID                :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,9 +197,8 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(55, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(doctorPrescriptionViewPrescriptionSearchTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(doctorPrescriptionViewPatientsSurnameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(doctorPrescriptionViewPatientsNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -173,9 +206,9 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(doctorPrescriptionViewPatientsSurnameTextField)
-                            .addComponent(doctorPrescriptionViewPatientsNameTextField)
-                            .addComponent(doctorPrescriptionViewPatientsIdTextField)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(doctorPrescriptionViewPatientsIdTextField)
+                            .addComponent(doctorPrescriptionViewPatientsNameTextField)))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(doctorPrescriptionViewPatientsGenderLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(doctorPrescriptionViewAnamnesisLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
@@ -184,9 +217,8 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(doctorPrescriptionViewPatientsGenderComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(doctorPrescriptionViewPatientsBirthdateDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(doctorPrescriptionViewPrescriptionSearchLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(doctorPrescriptionViewAnamnesisTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addComponent(doctorPrescriptionViewAnamnesisTextField)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(doctorPrescriptionViewSaveButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(doctorPrescriptionViewPrescriptionButton, javax.swing.GroupLayout.Alignment.LEADING))
@@ -194,7 +226,11 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(doctorPrescriptionViewPrintButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(doctorPrescriptionViewUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(doctorPrescriptionViewMessageLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(doctorPrescriptionViewMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(doctorPrescriptionViewDoctorIdLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(doctorPrescriptionViewDoctorIdTextField)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -209,62 +245,63 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
                             .addComponent(doctorPrescriptionViewNumberOfTabletsTextField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(doctorPrescriptionViewDailyDoseTextField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(doctorPrescriptionViewMedicineNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(doctorPrescriptionViewPrescriptionIdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(doctorPrescriptionViewPrescriptionIdTextField))
-                    .addComponent(doctorPrescriptionViewExplanationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(doctorPrescriptionViewExplanationTextField)
-                    .addComponent(doctorPrescriptionViewPrescriptionPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(doctorPrescriptionViewPrescriptionPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(doctorPrescriptionViewPrescriptionIdLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(doctorPrescriptionViewExplanationLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(doctorPrescriptionViewPrescriptionIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(doctorPrescriptionViewMedicineNameLabel)
-                            .addComponent(doctorPrescriptionViewMedicineNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(doctorPrescriptionViewDoseLabel)
-                            .addComponent(doctorPrescriptionViewDoseTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(doctorPrescriptionViewNumberOfTabletsLabel)
-                            .addComponent(doctorPrescriptionViewNumberOfTabletsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(doctorPrescriptionViewDailyDoseLabel)
-                            .addComponent(doctorPrescriptionViewDailyDoseTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(doctorPrescriptionViewPrescriptionIdLabel)
-                            .addComponent(doctorPrescriptionViewPrescriptionIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
-                        .addComponent(doctorPrescriptionViewExplanationLabel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(doctorPrescriptionViewPatientIdLabel)
-                            .addComponent(doctorPrescriptionViewPatientsIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(doctorPrescriptionViewPatientsNameLabel)
-                            .addComponent(doctorPrescriptionViewPatientsNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(doctorPrescriptionViewPatientsSurnameLabel)
-                            .addComponent(doctorPrescriptionViewPatientsSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(doctorPrescriptionViewPatientsBirthdateLabel)
-                            .addComponent(doctorPrescriptionViewPatientsBirthdateDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(doctorPrescriptionViewPatientsGenderLabel)
-                            .addComponent(doctorPrescriptionViewPatientsGenderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(doctorPrescriptionViewDoctorIdLabel)
+                        .addComponent(doctorPrescriptionViewDoctorIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(doctorPrescriptionViewMedicineNameLabel)
+                        .addComponent(doctorPrescriptionViewMedicineNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(doctorPrescriptionViewPatientIdLabel)
+                        .addComponent(doctorPrescriptionViewPatientsIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(doctorPrescriptionViewDoseLabel)
+                        .addComponent(doctorPrescriptionViewDoseTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(doctorPrescriptionViewPatientsNameLabel)
+                        .addComponent(doctorPrescriptionViewPatientsNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(doctorPrescriptionViewNumberOfTabletsLabel)
+                        .addComponent(doctorPrescriptionViewNumberOfTabletsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(doctorPrescriptionViewPatientsSurnameLabel)
+                        .addComponent(doctorPrescriptionViewPatientsSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(doctorPrescriptionViewDailyDoseLabel)
+                        .addComponent(doctorPrescriptionViewDailyDoseTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(doctorPrescriptionViewPrescriptionIdLabel)
+                        .addComponent(doctorPrescriptionViewPrescriptionIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(doctorPrescriptionViewPatientsBirthdateLabel)
+                    .addComponent(doctorPrescriptionViewPatientsBirthdateDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(doctorPrescriptionViewExplanationLabel)
+                    .addComponent(doctorPrescriptionViewPatientsGenderLabel)
+                    .addComponent(doctorPrescriptionViewPatientsGenderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -273,13 +310,9 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
                         .addComponent(doctorPrescriptionViewAnamnesisLabel))
                     .addComponent(doctorPrescriptionViewExplanationTextField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(doctorPrescriptionViewAnamnesisTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(doctorPrescriptionViewPrescriptionSearchLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(doctorPrescriptionViewPrescriptionSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(doctorPrescriptionViewUpdateButton)
@@ -288,8 +321,8 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(doctorPrescriptionViewPrescriptionButton)
                             .addComponent(doctorPrescriptionViewPrintButton)))
-                    .addComponent(doctorPrescriptionViewPrescriptionPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .addComponent(doctorPrescriptionViewPrescriptionPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -301,7 +334,7 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
         String patientId = doctorPrescriptionViewPatientsIdTextField.getText();
         String patientName = doctorPrescriptionViewPatientsNameTextField.getText();
         String patientSurname = doctorPrescriptionViewPatientsSurnameTextField.getText();
-        Date patientBirthdate = (Date) doctorPrescriptionViewPatientsBirthdateDateChooser.getDate();
+        Date patientBirthdate = new java.sql.Date(doctorPrescriptionViewPatientsBirthdateDateChooser.getDate().getTime());
         String patientGender = doctorPrescriptionViewPatientsGenderComboBox.getSelectedItem().toString();
         String nameOfMedicine = doctorPrescriptionViewMedicineNameTextField.getText();
         int doseMg = Integer.parseInt(doctorPrescriptionViewDoseTextField.getText());
@@ -309,8 +342,10 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
         int dailyDose = Integer.parseInt(doctorPrescriptionViewDailyDoseTextField.getText());
         String prescriptionId = doctorPrescriptionViewPrescriptionIdTextField.getText();
         String explanation = doctorPrescriptionViewExplanationTextField.getText();
+        String doctorId = doctorPrescriptionViewDoctorIdTextField.getText();
+        String anamnesis = doctorPrescriptionViewAnamnesisTextField.getText();
 
-        //        service.createPrescription(new Prescription(prescriptionId, patientId, doctorId, nameOfMedicine, doseMg, numberOfTablets, dailyDose, explanation));
+        service.createPrescription(new Prescription(prescriptionId, patientId, doctorId, nameOfMedicine, doseMg, numberOfTablets, dailyDose, explanation));
         doctorPrescriptionViewMessageLabel.setText("Prescription is saved!");
     }//GEN-LAST:event_doctorPrescriptionViewSaveButtonActionPerformed
 
@@ -319,7 +354,7 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
         String patientId = doctorPrescriptionViewPatientsIdTextField.getText();
         String patientName = doctorPrescriptionViewPatientsNameTextField.getText();
         String patientSurname = doctorPrescriptionViewPatientsSurnameTextField.getText();
-        Date patientBirthdate = (Date) doctorPrescriptionViewPatientsBirthdateDateChooser.getDate();
+        Date patientBirthdate = new java.sql.Date(doctorPrescriptionViewPatientsBirthdateDateChooser.getDate().getTime());
         String patientGender = doctorPrescriptionViewPatientsGenderComboBox.getSelectedItem().toString();
         String nameOfMedicine = doctorPrescriptionViewMedicineNameTextField.getText();
         int doseMg = Integer.parseInt(doctorPrescriptionViewDoseTextField.getText());
@@ -327,8 +362,9 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
         int dailyDose = Integer.parseInt(doctorPrescriptionViewDailyDoseTextField.getText());
         String prescriptionId = doctorPrescriptionViewPrescriptionIdTextField.getText();
         String explanation = doctorPrescriptionViewExplanationTextField.getText();
+        String doctorId = doctorPrescriptionViewDoctorIdTextField.getText();
 
-        //        service.updatePrescription(new Prescription(prescriptionId, patientId, doctorId, nameOfMedicine, doseMg, numberOfTablets, dailyDose, explanation));
+        service.updatePrescription(new Prescription(prescriptionId, patientId, doctorId, nameOfMedicine, doseMg, numberOfTablets, dailyDose, explanation));
         doctorPrescriptionViewMessageLabel.setText("Prescription is updated!");
     }//GEN-LAST:event_doctorPrescriptionViewUpdateButtonActionPerformed
 
@@ -336,7 +372,7 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
         String patientId = doctorPrescriptionViewPatientsIdTextField.getText();
         String patientName = doctorPrescriptionViewPatientsNameTextField.getText();
         String patientSurname = doctorPrescriptionViewPatientsSurnameTextField.getText();
-        Date patientBirthdate = (Date) doctorPrescriptionViewPatientsBirthdateDateChooser.getDate();
+        Date patientBirthdate = new java.sql.Date(doctorPrescriptionViewPatientsBirthdateDateChooser.getDate().getTime());
         String patientGender = doctorPrescriptionViewPatientsGenderComboBox.getSelectedItem().toString();
         String nameOfMedicine = doctorPrescriptionViewMedicineNameTextField.getText();
         String doseMg = doctorPrescriptionViewDoseTextField.getText();
@@ -344,95 +380,40 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
         String dailyDose = doctorPrescriptionViewDailyDoseTextField.getText();
         String prescriptionId = doctorPrescriptionViewPrescriptionIdTextField.getText();
         String explanation = doctorPrescriptionViewExplanationTextField.getText();
+        String doctorId = doctorPrescriptionViewDoctorIdTextField.getText();
 
-        doctorPrescriptionViewPrescriptionTextField.setText("\t\n\tHospital Management System\n"
-                + "Patient ID:\t\t" + patientId
-                + "Patient Name:\t\t" + patientName + " " + patientSurname
-                + "Gender:\t\t" + patientGender
-                + "Date of Birth:\t\t" + patientBirthdate
-                + "\nPrescription ID:\t\t" + prescriptionId
-                + "Medicine Name:\t\t" + nameOfMedicine
-                + "Dose (mg):\t\t" + doseMg
-                + "Number of Tablets:\t\t" + numberOfTablets
-                + "Daily Dose:\t\t" + dailyDose
-                + "Explanation:\t\t" + explanation);
+        doctorsPrescriptionViewPrescriptionTextArea.setText("");
+        doctorsPrescriptionViewPrescriptionTextArea.append("\t\n\tHospital Management System\n"
+                + "\nPatient ID:\t\t" + patientId
+                + "\nPatient Name:\t\t" + patientName + " " + patientSurname
+                + "\nGender:\t\t" + patientGender
+                + "\nDate of Birth:\t\t" + patientBirthdate
+                + "\n\nPrescription ID:\t\t" + prescriptionId
+                + "\nDoctor ID:\t\t" + doctorId
+                + "\nMedicine Name:\t" + nameOfMedicine
+                + "\nDose (mg):\t\t" + doseMg
+                + "\nNumber of Tablets:\t" + numberOfTablets
+                + "\nDaily Dose:\t\t" + dailyDose
+                + "\nExplanation:\t\t" + explanation);
 
     }//GEN-LAST:event_doctorPrescriptionViewPrescriptionButtonActionPerformed
 
-    private void doctorPrescriptionViewPrescriptionSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorPrescriptionViewPrescriptionSearchTextFieldActionPerformed
-        String prescriptionId = doctorPrescriptionViewPrescriptionSearchTextField.getText();
-
-        List<Prescription> prescription = new LinkedList<>();
-        prescription = service.prescription(prescriptionId);
-
-        doctorPrescriptionViewPrescriptionIdTextField.setText(prescription.get(0).toString());
-        doctorPrescriptionViewPatientsIdTextField.setText(prescription.get(1).toString());
-        //        doctorPrescriptionViewPatientsNameTextField.setText();
-        //        doctorPrescriptionViewPatientsSurnameTextField.setText();
-        //        doctorPrescriptionViewPatientsBirthdateDateChooser.setDate();
-        //        doctorPrescriptionViewPatientsGenderComboBox.setSelectedItem();
-        doctorPrescriptionViewMedicineNameTextField.setText(prescription.get(3).toString());
-        doctorPrescriptionViewDoseTextField.setText(prescription.get(4).toString());
-        doctorPrescriptionViewNumberOfTabletsTextField.setText(prescription.get(5).toString());
-        doctorPrescriptionViewDailyDoseTextField.setText(prescription.get(6).toString());
-        doctorPrescriptionViewExplanationTextField.setText(prescription.get(7).toString());
-    }//GEN-LAST:event_doctorPrescriptionViewPrescriptionSearchTextFieldActionPerformed
-
     private void doctorPrescriptionViewPrintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorPrescriptionViewPrintButtonActionPerformed
         try {
-            doctorPrescriptionViewPrescriptionTextField.print();
+            doctorsPrescriptionViewPrescriptionTextArea.print();
         } catch (PrinterException ex) {
-            Logger.getLogger(DoctorPrescriptionView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DoctorsPrescriptionView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_doctorPrescriptionViewPrintButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DoctorsPrescriptionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DoctorsPrescriptionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DoctorsPrescriptionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DoctorsPrescriptionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DoctorsPrescriptionView dialog = new DoctorsPrescriptionView(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel doctorPrescriptionViewAnamnesisLabel;
     private javax.swing.JTextField doctorPrescriptionViewAnamnesisTextField;
     private javax.swing.JLabel doctorPrescriptionViewDailyDoseLabel;
     private javax.swing.JTextField doctorPrescriptionViewDailyDoseTextField;
+    private javax.swing.JLabel doctorPrescriptionViewDoctorIdLabel;
+    private javax.swing.JTextField doctorPrescriptionViewDoctorIdTextField;
     private javax.swing.JLabel doctorPrescriptionViewDoseLabel;
     private javax.swing.JTextField doctorPrescriptionViewDoseTextField;
     private javax.swing.JLabel doctorPrescriptionViewExplanationLabel;
@@ -456,11 +437,20 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
     private javax.swing.JLabel doctorPrescriptionViewPrescriptionIdLabel;
     private javax.swing.JTextField doctorPrescriptionViewPrescriptionIdTextField;
     private javax.swing.JPanel doctorPrescriptionViewPrescriptionPane;
-    private javax.swing.JLabel doctorPrescriptionViewPrescriptionSearchLabel;
-    private javax.swing.JTextField doctorPrescriptionViewPrescriptionSearchTextField;
-    private javax.swing.JTextField doctorPrescriptionViewPrescriptionTextField;
     private javax.swing.JButton doctorPrescriptionViewPrintButton;
     private javax.swing.JButton doctorPrescriptionViewSaveButton;
     private javax.swing.JButton doctorPrescriptionViewUpdateButton;
+    private javax.swing.JTextArea doctorsPrescriptionViewPrescriptionTextArea;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    private String lastId() {
+        String prescriptionId = service.lastPrescriptionId();
+
+        int idIncremented = Integer.parseInt(prescriptionId.substring(3)) + 1;
+
+        prescriptionId = "PRE" + String.format("%03d", idIncremented);
+
+        return prescriptionId;
+    }
 }

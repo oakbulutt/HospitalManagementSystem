@@ -286,11 +286,6 @@ public class ReceptionistAppointmentView extends javax.swing.JInternalFrame {
         receptionistAppointmentDoctorDepartmentComboBox.setSelectedItem(model.getValueAt(selectedRow, 7).toString());
         receptionistAppointmentDateChooser.setDate((Date)model.getValueAt(selectedRow, 8));
 
-//        try {
-//            receptionistAppointmentDateChooser.setDate(simpleDateFormat.parse(model.getValueAt(selectedRow, 8).toString()));
-//        } catch (ParseException ex) {
-//            Logger.getLogger(ReceptionistAppointmentView.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }//GEN-LAST:event_receptionistAppointmentTableMouseClicked
 
     private void receptionistAppointmentViewUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistAppointmentViewUpdateButtonActionPerformed

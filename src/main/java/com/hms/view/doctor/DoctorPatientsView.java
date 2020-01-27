@@ -103,12 +103,32 @@ public class DoctorPatientsView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_doctorPatientsSearchTextFieldKeyReleased
 
     private void doctorPatientTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doctorPatientTableMouseClicked
-        // TODO add your handling code here:
-//        DoctorPrescriptionView doctorPrescriptionView = new DoctorPrescriptionView();
-        
-        DoctorsPrescriptionView doctorsPrescriptionView = new DoctorsPrescriptionView();
+        int selectedRow = doctorPatientTable.getSelectedRow();
+
+        List<String> patientInfo = new LinkedList<>();
+        patientInfo.add(model.getValueAt(selectedRow, 0).toString());
+        patientInfo.add(model.getValueAt(selectedRow, 1).toString());
+        patientInfo.add(model.getValueAt(selectedRow, 2).toString());
+        patientInfo.add(model.getValueAt(selectedRow, 3).toString());
+        patientInfo.add(model.getValueAt(selectedRow, 4).toString());
+        patientInfo.add(model.getValueAt(selectedRow, 5).toString());
+        patientInfo.add(model.getValueAt(selectedRow, 6).toString());
+
+        if (model.getValueAt(selectedRow, 7) == null) {
+            patientInfo.add("No anamnesis");
+        } else {
+            patientInfo.add(model.getValueAt(selectedRow, 7).toString());
+
+        }
+        if (model.getValueAt(selectedRow, 8) == null) {
+            patientInfo.add("No prescription");
+        } else {
+            patientInfo.add(model.getValueAt(selectedRow, 8).toString());
+
+        }
+
+        DoctorsPrescriptionView doctorsPrescriptionView = new DoctorsPrescriptionView(patientInfo);
         doctorsPrescriptionView.setVisible(true);
-//        doctorDesktopPane.add(doctorPrescriptionView).setVisible(true);
     }//GEN-LAST:event_doctorPatientTableMouseClicked
 
 
@@ -133,8 +153,8 @@ public class DoctorPatientsView extends javax.swing.JInternalFrame {
                     patient.getPhone(), patient.getAnamnesis(),
                     patient.getPrescriptionId()
                 };
-                    model.addRow(willAdd);
-                
+                model.addRow(willAdd);
+
             }
         }
     }

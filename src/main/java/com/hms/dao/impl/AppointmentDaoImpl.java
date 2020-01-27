@@ -15,10 +15,6 @@ import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Akbulut
- */
 public class AppointmentDaoImpl implements AppointmentDao {
 
     private Connection connection = null;
