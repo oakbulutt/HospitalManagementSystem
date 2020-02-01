@@ -146,7 +146,8 @@ public class DoctorPatientsView extends javax.swing.JInternalFrame {
 
         if (patients != null) {
             for (Patient patient : patients) {
-                Object[] willAdd = {
+                if (service.getAppointmentStatus(patient.getId()).equalsIgnoreCase("accepted")) {
+                    Object[] willAdd = {
                     patient.getId(), patient.getName(),
                     patient.getSurname(), patient.getGender(),
                     patient.getBirthdate(), patient.getEmail(),
@@ -154,7 +155,7 @@ public class DoctorPatientsView extends javax.swing.JInternalFrame {
                     patient.getPrescriptionId()
                 };
                 model.addRow(willAdd);
-
+                }
             }
         }
     }

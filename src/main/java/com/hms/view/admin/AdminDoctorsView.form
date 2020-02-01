@@ -29,7 +29,6 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="adminDoctorsMessageLabel" max="32767" attributes="0"/>
                   <Component id="adminDoctorsSearchTextField" alignment="1" pref="750" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -75,6 +74,8 @@
                               <Component id="adminDoctorsUpdateButton" min="-2" pref="80" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="adminDoctorsDeleteButton" min="-2" pref="80" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="adminDoctorsClear" min="-2" pref="80" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -138,13 +139,12 @@
                           <Component id="adminDoctorsAddButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="adminDoctorsUpdateButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="adminDoctorsDeleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="adminDoctorsClear" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="adminDoctorsMessageLabel" min="-2" pref="20" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-              <Component id="jScrollPane3" pref="463" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jScrollPane3" pref="491" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -257,8 +257,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="adminDoctorsMessageLabel">
-    </Component>
     <Component class="javax.swing.JComboBox" name="adminDoctorsDepartmentComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -270,6 +268,14 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="adminDoctorsClear">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Clear"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adminDoctorsClearActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

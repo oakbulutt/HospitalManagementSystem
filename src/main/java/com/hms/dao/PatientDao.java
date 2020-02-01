@@ -5,13 +5,13 @@ import com.hms.model.Patient;
 
 public interface PatientDao {
 
-    public List<Patient> allPatients();
+    List<Patient> allPatients();
 
-    public List<String> patients(String id);
+    List<String> patients(String id);
 
-    public void createPatient(Patient patient);
+    void createPatient(Patient patient);
 
-    public void updatePatient(Patient patient);
+    void updatePatient(Patient patient);
 
-    public void deletePatient(String id);
+    void deletePatient(String id);
 }

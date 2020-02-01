@@ -7,6 +7,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -20,18 +27,20 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager">
-    <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.hms.view.Login" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.hms.main.Main" />
       <module name="HMS" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.hms.view.*" />
+          <option name="PATTERN" value="com.hms.main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -41,7 +50,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Login" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -69,6 +78,9 @@
       <updated>1579967411276</updated>
       <workItem from="1579967415133" duration="1729000" />
       <workItem from="1579988733216" duration="224000" />
+      <workItem from="1580580797458" duration="2091000" />
+      <workItem from="1580582915226" duration="66000" />
+      <workItem from="1580583055168" duration="1313000" />
     </task>
     <servers />
   </component>
@@ -76,69 +88,85 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579967482152">
+    <state x="414" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580581108000">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="414" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579967482152" />
-    <state x="715" y="229" key="#xdebugger.evaluate" timestamp="1579968458025">
+    <state x="414" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580581108000" />
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1580580885109">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="715" y="229" key="#xdebugger.evaluate/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579968458025" />
-    <state width="1340" height="266" key="GridCell.Tab.0.bottom" timestamp="1579969145625">
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580580885109" />
+    <state x="810" y="208" width="898" height="592" key="#xdebugger.evaluate" timestamp="1580581837539">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1340" height="266" key="GridCell.Tab.0.bottom/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579969145625" />
-    <state width="1340" height="266" key="GridCell.Tab.0.center" timestamp="1579969145625">
+    <state x="810" y="208" width="898" height="592" key="#xdebugger.evaluate/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580581837539" />
+    <state width="1877" height="351" key="GridCell.Tab.0.bottom" timestamp="1580584368512">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1340" height="266" key="GridCell.Tab.0.center/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579969145625" />
-    <state width="1340" height="266" key="GridCell.Tab.0.left" timestamp="1579969145625">
+    <state width="1877" height="351" key="GridCell.Tab.0.bottom/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580584368512" />
+    <state width="1877" height="351" key="GridCell.Tab.0.center" timestamp="1580584368512">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1340" height="266" key="GridCell.Tab.0.left/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579969145625" />
-    <state width="1340" height="266" key="GridCell.Tab.0.right" timestamp="1579969145625">
+    <state width="1877" height="351" key="GridCell.Tab.0.center/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580584368512" />
+    <state width="1877" height="351" key="GridCell.Tab.0.left" timestamp="1580584368512">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1340" height="266" key="GridCell.Tab.0.right/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579969145625" />
-    <state width="1340" height="328" key="GridCell.Tab.1.bottom" timestamp="1579969145618">
+    <state width="1877" height="351" key="GridCell.Tab.0.left/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580584368512" />
+    <state width="1877" height="351" key="GridCell.Tab.0.right" timestamp="1580584368512">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1340" height="328" key="GridCell.Tab.1.bottom/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579969145618" />
-    <state width="1340" height="328" key="GridCell.Tab.1.center" timestamp="1579969145618">
+    <state width="1877" height="351" key="GridCell.Tab.0.right/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580584368512" />
+    <state width="1877" height="351" key="GridCell.Tab.1.bottom" timestamp="1580584368512">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1340" height="328" key="GridCell.Tab.1.center/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579969145618" />
-    <state width="1340" height="328" key="GridCell.Tab.1.left" timestamp="1579969145618">
+    <state width="1877" height="351" key="GridCell.Tab.1.bottom/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580584368512" />
+    <state width="1877" height="351" key="GridCell.Tab.1.center" timestamp="1580584368512">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1340" height="328" key="GridCell.Tab.1.left/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579969145618" />
-    <state width="1340" height="328" key="GridCell.Tab.1.right" timestamp="1579969145618">
+    <state width="1877" height="351" key="GridCell.Tab.1.center/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580584368512" />
+    <state width="1877" height="351" key="GridCell.Tab.1.left" timestamp="1580584368512">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1340" height="328" key="GridCell.Tab.1.right/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579969145618" />
-    <state x="440" y="100" key="SettingsEditor" timestamp="1579967445790">
+    <state width="1877" height="351" key="GridCell.Tab.1.left/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580584368512" />
+    <state width="1877" height="351" key="GridCell.Tab.1.right" timestamp="1580584368512">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="440" y="100" key="SettingsEditor/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579967445790" />
+    <state width="1877" height="351" key="GridCell.Tab.1.right/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580584368512" />
+    <state x="775" y="460" key="ReplaceDuplicatesPrompt" timestamp="1580581253515">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="775" y="460" key="ReplaceDuplicatesPrompt/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580581253515" />
+    <state x="440" y="100" key="SettingsEditor" timestamp="1580580932393">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="440" y="100" key="SettingsEditor/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580580932393" />
+    <state x="681" y="266" width="570" height="524" key="StructurePopup" timestamp="1580582941564">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="681" y="266" width="570" height="524" key="StructurePopup/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580582941564" />
     <state x="656" y="350" key="com.intellij.ide.util.TipDialog" timestamp="1579988734922">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="656" y="350" key="com.intellij.ide.util.TipDialog/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579988734922" />
-    <state x="656" y="123" width="607" height="804" key="find.popup" timestamp="1579967565560">
+    <state x="690" y="281" width="540" height="496" key="extract.method.dialog" timestamp="1580581286398">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="656" y="123" width="607" height="804" key="find.popup/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579967565560" />
-    <state x="623" y="244" width="672" height="678" key="search.everywhere.popup" timestamp="1579967465559">
+    <state x="690" y="281" width="540" height="496" key="extract.method.dialog/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580581286398" />
+    <state x="656" y="123" width="607" height="804" key="find.popup" timestamp="1580582726021">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="623" y="244" width="672" height="678" key="search.everywhere.popup/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579967465559" />
+    <state x="656" y="123" width="607" height="804" key="find.popup/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580582726021" />
+    <state x="623" y="244" width="672" height="678" key="search.everywhere.popup" timestamp="1580580822112">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="623" y="244" width="672" height="678" key="search.everywhere.popup/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1580580822112" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/hms/service/HMSService.java</url>
-          <line>102</line>
+          <line>106</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -147,39 +175,46 @@
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/hms/view/receptionist/ReceptionistAppointmentView.java</url>
-          <line>344</line>
-          <option name="timeStamp" value="8" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/hms/dao/impl/PatientDaoImpl.java</url>
+          <line>128</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/hms/view/receptionist/ReceptionistAppointmentView.java</url>
-          <line>349</line>
-          <option name="timeStamp" value="9" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/hms/dao/impl/PatientDaoImpl.java</url>
+          <line>136</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/hms/view/receptionist/ReceptionistAppointmentView.java</url>
-          <line>350</line>
-          <option name="timeStamp" value="10" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/hms/dao/impl/PatientDaoImpl.java</url>
+          <line>141</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/hms/view/receptionist/ReceptionistPatientsView.java</url>
+          <line>337</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/hms/dao/impl/DoctorDaoImpl.java</url>
-          <line>155</line>
-          <option name="timeStamp" value="12" />
+          <line>91</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/hms/dao/impl/DoctorDaoImpl.java</url>
-          <line>152</line>
-          <option name="timeStamp" value="13" />
+          <line>68</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/hms/service/HMSService.java</url>
-          <line>167</line>
-          <properties class="com.hms.service.HMSService" method="getDoctorsId">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="11" />
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/hms/view/receptionist/ReceptionistAppointmentView.java</url>
+          <line>430</line>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/HMS$Main.ic" NAME="Main Coverage Results" MODIFIED="1580582428321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.hms.main.*</FILTER>
+    </SUITE>
   </component>
 </project>

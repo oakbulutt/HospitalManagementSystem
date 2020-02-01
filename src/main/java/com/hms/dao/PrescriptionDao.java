@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PrescriptionDao {
 
-    public List<String> prescription(String id);
+    public Prescription prescription(String id);
     
     public String lastId();
 

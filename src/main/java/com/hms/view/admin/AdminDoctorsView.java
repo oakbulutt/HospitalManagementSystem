@@ -3,6 +3,7 @@ package com.hms.view.admin;
 import com.hms.model.Doctor;
 import com.hms.service.HMSService;
 import java.util.*;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -47,8 +48,8 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
         adminDoctorsAddButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         adminDoctorsTable = new javax.swing.JTable();
-        adminDoctorsMessageLabel = new javax.swing.JLabel();
         adminDoctorsDepartmentComboBox = new javax.swing.JComboBox<>();
+        adminDoctorsClear = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -129,6 +130,13 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
 
         adminDoctorsDepartmentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Department" }));
 
+        adminDoctorsClear.setText("Clear");
+        adminDoctorsClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminDoctorsClearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,7 +144,6 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(adminDoctorsMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(adminDoctorsSearchTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -173,7 +180,9 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(adminDoctorsUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(adminDoctorsDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(adminDoctorsDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(adminDoctorsClear, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(30, 30, 30))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE))
                 .addGap(55, 55, 55))
@@ -219,11 +228,10 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(adminDoctorsAddButton)
                             .addComponent(adminDoctorsUpdateButton)
-                            .addComponent(adminDoctorsDeleteButton))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(adminDoctorsMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                            .addComponent(adminDoctorsDeleteButton)
+                            .addComponent(adminDoctorsClear))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
                 .addGap(40, 40, 40))
         );
 
@@ -248,7 +256,6 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_adminDoctorsTableMouseClicked
 
     private void adminDoctorsAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDoctorsAddButtonActionPerformed
-        adminDoctorsMessageLabel.setText("");
         String id = adminDoctorsIdTextField.getText();
         String name = adminDoctorsNameTextField.getText();
         String surname = adminDoctorsSurnameTextField.getText();
@@ -262,11 +269,18 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
         service.createDoctor(doctor);
 
         showDoctor();
-        adminDoctorsMessageLabel.setText("New Doctor is Added!");
+        JOptionPane.showMessageDialog(this, "New Doctor has been Added!");
+
+        adminDoctorsIdTextField.setText("");
+        adminDoctorsNameTextField.setText("");
+        adminDoctorsSurnameTextField.setText("");
+        adminDoctorsTitleTextField.setText("");
+        adminDoctorsEmailTextField.setText("");
+        adminDoctorsPhoneTextField.setText("");
+        adminDoctorsDepartmentComboBox.setSelectedItem("Choose Department");
     }//GEN-LAST:event_adminDoctorsAddButtonActionPerformed
 
     private void adminDoctorsUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDoctorsUpdateButtonActionPerformed
-        adminDoctorsMessageLabel.setText("");
         String id = adminDoctorsIdTextField.getText();
         String name = adminDoctorsNameTextField.getText();
         String surname = adminDoctorsSurnameTextField.getText();
@@ -280,11 +294,18 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
         service.updateDoctor(doctor);
 
         showDoctor();
-        adminDoctorsMessageLabel.setText("New Doctor is updated!");
+        JOptionPane.showMessageDialog(this, "Doctor has been Uptaded!");
+
+        adminDoctorsIdTextField.setText("");
+        adminDoctorsNameTextField.setText("");
+        adminDoctorsSurnameTextField.setText("");
+        adminDoctorsTitleTextField.setText("");
+        adminDoctorsEmailTextField.setText("");
+        adminDoctorsPhoneTextField.setText("");
+        adminDoctorsDepartmentComboBox.setSelectedItem("Choose Department");
     }//GEN-LAST:event_adminDoctorsUpdateButtonActionPerformed
 
     private void adminDoctorsDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDoctorsDeleteButtonActionPerformed
-        adminDoctorsMessageLabel.setText("");
         String id = adminDoctorsIdTextField.getText();
         String name = adminDoctorsNameTextField.getText();
         String surname = adminDoctorsSurnameTextField.getText();
@@ -296,20 +317,39 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
         int selectedRow = adminDoctorsTable.getSelectedRow();
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
-                adminDoctorsMessageLabel.setText("Doctor table is empty.");
+                JOptionPane.showMessageDialog(this, "Doctor table is empty.");
             } else {
-                adminDoctorsMessageLabel.setText("Please select the doctor who you want to update.");
+                JOptionPane.showMessageDialog(this, "Please select the doctor who you want to delete.");
             }
         } else {
             service.deleteDoctor(id);
             showDoctor();
-            adminDoctorsMessageLabel.setText("Doctor is deleted!");
+            JOptionPane.showMessageDialog(this, "Doctor has been deleted!");
+
+            adminDoctorsIdTextField.setText("");
+            adminDoctorsNameTextField.setText("");
+            adminDoctorsSurnameTextField.setText("");
+            adminDoctorsTitleTextField.setText("");
+            adminDoctorsEmailTextField.setText("");
+            adminDoctorsPhoneTextField.setText("");
+            adminDoctorsDepartmentComboBox.setSelectedItem("Choose Department");
         }
     }//GEN-LAST:event_adminDoctorsDeleteButtonActionPerformed
+
+    private void adminDoctorsClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDoctorsClearActionPerformed
+        adminDoctorsIdTextField.setText("");
+        adminDoctorsNameTextField.setText("");
+        adminDoctorsSurnameTextField.setText("");
+        adminDoctorsTitleTextField.setText("");
+        adminDoctorsEmailTextField.setText("");
+        adminDoctorsPhoneTextField.setText("");
+        adminDoctorsDepartmentComboBox.setSelectedItem("Choose Department");
+    }//GEN-LAST:event_adminDoctorsClearActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adminDoctorsAddButton;
+    private javax.swing.JButton adminDoctorsClear;
     private javax.swing.JButton adminDoctorsDeleteButton;
     private javax.swing.JComboBox<String> adminDoctorsDepartmentComboBox;
     private javax.swing.JLabel adminDoctorsDepartmentLabel;
@@ -317,7 +357,6 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField adminDoctorsEmailTextField;
     private javax.swing.JLabel adminDoctorsIdLabel;
     private javax.swing.JTextField adminDoctorsIdTextField;
-    private javax.swing.JLabel adminDoctorsMessageLabel;
     private javax.swing.JLabel adminDoctorsNameLabel;
     private javax.swing.JTextField adminDoctorsNameTextField;
     private javax.swing.JLabel adminDoctorsPhoneLabel;

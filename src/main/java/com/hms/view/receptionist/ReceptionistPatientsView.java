@@ -3,8 +3,10 @@ package com.hms.view.receptionist;
 import com.hms.model.Patient;
 import com.hms.service.HMSService;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -49,8 +51,8 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
         receptionistPatientsGenderLabel = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         receptionistPatientTable = new javax.swing.JTable();
-        receptionistsPatientsMessageLabel = new javax.swing.JLabel();
         receptionistPatientsDateChooser = new com.toedter.calendar.JDateChooser();
+        receptionistPatientClear = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -97,12 +99,7 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
             }
         });
 
-        receptionistPatientsGenderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
-        receptionistPatientsGenderComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                receptionistPatientsGenderComboBoxActionPerformed(evt);
-            }
-        });
+        receptionistPatientsGenderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Gender", "Male", "Female" }));
 
         receptionistPatientsGenderLabel.setText("Gender         :");
 
@@ -138,6 +135,13 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
 
         receptionistPatientsDateChooser.setDateFormatString("yyyy-MM-dd");
 
+        receptionistPatientClear.setText("Clear");
+        receptionistPatientClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                receptionistPatientClearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,7 +149,6 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(receptionistsPatientsMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(receptionistPatientsSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -164,7 +167,9 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(receptionistPatientsUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(receptionistPatientsDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(receptionistPatientsDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(receptionistPatientClear, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(receptionistPatientsGenderLabel)
@@ -214,20 +219,15 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
                     .addComponent(receptionistPatientsSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(receptionistPatientsAddButton)
                     .addComponent(receptionistPatientsUpdateButton)
-                    .addComponent(receptionistPatientsDeleteButton))
-                .addGap(5, 5, 5)
-                .addComponent(receptionistsPatientsMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                    .addComponent(receptionistPatientsDeleteButton)
+                    .addComponent(receptionistPatientClear))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void receptionistPatientsGenderComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistPatientsGenderComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_receptionistPatientsGenderComboBoxActionPerformed
 
     private void receptionistPatientsSearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_receptionistPatientsSearchTextFieldKeyReleased
         String search = receptionistPatientsSearchTextField.getText();
@@ -241,13 +241,12 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
         receptionistPatientsNameTextField.setText(model.getValueAt(selectedRow, 1).toString());
         receptionistPatientsSurnameTextField.setText(model.getValueAt(selectedRow, 2).toString());
         receptionistPatientsGenderComboBox.setSelectedItem(model.getValueAt(selectedRow, 3).toString());
-        receptionistPatientsDateChooser.setDate((Date)model.getValueAt(selectedRow, 4));
+        receptionistPatientsDateChooser.setDate((Date) model.getValueAt(selectedRow, 4));
         receptionistPatientsEmailTextField.setText(model.getValueAt(selectedRow, 5).toString());
         receptionistPatientsPhoneTextField.setText(model.getValueAt(selectedRow, 6).toString());
     }//GEN-LAST:event_receptionistPatientTableMouseClicked
 
     private void receptionistPatientsAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistPatientsAddButtonActionPerformed
-        receptionistsPatientsMessageLabel.setText("");
         String id = receptionistPatientsIdTextField.getText();
         String name = receptionistPatientsNameTextField.getText();
         String surname = receptionistPatientsSurnameTextField.getText();
@@ -256,14 +255,21 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
         String email = receptionistPatientsEmailTextField.getText();
         String phone = receptionistPatientsPhoneTextField.getText();
         String anamnesis = "";
-        
+
         service.createPatient(new Patient(id, name, surname, gender, birthdate, email, phone));
         showPatients();
-        receptionistsPatientsMessageLabel.setText("New Patient is added!");
+        JOptionPane.showMessageDialog(this, "New Patient has been added!");
+
+        receptionistPatientsIdTextField.setText("");
+        receptionistPatientsNameTextField.setText("");
+        receptionistPatientsSurnameTextField.setText("");
+        receptionistPatientsGenderComboBox.setSelectedItem("Choose Gender");
+        receptionistPatientsDateChooser.setDate(null);
+        receptionistPatientsEmailTextField.setText("");
+        receptionistPatientsPhoneTextField.setText("");
     }//GEN-LAST:event_receptionistPatientsAddButtonActionPerformed
 
     private void receptionistPatientsUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistPatientsUpdateButtonActionPerformed
-        receptionistsPatientsMessageLabel.setText("");
         String id = receptionistPatientsIdTextField.getText();
         String name = receptionistPatientsNameTextField.getText();
         String surname = receptionistPatientsSurnameTextField.getText();
@@ -275,19 +281,27 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
         int selectedRow = receptionistPatientTable.getSelectedRow();
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
-                receptionistsPatientsMessageLabel.setText("Patient table is empty.");
+                JOptionPane.showMessageDialog(this, "Patient table is empty.");
             } else {
-                receptionistsPatientsMessageLabel.setText("Please select the patient who you want to update.");
+                JOptionPane.showMessageDialog(this, "Please select the patient who you want to update.");
             }
         } else {
-            service.updatePatient(new Patient(id, name, surname, gender, birthdate, email, phone, anamnesis));
+            Patient patient = new Patient(id, name, surname, gender, birthdate, email, phone, anamnesis);
+            service.updatePatient(patient);
             showPatients();
-            receptionistsPatientsMessageLabel.setText("Patient is updated!");
+            JOptionPane.showMessageDialog(this, "Patient has been updated!");
+
+            receptionistPatientsIdTextField.setText("");
+            receptionistPatientsNameTextField.setText("");
+            receptionistPatientsSurnameTextField.setText("");
+            receptionistPatientsGenderComboBox.setSelectedItem("Choose Gender");
+            receptionistPatientsDateChooser.setDate(null);
+            receptionistPatientsEmailTextField.setText("");
+            receptionistPatientsPhoneTextField.setText("");
         }
     }//GEN-LAST:event_receptionistPatientsUpdateButtonActionPerformed
 
     private void receptionistPatientsDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistPatientsDeleteButtonActionPerformed
-        receptionistsPatientsMessageLabel.setText("");
         String id = receptionistPatientsIdTextField.getText();
         String name = receptionistPatientsNameTextField.getText();
         String surname = receptionistPatientsSurnameTextField.getText();
@@ -299,20 +313,39 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
         int selectedRow = receptionistPatientTable.getSelectedRow();
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
-                receptionistsPatientsMessageLabel.setText("Patient table is empty.");
+                JOptionPane.showMessageDialog(this, "Patient table is empty.");
             } else {
-                receptionistsPatientsMessageLabel.setText("Please select the patient who you want to delete.");
+                JOptionPane.showMessageDialog(this, "Please select the patient who you want to delete.");
             }
         } else {
             service.deletePatient(id);
             showPatients();
-            receptionistsPatientsMessageLabel.setText("Patient is deleted!");
+            JOptionPane.showMessageDialog(this, "Patient has been deleted!");
+
+            receptionistPatientsIdTextField.setText("");
+            receptionistPatientsNameTextField.setText("");
+            receptionistPatientsSurnameTextField.setText("");
+            receptionistPatientsGenderComboBox.setSelectedItem("Choose Gender");
+            receptionistPatientsDateChooser.setDate(null);
+            receptionistPatientsEmailTextField.setText("");
+            receptionistPatientsPhoneTextField.setText("");
         }
     }//GEN-LAST:event_receptionistPatientsDeleteButtonActionPerformed
+
+    private void receptionistPatientClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistPatientClearActionPerformed
+        receptionistPatientsIdTextField.setText("");
+        receptionistPatientsNameTextField.setText("");
+        receptionistPatientsSurnameTextField.setText("");
+        receptionistPatientsGenderComboBox.setSelectedItem("Choose Gender");
+        receptionistPatientsDateChooser.setDate(null);
+        receptionistPatientsEmailTextField.setText("");
+        receptionistPatientsPhoneTextField.setText("");
+    }//GEN-LAST:event_receptionistPatientClearActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JButton receptionistPatientClear;
     private javax.swing.JTable receptionistPatientTable;
     private javax.swing.JButton receptionistPatientsAddButton;
     private javax.swing.JLabel receptionistPatientsBirthdateLabel;
@@ -332,7 +365,6 @@ public class ReceptionistPatientsView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel receptionistPatientsSurnameLabel;
     private javax.swing.JTextField receptionistPatientsSurnameTextField;
     private javax.swing.JButton receptionistPatientsUpdateButton;
-    private javax.swing.JLabel receptionistsPatientsMessageLabel;
     // End of variables declaration//GEN-END:variables
 
     private void showPatients() {

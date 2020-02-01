@@ -52,12 +52,12 @@ public class HMSService {
     List<Department> listDepartments;
     List<String> listDepartmentsId;
     List<Doctor> listDoctors;
-    List<String> listStringDoctors;
+    List<Doctor> listStringDoctors;
     List<String> listDoctorsId;
     List<Patient> listPatients;
     List<String> listStringPatients;
     List<Prescription> listPrescriptions;
-    List<String> listPrescription;
+    List<Prescription> listPrescription;
     List<Receptionist> listReceptionists;
     List<User> listUsers;
 
@@ -121,6 +121,10 @@ public class HMSService {
         return listAppointments;
     }
 
+    public String getAppointmentStatus(String id) {
+        return appointmentDao.getAppointmentStatus(id);
+    }
+
     public void createAppointment(Appointment appointment) {
         appointmentDao.createAppointment(appointment);
     }
@@ -138,10 +142,12 @@ public class HMSService {
         listDepartments = departmentDao.departments();
         return listDepartments;
     }
-    public List<String> departmentsId(){
+
+    public List<String> departmentsId() {
         listDepartmentsId = departmentDao.departmentsId();
         return listDepartmentsId;
     }
+
     public void createDepartment(Department department) {
         departmentDao.createDepartment(department);
     }
@@ -158,6 +164,10 @@ public class HMSService {
     public List<Doctor> showDoctors() {
         listDoctors = doctorDao.allDoctors();
         return listDoctors;
+    }
+
+    public Doctor getDoctor(String id) {
+        return doctorDao.getDoctor(id);
     }
 
     public void createDoctor(Doctor doctor) {
@@ -177,7 +187,7 @@ public class HMSService {
         return listDoctorsId;
     }
 
-    public List<String> doctors(String id) {
+    public List<Doctor> doctors(String id) {
         listStringDoctors = doctorDao.doctors(id);
         return listStringDoctors;
     }
@@ -242,10 +252,9 @@ public class HMSService {
     }
 
     //Prescription
-   
-     public List<String> prescription(String id) {
-        listPrescription = prescriptionDao.prescription(id);
-        return listPrescription;
+    public Prescription prescription(String id) {
+        return prescriptionDao.prescription(id);
+        
     }
 
     public void createPrescription(Prescription prescription) {
@@ -259,8 +268,8 @@ public class HMSService {
     public void deletePrescription(String id) {
         prescriptionDao.deletePrescription(id);
     }
-    
-    public String lastPrescriptionId(){
+
+    public String lastPrescriptionId() {
         return prescriptionDao.lastId();
     }
 }

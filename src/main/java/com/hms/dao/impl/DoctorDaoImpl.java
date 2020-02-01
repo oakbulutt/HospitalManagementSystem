@@ -3,6 +3,7 @@ package com.hms.dao.impl;
 import com.hms.constants.DoctorConstants;
 import com.hms.model.Doctor;
 import com.hms.util.Database;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import com.hms.dao.DoctorDao;
 
 public class DoctorDaoImpl implements DoctorDao {
@@ -63,12 +65,12 @@ public class DoctorDaoImpl implements DoctorDao {
         }
     }
 
-    public List<String> doctors(String id) {
-        List<String> doctors = new LinkedList<>();
+    public List<Doctor> doctors(String id) {
+        List<Doctor> doctors = new LinkedList<>();
         try {
             preparedStatement = connection.prepareStatement(DoctorConstants.DOCTOR_SQL);
             preparedStatement.setString(1, id);
-            
+
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -79,19 +81,15 @@ public class DoctorDaoImpl implements DoctorDao {
                 String phone = resultSet.getString("phone");
                 String departmentsId = resultSet.getString("departments_id");
                 String usersId = resultSet.getString("users_id");
-                
-                doctors.add(name);
-                doctors.add(surname);
-                doctors.add(title);
-                doctors.add(email);
-                doctors.add(phone);
-                doctors.add(departmentsId);
+
+                doctors.add(new Doctor(id, name, surname, title, email, phone, departmentsId, usersId));
+
             }
             return doctors;
         } catch (SQLException e) {
             Logger.getLogger(DoctorDaoImpl.class.getName()).log(Level.SEVERE, null, e);
-            return null;
         }
+        return doctors;
     }
 
     @Override
@@ -150,7 +148,7 @@ public class DoctorDaoImpl implements DoctorDao {
         try {
             preparedStatement = connection.prepareStatement(DoctorConstants.DOCTOR_ID_SQL);
             preparedStatement.setString(1, departmentId);
-            
+
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 String id = resultSet.getString("id");
@@ -161,6 +159,34 @@ public class DoctorDaoImpl implements DoctorDao {
             Logger.getLogger(DoctorDaoImpl.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
+    }
+
+    @Override
+    public Doctor getDoctor(String id) {
+        Doctor doctor = null;
+        try {
+            preparedStatement = connection.prepareStatement(DoctorConstants.DOCTOR_SQL);
+            preparedStatement.setString(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                String name = resultSet.getString("name");
+                String surname = resultSet.getString("surname");
+                String title = resultSet.getString("title");
+                String email = resultSet.getString("email");
+                String phone = resultSet.getString("phone");
+                String departmentsId = resultSet.getString("departments_id");
+                String usersId = resultSet.getString("users_id");
+                doctor = new Doctor(id, name, surname, title, email, phone, departmentsId, usersId);
+            }
+
+        } catch (SQLException e) {
+            Logger.getLogger(DoctorDaoImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return doctor;
+
     }
 
 }

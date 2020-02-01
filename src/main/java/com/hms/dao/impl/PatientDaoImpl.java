@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import com.hms.dao.PatientDao;
 
 public class PatientDaoImpl implements PatientDao {
@@ -64,13 +65,14 @@ public class PatientDaoImpl implements PatientDao {
             return null;
         }
     }
+
     @Override
     public List<String> patients(String id) {
         List<String> patients = new LinkedList<>();
         try {
             preparedStatement = connection.prepareStatement(PatientConstants.PATIENT_SQL);
             preparedStatement.setString(1, id);
-            
+
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -85,10 +87,11 @@ public class PatientDaoImpl implements PatientDao {
             return null;
         }
     }
+
     @Override
     public void createPatient(Patient patient) {
-        
-        
+
+
         try {
             preparedStatement = connection.prepareStatement(PatientConstants.INSERT_SQL);
             preparedStatement.setString(1, patient.getId());
@@ -136,5 +139,4 @@ public class PatientDaoImpl implements PatientDao {
             Logger.getLogger(PatientDaoImpl.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-
 }

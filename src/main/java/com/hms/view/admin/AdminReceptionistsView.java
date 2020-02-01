@@ -3,6 +3,7 @@ package com.hms.view.admin;
 import com.hms.model.Receptionist;
 import com.hms.service.HMSService;
 import java.util.*;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -43,7 +44,7 @@ public class AdminReceptionistsView extends javax.swing.JInternalFrame {
         adminReceptionistsAddButton = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         adminReceptionistsTable = new javax.swing.JTable();
-        adminReceptionistsMessageLabel = new javax.swing.JLabel();
+        adminReceptionistClear = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -118,6 +119,13 @@ public class AdminReceptionistsView extends javax.swing.JInternalFrame {
         });
         jScrollPane6.setViewportView(adminReceptionistsTable);
 
+        adminReceptionistClear.setText("Clear");
+        adminReceptionistClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminReceptionistClearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,39 +133,42 @@ public class AdminReceptionistsView extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(adminReceptionistsMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(adminReceptionistsSearchTextField)
+                    .addComponent(jScrollPane6)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(adminReceptionistsIdLabel)
-                            .addComponent(adminReceptionistsNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(adminReceptionistsIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(adminReceptionistsNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(adminReceptionistsEmailLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(adminReceptionistsTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(adminReceptionistsSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(adminReceptionistsEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(adminReceptionistsIdLabel)
+                                    .addComponent(adminReceptionistsNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(adminReceptionistsIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(adminReceptionistsNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(adminReceptionistsAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(45, 45, 45)
                                 .addComponent(adminReceptionistsUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(adminReceptionistsDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(45, 45, 45)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(adminReceptionistsDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(45, 45, 45)
+                                .addComponent(adminReceptionistClear, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(adminReceptionistsEmailLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(adminReceptionistsTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(adminReceptionistsSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(adminReceptionistsEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(adminReceptionistsPhoneLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(adminReceptionistsPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(1, 1, 1))
-                    .addComponent(jScrollPane6))
+                        .addGap(33, 33, 33)))
                 .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
@@ -186,15 +197,17 @@ public class AdminReceptionistsView extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(adminReceptionistsEmailLabel)
-                            .addComponent(adminReceptionistsEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(adminReceptionistsAddButton)
-                            .addComponent(adminReceptionistsUpdateButton)
-                            .addComponent(adminReceptionistsDeleteButton))))
-                .addGap(4, 4, 4)
-                .addComponent(adminReceptionistsMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-                .addGap(46, 46, 46))
+                            .addComponent(adminReceptionistsEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(adminReceptionistsAddButton)
+                        .addComponent(adminReceptionistsUpdateButton))
+                    .addComponent(adminReceptionistsDeleteButton)
+                    .addComponent(adminReceptionistClear))
+                .addGap(56, 56, 56)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -216,7 +229,6 @@ public class AdminReceptionistsView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_adminReceptionistsTableMouseClicked
 
     private void adminReceptionistsAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminReceptionistsAddButtonActionPerformed
-        adminReceptionistsMessageLabel.setText("");
         String id = adminReceptionistsIdTextField.getText();
         String name = adminReceptionistsNameTextField.getText();
         String surname = adminReceptionistsSurnameTextField.getText();
@@ -225,11 +237,16 @@ public class AdminReceptionistsView extends javax.swing.JInternalFrame {
         String usersId = id;
         service.createReceptionist(new Receptionist(id, name, surname, email, phone, usersId));
         showReceptionist();
-        adminReceptionistsMessageLabel.setText("Receptionists is added!");
+        JOptionPane.showMessageDialog(this, "Receptionist has been Added!");
+
+        adminReceptionistsIdTextField.setText("");
+        adminReceptionistsNameTextField.setText("");
+        adminReceptionistsSurnameTextField.setText("");
+        adminReceptionistsEmailTextField.setText("");
+        adminReceptionistsPhoneTextField.setText("");
     }//GEN-LAST:event_adminReceptionistsAddButtonActionPerformed
 
     private void adminReceptionistsUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminReceptionistsUpdateButtonActionPerformed
-        adminReceptionistsMessageLabel.setText("");
         String id = adminReceptionistsIdTextField.getText();
         String name = adminReceptionistsNameTextField.getText();
         String surname = adminReceptionistsSurnameTextField.getText();
@@ -240,19 +257,24 @@ public class AdminReceptionistsView extends javax.swing.JInternalFrame {
         int selectedRow = adminReceptionistsTable.getSelectedRow();
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
-                adminReceptionistsMessageLabel.setText("Receptionists table is empty.");
+                JOptionPane.showMessageDialog(this, "Receptionists table is empty.");
             } else {
-                adminReceptionistsMessageLabel.setText("Please select the receptionists who you want to update.");
+                JOptionPane.showMessageDialog(this, "Please select the receptionists who you want to update.");
             }
         } else {
             service.updateReceptionist(new Receptionist(id, name, surname, email, phone, usersId));
             showReceptionist();
-            adminReceptionistsMessageLabel.setText("Receptionists is updated!");
+            JOptionPane.showMessageDialog(this, "Receptionist has been updated.");
+
+            adminReceptionistsIdTextField.setText("");
+            adminReceptionistsNameTextField.setText("");
+            adminReceptionistsSurnameTextField.setText("");
+            adminReceptionistsEmailTextField.setText("");
+            adminReceptionistsPhoneTextField.setText("");
         }
     }//GEN-LAST:event_adminReceptionistsUpdateButtonActionPerformed
 
     private void adminReceptionistsDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminReceptionistsDeleteButtonActionPerformed
-        adminReceptionistsMessageLabel.setText("");
         String id = adminReceptionistsIdTextField.getText();
         String name = adminReceptionistsNameTextField.getText();
         String surname = adminReceptionistsSurnameTextField.getText();
@@ -262,26 +284,40 @@ public class AdminReceptionistsView extends javax.swing.JInternalFrame {
         int selectedRow = adminReceptionistsTable.getSelectedRow();
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
-                adminReceptionistsMessageLabel.setText("Receptionists table is empty.");
+                JOptionPane.showMessageDialog(this, "Receptionists table is empty.");
             } else {
-                adminReceptionistsMessageLabel.setText("Please select the receptionists who you want to delete.");
+                JOptionPane.showMessageDialog(this, "Please select the receptionists who you want to delete.");
             }
         } else {
             service.deleteReceptionist(id);
             showReceptionist();
-            adminReceptionistsMessageLabel.setText("Receptionists is deleted!");
+            JOptionPane.showMessageDialog(this, "Receptionist has been deleted!");
+
+            adminReceptionistsIdTextField.setText("");
+            adminReceptionistsNameTextField.setText("");
+            adminReceptionistsSurnameTextField.setText("");
+            adminReceptionistsEmailTextField.setText("");
+            adminReceptionistsPhoneTextField.setText("");
         }
     }//GEN-LAST:event_adminReceptionistsDeleteButtonActionPerformed
 
+    private void adminReceptionistClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminReceptionistClearActionPerformed
+        adminReceptionistsIdTextField.setText("");
+        adminReceptionistsNameTextField.setText("");
+        adminReceptionistsSurnameTextField.setText("");
+        adminReceptionistsEmailTextField.setText("");
+        adminReceptionistsPhoneTextField.setText("");
+    }//GEN-LAST:event_adminReceptionistClearActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton adminReceptionistClear;
     private javax.swing.JButton adminReceptionistsAddButton;
     private javax.swing.JButton adminReceptionistsDeleteButton;
     private javax.swing.JLabel adminReceptionistsEmailLabel;
     private javax.swing.JTextField adminReceptionistsEmailTextField;
     private javax.swing.JLabel adminReceptionistsIdLabel;
     private javax.swing.JTextField adminReceptionistsIdTextField;
-    private javax.swing.JLabel adminReceptionistsMessageLabel;
     private javax.swing.JLabel adminReceptionistsNameLabel;
     private javax.swing.JTextField adminReceptionistsNameTextField;
     private javax.swing.JLabel adminReceptionistsPhoneLabel;

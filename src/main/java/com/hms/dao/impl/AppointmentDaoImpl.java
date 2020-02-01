@@ -82,6 +82,24 @@ public class AppointmentDaoImpl implements AppointmentDao {
     }
 
     @Override
+    public String getAppointmentStatus(String id) {
+        String status = "";
+        try {
+            preparedStatement = connection.prepareStatement(AppointmentConstants.STATUS_SQL);
+            preparedStatement.setString(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                status = resultSet.getString("appointment_status");
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(DoctorDaoImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return status;
+    }
+
+    @Override
     public void updateAppointment(Appointment appointment) {
         try {
             preparedStatement = connection.prepareStatement(AppointmentConstants.UPDATE_SQL);

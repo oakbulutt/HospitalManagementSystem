@@ -4,6 +4,7 @@ import com.hms.model.Admin;
 import com.hms.service.HMSService;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -48,8 +49,8 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
         adminAdminsAddButton = new javax.swing.JButton();
         adminAdminsUpdateButton = new javax.swing.JButton();
         adminAdminsDeleteButton = new javax.swing.JButton();
-        adminAdminsMessageLabel = new javax.swing.JLabel();
         adminAdminsDepartmentComboBox = new javax.swing.JComboBox<>();
+        adminAdminsClearButton = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -134,6 +135,13 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
 
         adminAdminsDepartmentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Department" }));
 
+        adminAdminsClearButton.setText("Clear");
+        adminAdminsClearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminAdminsClearButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,23 +158,20 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
                             .addComponent(adminAdminsSurnameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(adminAdminsIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(adminAdminsNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(adminAdminsSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(adminAdminsIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(adminAdminsNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(adminAdminsEmailLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(adminAdminsTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(adminAdminsSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(adminAdminsTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(adminAdminsEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(adminAdminsAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
+                                    .addComponent(adminAdminsTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(adminAdminsTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(adminAdminsEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(adminAdminsDepartmentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(adminAdminsPhoneLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -175,13 +180,16 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
                                     .addComponent(adminAdminsPhoneTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                                     .addComponent(adminAdminsDepartmentComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(adminAdminsAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(adminAdminsUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(83, 83, 83)
-                                .addComponent(adminAdminsDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(39, 39, 39))
+                                .addGap(18, 18, 18)
+                                .addComponent(adminAdminsDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(adminAdminsClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(55, 55, 55))
                     .addComponent(jScrollPane2)
-                    .addComponent(adminAdminsSearchTextField)
-                    .addComponent(adminAdminsMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(adminAdminsSearchTextField))
                 .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
@@ -195,10 +203,15 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(adminAdminsIdLabel)
                             .addComponent(adminAdminsIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
+                        .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(adminAdminsSurnameLabel)
-                            .addComponent(adminAdminsSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(adminAdminsSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(adminAdminsAddButton)
+                                .addComponent(adminAdminsUpdateButton)
+                                .addComponent(adminAdminsDeleteButton)
+                                .addComponent(adminAdminsClearButton))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(adminAdminsTitleLabel)
@@ -212,17 +225,10 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
                             .addComponent(adminAdminsNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(adminAdminsNameLabel)
                             .addComponent(adminAdminsDepartmentLabel)
-                            .addComponent(adminAdminsDepartmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(adminAdminsAddButton)
-                            .addComponent(adminAdminsUpdateButton)
-                            .addComponent(adminAdminsDeleteButton))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(adminAdminsMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                            .addComponent(adminAdminsDepartmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49))
         );
 
         pack();
@@ -237,7 +243,6 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_adminAdminsSearchTextFieldKeyReleased
 
     private void adminAdminsAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminAdminsAddButtonActionPerformed
-        adminAdminsMessageLabel.setText("");
         String id = adminAdminsIdTextField.getText();
         String name = adminAdminsNameTextField.getText();
         String surname = adminAdminsSurnameTextField.getText();
@@ -249,11 +254,18 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
 
         service.createAdmin(new Admin(id, name, surname, title, email, phone, departmentsId, usersId));
         showAdmin();
-        adminAdminsMessageLabel.setText("New Admin is Added!");
+        JOptionPane.showMessageDialog(this, "New Admin has been Added!");
+
+        adminAdminsIdTextField.setText("");
+        adminAdminsNameTextField.setText("");
+        adminAdminsSurnameTextField.setText("");
+        adminAdminsTitleTextField.setText("");
+        adminAdminsEmailTextField.setText("");
+        adminAdminsPhoneTextField.setText("");
+        adminAdminsDepartmentComboBox.setSelectedItem("Choose Department");
     }//GEN-LAST:event_adminAdminsAddButtonActionPerformed
 
     private void adminAdminsUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminAdminsUpdateButtonActionPerformed
-        adminAdminsMessageLabel.setText("");
         String id = adminAdminsIdTextField.getText();
         String name = adminAdminsNameTextField.getText();
         String surname = adminAdminsSurnameTextField.getText();
@@ -266,14 +278,22 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
         int selectedRow = adminAdminsTable.getSelectedRow();
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
-                adminAdminsMessageLabel.setText("Admins table is empty.");
+                JOptionPane.showMessageDialog(this, "Admins table is empty.");
             } else {
-                adminAdminsMessageLabel.setText("Please select the admin who you want to update.");
+                JOptionPane.showMessageDialog(this, "Please select the admin who you want to update.");
             }
         } else {
             service.updateAdmin(new Admin(id, name, surname, title, email, phone, departmentsId, usersId));
             showAdmin();
-            adminAdminsMessageLabel.setText("Admin is updated!");
+            JOptionPane.showMessageDialog(this, "Admin has been updated!");
+
+            adminAdminsIdTextField.setText("");
+            adminAdminsNameTextField.setText("");
+            adminAdminsSurnameTextField.setText("");
+            adminAdminsTitleTextField.setText("");
+            adminAdminsEmailTextField.setText("");
+            adminAdminsPhoneTextField.setText("");
+            adminAdminsDepartmentComboBox.setSelectedItem("Choose Department");
         }
     }//GEN-LAST:event_adminAdminsUpdateButtonActionPerformed
 
@@ -290,7 +310,6 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_adminAdminsTableMouseClicked
 
     private void adminAdminsDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminAdminsDeleteButtonActionPerformed
-        adminAdminsMessageLabel.setText("");
         String id = adminAdminsIdTextField.getText();
         String name = adminAdminsNameTextField.getText();
         String surname = adminAdminsSurnameTextField.getText();
@@ -302,16 +321,34 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
         int selectedRow = adminAdminsTable.getSelectedRow();
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
-                adminAdminsMessageLabel.setText("Admins table is empty.");
+                JOptionPane.showMessageDialog(this, "Admins table is empty.");
             } else {
-                adminAdminsMessageLabel.setText("Please select the admin who you want to update.");
+                JOptionPane.showMessageDialog(this, "Please select the admin who you want to delete.");
             }
         } else {
             service.deleteAdmin(id);
             showAdmin();
-            adminAdminsMessageLabel.setText("Admin is deleted!");
+            JOptionPane.showMessageDialog(this, "Admin has been deleted!");
+
+            adminAdminsIdTextField.setText("");
+            adminAdminsNameTextField.setText("");
+            adminAdminsSurnameTextField.setText("");
+            adminAdminsTitleTextField.setText("");
+            adminAdminsEmailTextField.setText("");
+            adminAdminsPhoneTextField.setText("");
+            adminAdminsDepartmentComboBox.setSelectedItem("Choose Department");
         }
     }//GEN-LAST:event_adminAdminsDeleteButtonActionPerformed
+
+    private void adminAdminsClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminAdminsClearButtonActionPerformed
+        adminAdminsIdTextField.setText("");
+        adminAdminsNameTextField.setText("");
+        adminAdminsSurnameTextField.setText("");
+        adminAdminsTitleTextField.setText("");
+        adminAdminsEmailTextField.setText("");
+        adminAdminsPhoneTextField.setText("");
+        adminAdminsDepartmentComboBox.setSelectedItem("Choose Department");
+    }//GEN-LAST:event_adminAdminsClearButtonActionPerformed
 
     public void showAdmin() {
         model.setRowCount(0);
@@ -346,12 +383,13 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
 
         for (String departmentId : departmentsId) {
             adminAdminsDepartmentComboBox.addItem(departmentId);
-            
+
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adminAdminsAddButton;
+    private javax.swing.JButton adminAdminsClearButton;
     private javax.swing.JButton adminAdminsDeleteButton;
     private javax.swing.JComboBox<String> adminAdminsDepartmentComboBox;
     private javax.swing.JLabel adminAdminsDepartmentLabel;
@@ -359,7 +397,6 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField adminAdminsEmailTextField;
     private javax.swing.JLabel adminAdminsIdLabel;
     private javax.swing.JTextField adminAdminsIdTextField;
-    private javax.swing.JLabel adminAdminsMessageLabel;
     private javax.swing.JLabel adminAdminsNameLabel;
     private javax.swing.JTextField adminAdminsNameTextField;
     private javax.swing.JLabel adminAdminsPhoneLabel;

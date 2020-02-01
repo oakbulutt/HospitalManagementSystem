@@ -4,6 +4,7 @@ import com.hms.model.Appointment;
 import com.hms.service.HMSService;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -41,8 +42,8 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
         doctorAppointmentViewPatientSurnameTextField = new javax.swing.JTextField();
         doctorAppointmentViewAppointmentDateLabel = new javax.swing.JLabel();
         doctorAppointmentsSearchTextField = new javax.swing.JTextField();
-        doctorAppointmentsMessageLabel = new javax.swing.JLabel();
         doctorAppointmentViewAppointmentDateChooser = new com.toedter.calendar.JDateChooser();
+        doctorAppointmentClear = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -116,6 +117,13 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
 
         doctorAppointmentViewAppointmentDateChooser.setDateFormatString("yyyy-MM-dd");
 
+        doctorAppointmentClear.setText("Clear");
+        doctorAppointmentClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doctorAppointmentClearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,7 +145,7 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(doctorAppointmentViewAcceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
-                                .addComponent(doctorAppointmentViewDeleteButton)))
+                                .addComponent(doctorAppointmentViewDeleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -147,9 +155,9 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(doctorAppointmentViewAppointmentDateLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(doctorAppointmentViewAppointmentDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addComponent(doctorAppointmentsSearchTextField)
-                    .addComponent(doctorAppointmentsMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(doctorAppointmentViewAppointmentDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(doctorAppointmentClear, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(doctorAppointmentsSearchTextField))
                 .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
@@ -173,57 +181,64 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(doctorAppointmentViewAcceptButton)
-                    .addComponent(doctorAppointmentViewDeleteButton))
-                .addGap(9, 9, 9)
-                .addComponent(doctorAppointmentsMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                    .addComponent(doctorAppointmentViewDeleteButton)
+                    .addComponent(doctorAppointmentClear))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void doctorAppointmentViewAcceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorAppointmentViewAcceptButtonActionPerformed
-        doctorAppointmentsMessageLabel.setText("");
         int selectedRow = doctorAppointmentTable.getSelectedRow();
 
         String id = model.getValueAt(selectedRow, 0).toString();
         String patientId = doctorAppointmentViewPatientIdTextField.getText();
         java.sql.Date appointmentDate = new java.sql.Date(doctorAppointmentViewAppointmentDateChooser.getDate().getTime());
         String doctorId = model.getValueAt(selectedRow, 4).toString();
-       
+
         String appointmentStatus = "Accepted";
 
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
-                doctorAppointmentsMessageLabel.setText("Appointment table is empty.");
+                JOptionPane.showMessageDialog(this, "Appointment table is empty.");
             } else {
-                doctorAppointmentsMessageLabel.setText("Please select the appointment which you want to accept.");
+                JOptionPane.showMessageDialog(this, "Please select the appointment which you want to accept.");
             }
         } else {
             service.updateAppointment(new Appointment(id, patientId, doctorId, appointmentDate, appointmentStatus));
             showAppointment();
-            doctorAppointmentsMessageLabel.setText("Appointment is accepted!");
+            JOptionPane.showMessageDialog(this, "Appointment has been accepted!");
+
+            doctorAppointmentViewPatientIdTextField.setText("");
+            doctorAppointmentViewPatientNameTextField.setText("");
+            doctorAppointmentViewPatientSurnameTextField.setText("");
+            doctorAppointmentViewAppointmentDateChooser.setDate(null);
         }
     }//GEN-LAST:event_doctorAppointmentViewAcceptButtonActionPerformed
 
     private void doctorAppointmentViewDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorAppointmentViewDeleteButtonActionPerformed
-        doctorAppointmentsMessageLabel.setText("");
         int selectedRow = doctorAppointmentTable.getSelectedRow();
 
         String id = model.getValueAt(selectedRow, 0).toString();
-        
+
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
-                doctorAppointmentsMessageLabel.setText("Appointment table is empty.");
+                JOptionPane.showMessageDialog(this, "Appointment table is empty.");
             } else {
-                doctorAppointmentsMessageLabel.setText("Please select the appointment which you want to delete.");
+                JOptionPane.showMessageDialog(this, "Please select the appointment which you want to delete.");
             }
         } else {
             service.deleteAppointment(id);
             showAppointment();
-            doctorAppointmentsMessageLabel.setText("Appointment is accepted!");
+            JOptionPane.showMessageDialog(this, "Appointment is deleted!");
+
+            doctorAppointmentViewPatientIdTextField.setText("");
+            doctorAppointmentViewPatientNameTextField.setText("");
+            doctorAppointmentViewPatientSurnameTextField.setText("");
+            doctorAppointmentViewAppointmentDateChooser.setDate(null);
         }
     }//GEN-LAST:event_doctorAppointmentViewDeleteButtonActionPerformed
 
@@ -242,8 +257,16 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
         dinamicSearch(search);
     }//GEN-LAST:event_doctorAppointmentsSearchTextFieldKeyReleased
 
+    private void doctorAppointmentClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorAppointmentClearActionPerformed
+        doctorAppointmentViewPatientIdTextField.setText("");
+        doctorAppointmentViewPatientNameTextField.setText("");
+        doctorAppointmentViewPatientSurnameTextField.setText("");
+        doctorAppointmentViewAppointmentDateChooser.setDate(null);
+    }//GEN-LAST:event_doctorAppointmentClearActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton doctorAppointmentClear;
     private javax.swing.JTable doctorAppointmentTable;
     private javax.swing.JButton doctorAppointmentViewAcceptButton;
     private com.toedter.calendar.JDateChooser doctorAppointmentViewAppointmentDateChooser;
@@ -255,7 +278,6 @@ public class DoctorAppointmentView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField doctorAppointmentViewPatientNameTextField;
     private javax.swing.JLabel doctorAppointmentViewPatientSurnameLabel;
     private javax.swing.JTextField doctorAppointmentViewPatientSurnameTextField;
-    private javax.swing.JLabel doctorAppointmentsMessageLabel;
     private javax.swing.JTextField doctorAppointmentsSearchTextField;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

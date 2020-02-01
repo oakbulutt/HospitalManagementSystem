@@ -29,7 +29,6 @@
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="jScrollPane1" max="32767" attributes="0"/>
-                  <Component id="receptionistsAppointmentMessageLabel" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -58,31 +57,42 @@
                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="receptionistAppointmentDoctorNameLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="receptionistAppointmentDoctorIdLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="receptionistAppointmentDoctorSurnameLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="receptionistAppointmentDoctorDepartmentLabel" alignment="1" min="-2" pref="102" max="-2" attributes="0"/>
+                              <Component id="receptionistAppointmentDoctorNameLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="receptionistAppointmentDoctorNameTextField" min="-2" pref="180" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="receptionistAppointmentDoctorIdLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="receptionistAppointmentDoctorIdComboBox" min="-2" pref="180" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="receptionistAppointmentDoctorDepartmentLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="receptionistAppointmentDoctorDepartmentComboBox" min="-2" pref="180" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="receptionistAppointmentDoctorSurnameLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="receptionistAppointmentViewAddButton" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <Component id="receptionistAppointmentClear" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="receptionistAppointmentViewAddButton" min="-2" pref="80" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="receptionistAppointmentDoctorSurnameTextField" min="-2" pref="180" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="receptionistAppointmentViewUpdateButton" min="-2" pref="80" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="receptionistAppointmentViewDeleteButton" min="-2" pref="80" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="receptionistAppointmentDoctorNameTextField" max="32767" attributes="0"/>
-                          <Component id="receptionistAppointmentDoctorSurnameTextField" alignment="0" max="32767" attributes="0"/>
-                          <Component id="receptionistAppointmentDoctorDepartmentComboBox" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="receptionistAppointmentViewUpdateButton" min="-2" pref="80" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="receptionistAppointmentViewDeleteButton" min="-2" pref="80" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="receptionistAppointmentDoctorIdComboBox" alignment="0" max="32767" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
@@ -96,45 +106,45 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="receptionistAppointmentIdLable" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="receptionistAppointmentIdTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="receptionistAppointmentDoctorIdLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="receptionistAppointmentDoctorIdComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="receptionistAppointmentDoctorDepartmentLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="receptionistAppointmentDoctorDepartmentComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="receptionistAppointmentPatientIdLable" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="receptionistAppointmentPatientIdTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="receptionistAppointmentDoctorNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="receptionistAppointmentDoctorNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="receptionistAppointmentDoctorIdLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="receptionistAppointmentDoctorIdComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="receptionistAppointmentPatientNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="receptionistAppointmentPatientNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="receptionistAppointmentDoctorSurnameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="receptionistAppointmentDoctorSurnameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="receptionistAppointmentDoctorNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="receptionistAppointmentDoctorNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="receptionistAppointmentPatientSurnameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="receptionistAppointmentPatientSurnameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="receptionistAppointmentDoctorDepartmentLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="receptionistAppointmentDoctorDepartmentComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="receptionistAppointmentDoctorSurnameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="receptionistAppointmentDoctorSurnameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="receptionistAppointmentAppointmentDateLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="receptionistAppointmentDateChooser" min="-2" max="-2" attributes="0"/>
-                  <Component id="receptionistAppointmentViewAddButton" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="receptionistAppointmentViewAddButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="receptionistAppointmentViewUpdateButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="receptionistAppointmentViewDeleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="receptionistAppointmentClear" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="receptionistsAppointmentMessageLabel" min="-2" pref="20" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="460" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="470" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -346,8 +356,6 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="receptionistsAppointmentMessageLabel">
-    </Component>
     <Component class="javax.swing.JLabel" name="receptionistAppointmentIdLable">
       <Properties>
         <Property name="text" type="java.lang.String" value="Appointment ID        :"/>
@@ -364,11 +372,19 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="receptionistAppointmentDoctorIdComboBoxActionPerformed"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="receptionistAppointmentDoctorIdComboBoxItemStateChanged"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="receptionistAppointmentClear">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Clear"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="receptionistAppointmentClearActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

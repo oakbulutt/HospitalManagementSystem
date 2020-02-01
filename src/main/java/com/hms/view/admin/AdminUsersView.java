@@ -3,6 +3,7 @@ package com.hms.view.admin;
 import com.hms.model.User;
 import com.hms.service.HMSService;
 import java.util.*;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -38,7 +39,7 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
         adminUsersAddButton = new javax.swing.JButton();
         adminUsersDeleteButton = new javax.swing.JButton();
         adminUsersUpdateButton = new javax.swing.JButton();
-        adminUsersMessageLabel = new javax.swing.JLabel();
+        adminUsersClearButton = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -100,6 +101,13 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
             }
         });
 
+        adminUsersClearButton.setText("Clear");
+        adminUsersClearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminUsersClearButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,8 +130,9 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(adminUsersUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(adminUsersDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(adminUsersMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(adminUsersDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(adminUsersClearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
@@ -136,7 +145,8 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(adminUsersAddButton)
                         .addComponent(adminUsersUpdateButton)
-                        .addComponent(adminUsersDeleteButton))
+                        .addComponent(adminUsersDeleteButton)
+                        .addComponent(adminUsersClearButton))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(adminUserstIdLabel)
                         .addComponent(adminUsersIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -144,11 +154,9 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(adminUsersPasswordLabel)
                     .addComponent(adminUsersPasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(4, 4, 4)
-                .addComponent(adminUsersMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49))
         );
 
         pack();
@@ -167,7 +175,6 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_adminUsersTableMouseClicked
 
     private void adminUsersAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminUsersAddButtonActionPerformed
-        adminUsersMessageLabel.setText("");
         String id = adminUsersIdTextField.getText();
         String password = adminUsersPasswordTextField.getText();
 
@@ -175,11 +182,13 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
         service.createUser(user);
 
         showUsers();
-        adminUsersMessageLabel.setText("New User is Added!");
+        JOptionPane.showMessageDialog(this, "New User has been Added!");
+
+        adminUsersIdTextField.setText("");
+        adminUsersPasswordTextField.setText("");
     }//GEN-LAST:event_adminUsersAddButtonActionPerformed
 
     private void adminUsersUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminUsersUpdateButtonActionPerformed
-        adminUsersMessageLabel.setText("");
         String id = adminUsersIdTextField.getText();
         String password = adminUsersPasswordTextField.getText();
 
@@ -187,20 +196,22 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
 
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
-                adminUsersMessageLabel.setText("Users table is empty.");
+                JOptionPane.showMessageDialog(this, "Users table is empty.");
             } else {
-                adminUsersMessageLabel.setText("Please select the user who you want to update.");
+                JOptionPane.showMessageDialog(this, "Please select the user who you want to update.");
             }
         } else {
             service.updateUser(new User(id, password));
 
             showUsers();
-            adminUsersMessageLabel.setText("User is updated!");
+            JOptionPane.showMessageDialog(this, "User has been updated!");
+
+            adminUsersIdTextField.setText("");
+            adminUsersPasswordTextField.setText("");
         }
     }//GEN-LAST:event_adminUsersUpdateButtonActionPerformed
 
     private void adminUsersDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminUsersDeleteButtonActionPerformed
-        adminUsersMessageLabel.setText("");
         String id = adminUsersIdTextField.getText();
         String password = adminUsersPasswordTextField.getText();
 
@@ -208,24 +219,32 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
 
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
-                adminUsersMessageLabel.setText("Users table is empty.");
+                JOptionPane.showMessageDialog(this, "Users table is empty.");
             } else {
-                adminUsersMessageLabel.setText("Please select the user who you want to delete employee data.");
+                JOptionPane.showMessageDialog(this, "Please select the user who you want to delete.");
             }
         } else {
             service.deleteUser(id);
 
             showUsers();
-            adminUsersMessageLabel.setText("User is deleted!");
+            JOptionPane.showMessageDialog(this, "User has been deleted!");
+
+            adminUsersIdTextField.setText("");
+            adminUsersPasswordTextField.setText("");
         }
     }//GEN-LAST:event_adminUsersDeleteButtonActionPerformed
+
+    private void adminUsersClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminUsersClearButtonActionPerformed
+        adminUsersIdTextField.setText("");
+        adminUsersPasswordTextField.setText("");
+    }//GEN-LAST:event_adminUsersClearButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adminUsersAddButton;
+    private javax.swing.JButton adminUsersClearButton;
     private javax.swing.JButton adminUsersDeleteButton;
     private javax.swing.JTextField adminUsersIdTextField;
-    private javax.swing.JLabel adminUsersMessageLabel;
     private javax.swing.JLabel adminUsersPasswordLabel;
     private javax.swing.JTextField adminUsersPasswordTextField;
     private javax.swing.JTextField adminUsersSearchTextField;

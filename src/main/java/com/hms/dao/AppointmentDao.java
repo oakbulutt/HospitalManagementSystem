@@ -1,4 +1,3 @@
-
 package com.hms.dao;
 
 import com.hms.model.Appointment;
@@ -6,11 +5,13 @@ import java.util.List;
 
 public interface AppointmentDao {
 
-    public List<Appointment> appointments();
+    List<Appointment> appointments();
 
-    public void createAppointment(Appointment appointment);
+    String getAppointmentStatus(String id);
 
-    public void updateAppointment(Appointment appointment);
+    void createAppointment(Appointment appointment);
 
-    public void deleteAppointment(String id);
+    void updateAppointment(Appointment appointment);
+
+    void deleteAppointment(String id);
 }

@@ -38,8 +38,8 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
     }
 
     @Override
-    public List<String> prescription(String id) {
-        List<String> prescription = new LinkedList<>();
+    public Prescription prescription(String id) {
+        Prescription prescription = null;
         try {
             preparedStatement = connection.prepareStatement(PrescriptionConstants.PRESCRIPTION_SQL);
             preparedStatement.setString(1, id);
@@ -54,14 +54,16 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
                 int numberOfTablets = resultSet.getInt("number_of_tablets");
                 int dailyDose = resultSet.getInt("daily_dose");
                 String explanation = resultSet.getString("explanation");
+                
+                prescription = new Prescription(id, patientId, doctorId, nameOfMedicine, doseMg, numberOfTablets, dailyDose, explanation);
 
-                prescription.add(patientId);
-                prescription.add(doctorId);
-                prescription.add(nameOfMedicine);
-                prescription.add(Integer.toString(doseMg));
-                prescription.add(Integer.toString(numberOfTablets));
-                prescription.add(Integer.toString(dailyDose));
-                prescription.add(explanation);
+//                prescription.add(patientId);
+//                prescription.add(doctorId);
+//                prescription.add(nameOfMedicine);
+//                prescription.add(Integer.toString(doseMg));
+//                prescription.add(Integer.toString(numberOfTablets));
+//                prescription.add(Integer.toString(dailyDose));
+//                prescription.add(explanation);
             }
             return prescription;
         } catch (SQLException e) {

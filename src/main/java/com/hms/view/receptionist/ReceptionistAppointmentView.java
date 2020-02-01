@@ -1,11 +1,14 @@
 package com.hms.view.receptionist;
 
 import com.hms.model.Appointment;
+import com.hms.model.Doctor;
 import com.hms.service.HMSService;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ReceptionistAppointmentView extends javax.swing.JInternalFrame {
@@ -50,10 +53,10 @@ public class ReceptionistAppointmentView extends javax.swing.JInternalFrame {
         receptionistAppointmentAppointmentDateLabel = new javax.swing.JLabel();
         receptionistAppointmentDateChooser = new com.toedter.calendar.JDateChooser();
         receptionistAppointmentDoctorDepartmentComboBox = new javax.swing.JComboBox<>();
-        receptionistsAppointmentMessageLabel = new javax.swing.JLabel();
         receptionistAppointmentIdLable = new javax.swing.JLabel();
         receptionistAppointmentIdTextField = new javax.swing.JTextField();
         receptionistAppointmentDoctorIdComboBox = new javax.swing.JComboBox<>();
+        receptionistAppointmentClear = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -153,9 +156,16 @@ public class ReceptionistAppointmentView extends javax.swing.JInternalFrame {
         receptionistAppointmentIdLable.setText("Appointment ID        :");
 
         receptionistAppointmentDoctorIdComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Doctor" }));
-        receptionistAppointmentDoctorIdComboBox.addActionListener(new java.awt.event.ActionListener() {
+        receptionistAppointmentDoctorIdComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                receptionistAppointmentDoctorIdComboBoxItemStateChanged(evt);
+            }
+        });
+
+        receptionistAppointmentClear.setText("Clear");
+        receptionistAppointmentClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                receptionistAppointmentDoctorIdComboBoxActionPerformed(evt);
+                receptionistAppointmentClearActionPerformed(evt);
             }
         });
 
@@ -167,7 +177,6 @@ public class ReceptionistAppointmentView extends javax.swing.JInternalFrame {
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane1)
-                    .addComponent(receptionistsAppointmentMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -190,25 +199,33 @@ public class ReceptionistAppointmentView extends javax.swing.JInternalFrame {
                         .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(receptionistAppointmentDoctorNameLabel)
-                                    .addComponent(receptionistAppointmentDoctorIdLabel)
+                                .addComponent(receptionistAppointmentDoctorNameLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(receptionistAppointmentDoctorNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(receptionistAppointmentDoctorIdLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(receptionistAppointmentDoctorIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(receptionistAppointmentDoctorDepartmentLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(receptionistAppointmentDoctorDepartmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(receptionistAppointmentDoctorSurnameLabel)
-                                    .addComponent(receptionistAppointmentDoctorDepartmentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(10, 10, 10))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(receptionistAppointmentViewAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(receptionistAppointmentDoctorNameTextField)
-                            .addComponent(receptionistAppointmentDoctorSurnameTextField)
-                            .addComponent(receptionistAppointmentDoctorDepartmentComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(receptionistAppointmentViewUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20)
-                                .addComponent(receptionistAppointmentViewDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(receptionistAppointmentDoctorIdComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(receptionistAppointmentViewAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(receptionistAppointmentClear, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(receptionistAppointmentDoctorSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(receptionistAppointmentViewUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(receptionistAppointmentViewDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGap(8, 8, 8)))
                 .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
@@ -218,46 +235,45 @@ public class ReceptionistAppointmentView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(receptionistAppointmentIdLable)
                     .addComponent(receptionistAppointmentIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(receptionistAppointmentDoctorIdLabel)
-                    .addComponent(receptionistAppointmentDoctorIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(receptionistAppointmentDoctorDepartmentLabel)
+                    .addComponent(receptionistAppointmentDoctorDepartmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(receptionistAppointmentPatientIdLable)
                     .addComponent(receptionistAppointmentPatientIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(receptionistAppointmentDoctorNameLabel)
-                    .addComponent(receptionistAppointmentDoctorNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(receptionistAppointmentDoctorIdLabel)
+                    .addComponent(receptionistAppointmentDoctorIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(receptionistAppointmentPatientNameLabel)
                     .addComponent(receptionistAppointmentPatientNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(receptionistAppointmentDoctorSurnameLabel)
-                    .addComponent(receptionistAppointmentDoctorSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(receptionistAppointmentDoctorNameLabel)
+                    .addComponent(receptionistAppointmentDoctorNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(receptionistAppointmentPatientSurnameLabel)
                     .addComponent(receptionistAppointmentPatientSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(receptionistAppointmentDoctorDepartmentLabel)
-                    .addComponent(receptionistAppointmentDoctorDepartmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(receptionistAppointmentDoctorSurnameLabel)
+                    .addComponent(receptionistAppointmentDoctorSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(receptionistAppointmentAppointmentDateLabel)
                     .addComponent(receptionistAppointmentDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(receptionistAppointmentViewAddButton)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(receptionistAppointmentViewAddButton)
                         .addComponent(receptionistAppointmentViewUpdateButton)
                         .addComponent(receptionistAppointmentViewDeleteButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(receptionistAppointmentClear)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(receptionistsAppointmentMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void receptionistAppointmentViewAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistAppointmentViewAddButtonActionPerformed
-        receptionistsAppointmentMessageLabel.setText("");
         String id = receptionistAppointmentIdTextField.getText();
         String patientId = receptionistAppointmentPatientIdTextField.getText();
         String patientName = receptionistAppointmentPatientNameTextField.getText();
@@ -270,7 +286,17 @@ public class ReceptionistAppointmentView extends javax.swing.JInternalFrame {
         String appointmentStatus = "Scheduled";
         service.createAppointment(new Appointment(id, patientId, doctorId, appointmentDate, appointmentStatus));
         showAppointment();
-        receptionistsAppointmentMessageLabel.setText("Appointment is added!");
+        JOptionPane.showMessageDialog(this, "Appointment has been added");
+
+        receptionistAppointmentIdTextField.setText("");
+        receptionistAppointmentPatientIdTextField.setText("");
+        receptionistAppointmentPatientNameTextField.setText("");
+        receptionistAppointmentPatientSurnameTextField.setText("");
+        receptionistAppointmentDoctorNameTextField.setText("");
+        receptionistAppointmentDoctorSurnameTextField.setText("");
+        receptionistAppointmentDoctorDepartmentComboBox.setSelectedItem("Choose Department");
+        receptionistAppointmentDoctorIdComboBox.setSelectedItem("Choose Doctor");
+        receptionistAppointmentDateChooser.setDate(null);
     }//GEN-LAST:event_receptionistAppointmentViewAddButtonActionPerformed
 
     private void receptionistAppointmentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_receptionistAppointmentTableMouseClicked
@@ -280,16 +306,15 @@ public class ReceptionistAppointmentView extends javax.swing.JInternalFrame {
         receptionistAppointmentPatientIdTextField.setText(model.getValueAt(selectedRow, 1).toString());
         receptionistAppointmentPatientNameTextField.setText(model.getValueAt(selectedRow, 2).toString());
         receptionistAppointmentPatientSurnameTextField.setText(model.getValueAt(selectedRow, 3).toString());
-        receptionistAppointmentDoctorIdComboBox.setSelectedItem(model.getValueAt(selectedRow, 4).toString());
         receptionistAppointmentDoctorNameTextField.setText(model.getValueAt(selectedRow, 5).toString());
         receptionistAppointmentDoctorSurnameTextField.setText(model.getValueAt(selectedRow, 6).toString());
         receptionistAppointmentDoctorDepartmentComboBox.setSelectedItem(model.getValueAt(selectedRow, 7).toString());
-        receptionistAppointmentDateChooser.setDate((Date)model.getValueAt(selectedRow, 8));
+        receptionistAppointmentDoctorIdComboBox.setSelectedItem(model.getValueAt(selectedRow, 4).toString());
+        receptionistAppointmentDateChooser.setDate((Date) model.getValueAt(selectedRow, 8));
 
     }//GEN-LAST:event_receptionistAppointmentTableMouseClicked
 
     private void receptionistAppointmentViewUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistAppointmentViewUpdateButtonActionPerformed
-        receptionistsAppointmentMessageLabel.setText("");
         String id = receptionistAppointmentIdTextField.getText();
         String patientId = receptionistAppointmentPatientIdTextField.getText();
         String patientName = receptionistAppointmentPatientNameTextField.getText();
@@ -304,19 +329,29 @@ public class ReceptionistAppointmentView extends javax.swing.JInternalFrame {
         int selectedRow = receptionistAppointmentTable.getSelectedRow();
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
-                receptionistsAppointmentMessageLabel.setText("Appointment table is empty.");
+                JOptionPane.showMessageDialog(this, "Appointment table is empty.");
             } else {
-                receptionistsAppointmentMessageLabel.setText("Please select the appointment which you want to update.");
+                JOptionPane.showMessageDialog(this, "Please select the appointment which you want to update.");
             }
         } else {
             service.updateAppointment(new Appointment(id, patientId, doctorId, appointmentDate, appointmentStatus));
             showAppointment();
-            receptionistsAppointmentMessageLabel.setText("Appointment is updated!");
+            JOptionPane.showMessageDialog(this, "Appointment has been updated!");
+
+            receptionistAppointmentIdTextField.setText("");
+            receptionistAppointmentPatientIdTextField.setText("");
+            receptionistAppointmentPatientNameTextField.setText("");
+            receptionistAppointmentPatientSurnameTextField.setText("");
+            receptionistAppointmentDoctorNameTextField.setText("");
+            receptionistAppointmentDoctorSurnameTextField.setText("");
+            receptionistAppointmentDoctorDepartmentComboBox.setSelectedItem("Choose Department");
+            receptionistAppointmentDoctorIdComboBox.setSelectedItem("Choose Doctor");
+            receptionistAppointmentDateChooser.setDate(null);
         }
+
     }//GEN-LAST:event_receptionistAppointmentViewUpdateButtonActionPerformed
 
     private void receptionistAppointmentViewDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistAppointmentViewDeleteButtonActionPerformed
-        receptionistsAppointmentMessageLabel.setText("");
         String id = receptionistAppointmentIdTextField.getText();
         String patientId = receptionistAppointmentPatientIdTextField.getText();
         String patientName = receptionistAppointmentPatientNameTextField.getText();
@@ -330,14 +365,24 @@ public class ReceptionistAppointmentView extends javax.swing.JInternalFrame {
         int selectedRow = receptionistAppointmentTable.getSelectedRow();
         if (selectedRow == -1) {
             if (model.getRowCount() == 0) {
-                receptionistsAppointmentMessageLabel.setText("Appointment table is empty.");
+                JOptionPane.showMessageDialog(this, "Appointment table is empty.");
             } else {
-                receptionistsAppointmentMessageLabel.setText("Please select the appointment which you want to delete.");
+                JOptionPane.showMessageDialog(this, "Please select the appointment which you want to delete.");
             }
         } else {
             service.deleteAppointment(id);
             showAppointment();
-            receptionistsAppointmentMessageLabel.setText("Appointment is deleted!");
+            JOptionPane.showMessageDialog(this, "Appointment has been deleted!");
+
+            receptionistAppointmentIdTextField.setText("");
+            receptionistAppointmentPatientIdTextField.setText("");
+            receptionistAppointmentPatientNameTextField.setText("");
+            receptionistAppointmentPatientSurnameTextField.setText("");
+            receptionistAppointmentDoctorNameTextField.setText("");
+            receptionistAppointmentDoctorSurnameTextField.setText("");
+            receptionistAppointmentDoctorDepartmentComboBox.setSelectedItem("Choose Department");
+            receptionistAppointmentDoctorIdComboBox.setSelectedItem("Choose Doctor");
+            receptionistAppointmentDateChooser.setDate(null);
         }
     }//GEN-LAST:event_receptionistAppointmentViewDeleteButtonActionPerformed
 
@@ -366,20 +411,36 @@ public class ReceptionistAppointmentView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_receptionistAppointmentDoctorDepartmentComboBoxActionPerformed
 
-    private void receptionistAppointmentDoctorIdComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistAppointmentDoctorIdComboBoxActionPerformed
+    private void receptionistAppointmentDoctorIdComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_receptionistAppointmentDoctorIdComboBoxItemStateChanged
+        String placeholder = "Choose Doctor";
+        final Object selectedItem = receptionistAppointmentDoctorIdComboBox.getSelectedItem();
+        String doctorId = (String) selectedItem;
+        if (selectedItem != null && !doctorId.equalsIgnoreCase(placeholder)) {
+            Doctor doctor = service.getDoctor(doctorId);
 
-//            String doctorId = receptionistAppointmentDoctorIdComboBox.getSelectedItem().toString();
-//            List<String> doctorsId = new LinkedList<>();
-//            doctorsId = service.doctors(doctorId);
-//
-//            receptionistAppointmentDoctorNameTextField.setText(doctorsId.get(0));
-//            receptionistAppointmentDoctorSurnameTextField.setText(doctorsId.get(1));
-    }//GEN-LAST:event_receptionistAppointmentDoctorIdComboBoxActionPerformed
+            receptionistAppointmentDoctorNameTextField.setText(doctor.getName());
+            receptionistAppointmentDoctorSurnameTextField.setText(doctor.getSurname());
+        }
+    }//GEN-LAST:event_receptionistAppointmentDoctorIdComboBoxItemStateChanged
+
+    private void receptionistAppointmentClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptionistAppointmentClearActionPerformed
+        // TODO add your handling code here:
+        receptionistAppointmentIdTextField.setText("");
+        receptionistAppointmentPatientIdTextField.setText("");
+        receptionistAppointmentPatientNameTextField.setText("");
+        receptionistAppointmentPatientSurnameTextField.setText("");
+        receptionistAppointmentDoctorNameTextField.setText("");
+        receptionistAppointmentDoctorSurnameTextField.setText("");
+        receptionistAppointmentDoctorDepartmentComboBox.setSelectedItem("Choose Department");
+        receptionistAppointmentDoctorIdComboBox.setSelectedItem("Choose Doctor");
+        receptionistAppointmentDateChooser.setDate(null);
+    }//GEN-LAST:event_receptionistAppointmentClearActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel receptionistAppointmentAppointmentDateLabel;
+    private javax.swing.JButton receptionistAppointmentClear;
     private com.toedter.calendar.JDateChooser receptionistAppointmentDateChooser;
     private javax.swing.JComboBox<String> receptionistAppointmentDoctorDepartmentComboBox;
     private javax.swing.JLabel receptionistAppointmentDoctorDepartmentLabel;
@@ -401,7 +462,6 @@ public class ReceptionistAppointmentView extends javax.swing.JInternalFrame {
     private javax.swing.JButton receptionistAppointmentViewAddButton;
     private javax.swing.JButton receptionistAppointmentViewDeleteButton;
     private javax.swing.JButton receptionistAppointmentViewUpdateButton;
-    private javax.swing.JLabel receptionistsAppointmentMessageLabel;
     // End of variables declaration//GEN-END:variables
 
     private void showAppointment() {
