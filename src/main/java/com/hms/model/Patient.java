@@ -14,6 +14,9 @@ public class Patient {
     private String anamnesis;
     private String prescriptionId;
 
+    public Patient() {
+    }
+
     public Patient(String id, String name, String surname, String gender, Date birthdate, String email, String phone, String anamnesis, String prescriptionId) {
         this.id = id;
         this.name = name;

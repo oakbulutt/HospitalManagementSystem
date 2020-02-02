@@ -164,7 +164,7 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
 
     private void adminUsersSearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adminUsersSearchTextFieldKeyReleased
         String search = adminUsersSearchTextField.getText();
-        dinamicSearch(search);
+        dynamicSearch(search);
     }//GEN-LAST:event_adminUsersSearchTextFieldKeyReleased
 
     private void adminUsersTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminUsersTableMouseClicked
@@ -254,7 +254,7 @@ public class AdminUsersView extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane7;
     // End of variables declaration//GEN-END:variables
 
-    private void dinamicSearch(String search) {
+    private void dynamicSearch(String search) {
         TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
 
         adminUsersTable.setRowSorter(tableRowSorter);

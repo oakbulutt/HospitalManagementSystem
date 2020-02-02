@@ -240,7 +240,7 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
 
     private void adminDoctorsSearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adminDoctorsSearchTextFieldKeyReleased
         String search = adminDoctorsSearchTextField.getText();
-        dinamicSearch(search);
+        dynamicSearch(search);
     }//GEN-LAST:event_adminDoctorsSearchTextFieldKeyReleased
 
     private void adminDoctorsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminDoctorsTableMouseClicked
@@ -390,7 +390,7 @@ public class AdminDoctorsView extends javax.swing.JInternalFrame {
         }
     }
 
-    private void dinamicSearch(String search) {
+    private void dynamicSearch(String search) {
         TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
 
         adminDoctorsTable.setRowSorter(tableRowSorter);

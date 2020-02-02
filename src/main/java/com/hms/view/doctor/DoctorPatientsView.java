@@ -2,7 +2,9 @@ package com.hms.view.doctor;
 
 import com.hms.model.Patient;
 import com.hms.service.HMSService;
-import java.util.*;
+import java.sql.Date;
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -105,29 +107,30 @@ public class DoctorPatientsView extends javax.swing.JInternalFrame {
     private void doctorPatientTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doctorPatientTableMouseClicked
         int selectedRow = doctorPatientTable.getSelectedRow();
 
-        List<String> patientInfo = new LinkedList<>();
-        patientInfo.add(model.getValueAt(selectedRow, 0).toString());
-        patientInfo.add(model.getValueAt(selectedRow, 1).toString());
-        patientInfo.add(model.getValueAt(selectedRow, 2).toString());
-        patientInfo.add(model.getValueAt(selectedRow, 3).toString());
-        patientInfo.add(model.getValueAt(selectedRow, 4).toString());
-        patientInfo.add(model.getValueAt(selectedRow, 5).toString());
-        patientInfo.add(model.getValueAt(selectedRow, 6).toString());
+        Patient patient = new Patient();
+
+        patient.setId(model.getValueAt(selectedRow, 0).toString());
+        patient.setName(model.getValueAt(selectedRow, 1).toString());
+        patient.setSurname(model.getValueAt(selectedRow, 2).toString());
+        patient.setGender(model.getValueAt(selectedRow, 3).toString());
+
+        patient.setBirthdate((Date) model.getValueAt(selectedRow, 4));
+
+        patient.setEmail(model.getValueAt(selectedRow, 5).toString());
+        patient.setPhone(model.getValueAt(selectedRow, 6).toString());
 
         if (model.getValueAt(selectedRow, 7) == null) {
-            patientInfo.add("No anamnesis");
+            patient.setAnamnesis("No anamnesis");
         } else {
-            patientInfo.add(model.getValueAt(selectedRow, 7).toString());
-
+            patient.setAnamnesis(model.getValueAt(selectedRow, 7).toString());
         }
         if (model.getValueAt(selectedRow, 8) == null) {
-            patientInfo.add("No prescription");
+            patient.setPrescriptionId("No prescription");
         } else {
-            patientInfo.add(model.getValueAt(selectedRow, 8).toString());
-
+            patient.setPrescriptionId(model.getValueAt(selectedRow, 8).toString());
         }
 
-        DoctorsPrescriptionView doctorsPrescriptionView = new DoctorsPrescriptionView(patientInfo);
+        DoctorsPrescriptionView doctorsPrescriptionView = new DoctorsPrescriptionView(patient);
         doctorsPrescriptionView.setVisible(true);
     }//GEN-LAST:event_doctorPatientTableMouseClicked
 
@@ -148,13 +151,13 @@ public class DoctorPatientsView extends javax.swing.JInternalFrame {
             for (Patient patient : patients) {
                 if (service.getAppointmentStatus(patient.getId()).equalsIgnoreCase("accepted")) {
                     Object[] willAdd = {
-                    patient.getId(), patient.getName(),
-                    patient.getSurname(), patient.getGender(),
-                    patient.getBirthdate(), patient.getEmail(),
-                    patient.getPhone(), patient.getAnamnesis(),
-                    patient.getPrescriptionId()
-                };
-                model.addRow(willAdd);
+                        patient.getId(), patient.getName(),
+                        patient.getSurname(), patient.getGender(),
+                        patient.getBirthdate(), patient.getEmail(),
+                        patient.getPhone(), patient.getAnamnesis(),
+                        patient.getPrescriptionId()
+                    };
+                    model.addRow(willAdd);
                 }
             }
         }

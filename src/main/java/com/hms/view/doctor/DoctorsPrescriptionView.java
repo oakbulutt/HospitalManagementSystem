@@ -1,13 +1,10 @@
 package com.hms.view.doctor;
 
+import com.hms.model.Patient;
 import com.hms.model.Prescription;
 import com.hms.service.HMSService;
 import java.awt.print.PrinterException;
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -16,8 +13,7 @@ import javax.swing.JOptionPane;
 public class DoctorsPrescriptionView extends javax.swing.JDialog {
 
     DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    List<String> patientInfo = new LinkedList();
+    Patient patient = null;
     Prescription prescription = null;
     HMSService service = new HMSService();
 
@@ -29,22 +25,18 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
         initComponents();
     }
 
-    DoctorsPrescriptionView(List<String> patientInfo) {
+    DoctorsPrescriptionView(Patient patient) {
         initComponents();
-        this.patientInfo = patientInfo;
-        doctorPrescriptionViewPatientsIdTextField.setText(patientInfo.get(0));
-        doctorPrescriptionViewPatientsNameTextField.setText(patientInfo.get(1));
-        doctorPrescriptionViewPatientsSurnameTextField.setText(patientInfo.get(2));
-        doctorPrescriptionViewPatientsGenderComboBox.setSelectedItem(patientInfo.get(3));
-        try {
-            doctorPrescriptionViewPatientsBirthdateDateChooser.setDate(simpleDateFormat.parse(patientInfo.get(4)));
-        } catch (ParseException ex) {
-            Logger.getLogger(DoctorsPrescriptionView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        doctorPrescriptionViewAnamnesisTextField.setText(patientInfo.get(7));
+        this.patient = patient;
+        doctorPrescriptionViewPatientsIdTextField.setText(patient.getId());
+        doctorPrescriptionViewPatientsNameTextField.setText(patient.getName());
+        doctorPrescriptionViewPatientsSurnameTextField.setText(patient.getSurname());
+        doctorPrescriptionViewPatientsGenderComboBox.setSelectedItem(patient.getGender());
+        doctorPrescriptionViewPatientsBirthdateDateChooser.setDate(patient.getBirthdate());
+        doctorPrescriptionViewAnamnesisTextField.setText(patient.getAnamnesis());
 
-        if (patientInfo.get(8) != "No prescription") {
-            prescription = service.prescription(patientInfo.get(8));
+        if (!"No prescription".equalsIgnoreCase(patient.getPrescriptionId())) {
+            prescription = service.prescription(patient.getPrescriptionId());
 
             doctorPrescriptionViewPrescriptionIdTextField.setText(prescription.getId());
             doctorPrescriptionViewMedicineNameTextField.setText(prescription.getNameOfMedicine());
@@ -52,7 +44,6 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
             doctorPrescriptionViewNumberOfTabletsTextField.setText(Integer.toString(prescription.getNumberOfTablets()));
             doctorPrescriptionViewDailyDoseTextField.setText(Integer.toString(prescription.getDailyDose()));
             doctorPrescriptionViewExplanationTextField.setText(prescription.getExplanation());
-
         } else {
             doctorPrescriptionViewPrescriptionIdTextField.setText(lastId());
         }
@@ -329,12 +320,18 @@ public class DoctorsPrescriptionView extends javax.swing.JDialog {
 
         if (service.prescription(prescriptionId) == null) {
             service.createPrescription(new Prescription(prescriptionId, patientId, doctorId, nameOfMedicine, doseMg, numberOfTablets, dailyDose, explanation));
+
+            patient.setAnamnesis(anamnesis);
+            service.updatePatient(patient);
             JOptionPane.showMessageDialog(this, "Prescription has been saved!");
-        }else{
+        } else {
             service.updatePrescription(new Prescription(prescriptionId, patientId, doctorId, nameOfMedicine, doseMg, numberOfTablets, dailyDose, explanation));
+
+            patient.setAnamnesis(anamnesis);
+            service.updatePatient(patient);
             JOptionPane.showMessageDialog(this, "Prescription has been updated!");
         }
-        
+
     }//GEN-LAST:event_doctorPrescriptionViewSaveButtonActionPerformed
 
     private void doctorPrescriptionViewPrescriptionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doctorPrescriptionViewPrescriptionButtonActionPerformed

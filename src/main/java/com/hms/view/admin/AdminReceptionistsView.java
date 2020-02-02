@@ -215,7 +215,7 @@ public class AdminReceptionistsView extends javax.swing.JInternalFrame {
 
     private void adminReceptionistsSearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adminReceptionistsSearchTextFieldKeyReleased
         String search = adminReceptionistsSearchTextField.getText();
-        dinamicSearch(search);
+        dynamicSearch(search);
     }//GEN-LAST:event_adminReceptionistsSearchTextFieldKeyReleased
 
     private void adminReceptionistsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminReceptionistsTableMouseClicked
@@ -347,7 +347,7 @@ public class AdminReceptionistsView extends javax.swing.JInternalFrame {
         }
     }
 
-    private void dinamicSearch(String search) {
+    private void dynamicSearch(String search) {
         TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
 
         adminReceptionistsTable.setRowSorter(tableRowSorter);
