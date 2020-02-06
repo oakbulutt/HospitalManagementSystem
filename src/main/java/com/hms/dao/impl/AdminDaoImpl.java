@@ -16,18 +16,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AdminDaoImpl implements AdminDao {
-
+ 
     private Connection connection = null;
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
-
+    
     public AdminDaoImpl() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Driver is not found!");
-        }
-
         try {
             connection = DriverManager.getConnection(Database.URL, Database.USERNAME, Database.PASSWORD);
             System.out.println("Connected!");

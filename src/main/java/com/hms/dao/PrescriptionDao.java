@@ -2,7 +2,6 @@
 package com.hms.dao;
 
 import com.hms.model.Prescription;
-import java.util.List;
 
 public interface PrescriptionDao {
 

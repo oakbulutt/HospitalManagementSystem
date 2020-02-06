@@ -52,7 +52,6 @@ public class HMSService {
     List<Department> listDepartments;
     List<String> listDepartmentsId;
     List<Doctor> listDoctors;
-    List<Doctor> listStringDoctors;
     List<String> listDoctorsId;
     List<Patient> listPatients;
     List<String> listStringPatients;
@@ -65,12 +64,6 @@ public class HMSService {
     private PreparedStatement preparedStatement = null;
 
     public HMSService() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Driver is not found!");
-        }
-
         try {
             connection = DriverManager.getConnection(Database.URL, Database.USERNAME, Database.PASSWORD);
             System.out.println("Connected!");
@@ -188,8 +181,8 @@ public class HMSService {
     }
 
     public List<Doctor> doctors(String id) {
-        listStringDoctors = doctorDao.doctors(id);
-        return listStringDoctors;
+        listDoctors = doctorDao.doctors(id);
+        return listDoctors;
     }
 
     //Patients

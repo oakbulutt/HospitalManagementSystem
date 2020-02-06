@@ -2,7 +2,7 @@
 package com.hms.constants;
 
 public class UserConstants {
-
+   
     public static final String FETCH_SQL = "SELECT * FROM users";
     public static final String INSERT_SQL = "INSERT INTO users(id, password) VALUES (?, ?)";
     public static final String UPDATE_SQL = "UPDATE users SET password = ? WHERE id = ?";

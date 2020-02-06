@@ -9,7 +9,7 @@ public class Admin {
     private String phone;
     private String departmentsId;
     private String usersId;
-
+    
     public Admin(String id, String name, String surname, String title, String email, String phone, String departmentsId, String usersId) {
         this.id = id;
         this.name = name;
@@ -88,6 +88,6 @@ public class Admin {
 
     @Override
     public String toString() {
-        return "Admin{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", title=" + title + ", email=" + email + ", phone=" + phone + ", departmentsId=" + departmentsId + ", usersId=" + usersId + '}';
+        return "Admin {" + "id=" + id + ", name=" + name + ", surname=" + surname + ", title=" + title + ", email=" + email + ", phone=" + phone + ", departmentsId=" + departmentsId + ", usersId=" + usersId + '}';
     }
 }

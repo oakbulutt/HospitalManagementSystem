@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,11 +21,6 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
     private PreparedStatement preparedStatement = null;
 
     public PrescriptionDaoImpl() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Driver is not found!");
-        }
 
         try {
             connection = DriverManager.getConnection(Database.URL, Database.USERNAME, Database.PASSWORD);
@@ -56,14 +50,6 @@ public class PrescriptionDaoImpl implements PrescriptionDao {
                 String explanation = resultSet.getString("explanation");
                 
                 prescription = new Prescription(id, patientId, doctorId, nameOfMedicine, doseMg, numberOfTablets, dailyDose, explanation);
-
-//                prescription.add(patientId);
-//                prescription.add(doctorId);
-//                prescription.add(nameOfMedicine);
-//                prescription.add(Integer.toString(doseMg));
-//                prescription.add(Integer.toString(numberOfTablets));
-//                prescription.add(Integer.toString(dailyDose));
-//                prescription.add(explanation);
             }
             return prescription;
         } catch (SQLException e) {

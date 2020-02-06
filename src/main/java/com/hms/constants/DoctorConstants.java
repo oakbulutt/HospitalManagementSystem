@@ -2,6 +2,7 @@
 package com.hms.constants;
 
 public class DoctorConstants {
+  
     public static final String FETCH_SQL = "SELECT * FROM doctors";
     public static final String DOCTOR_ID_SQL = "SELECT id FROM doctors WHERE departments_id = ?";
     public static final String DOCTOR_SQL = "SELECT * FROM doctors WHERE id = ?";

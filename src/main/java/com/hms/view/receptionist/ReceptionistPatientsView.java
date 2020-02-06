@@ -3,7 +3,6 @@ package com.hms.view.receptionist;
 import com.hms.model.Patient;
 import com.hms.service.HMSService;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;

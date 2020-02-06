@@ -23,12 +23,6 @@ public class UserDaoImpl implements UserDao{
 
     public UserDaoImpl() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Driver is not found!");
-        }
-
-        try {
             connection = DriverManager.getConnection(Database.URL, Database.USERNAME, Database.PASSWORD);
             System.out.println("Connected!");
         } catch (SQLException e) {

@@ -87,11 +87,6 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(adminAdminsTable);
 
-        adminAdminsSearchTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminAdminsSearchTextFieldActionPerformed(evt);
-            }
-        });
         adminAdminsSearchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 adminAdminsSearchTextFieldKeyReleased(evt);
@@ -204,14 +199,15 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
                             .addComponent(adminAdminsIdLabel)
                             .addComponent(adminAdminsIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(adminAdminsSurnameLabel)
-                            .addComponent(adminAdminsSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(adminAdminsAddButton)
                                 .addComponent(adminAdminsUpdateButton)
                                 .addComponent(adminAdminsDeleteButton)
-                                .addComponent(adminAdminsClearButton))))
+                                .addComponent(adminAdminsClearButton))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(adminAdminsSurnameLabel)
+                                .addComponent(adminAdminsSurnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(adminAdminsTitleLabel)
@@ -233,9 +229,6 @@ public class AdminAdminsView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void adminAdminsSearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminAdminsSearchTextFieldActionPerformed
-    }//GEN-LAST:event_adminAdminsSearchTextFieldActionPerformed
 
     private void adminAdminsSearchTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adminAdminsSearchTextFieldKeyReleased
         String search = adminAdminsSearchTextField.getText();

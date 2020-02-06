@@ -2,6 +2,7 @@
 package com.hms.constants;
 
 public class AppointmentConstants {
+ 
     public static final String FETCH_SQL = "SELECT"
             + " appointments.id,"
             + " patients_id,"
